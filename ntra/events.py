@@ -1,5 +1,6 @@
 import frappe
 from frappe import _
+from datetime import datetime
 from frappe.utils import today
 
 
@@ -14,5 +15,5 @@ def calculate_rating2(doc, method):
         row.rating = (row.custom_criterial_score_weighted /100) * 1
 
 def goal_validation(doc, method):
-    if doc.end_date < today():
+    if str(doc.end_date) < today():
         frappe.throw(_("You Cannot Update Progress After End Date"))
