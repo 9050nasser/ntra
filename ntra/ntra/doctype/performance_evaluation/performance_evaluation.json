@@ -1,0 +1,57 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-05 14:45:34.084943",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "from",
+  "to",
+  "link_xbyz",
+  "formula"
+ ],
+ "fields": [
+  {
+   "fieldname": "from",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "From"
+  },
+  {
+   "fieldname": "to",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "To"
+  },
+  {
+   "fieldname": "link_xbyz",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Performance Category",
+   "options": "Performance Category"
+  },
+  {
+   "fieldname": "formula",
+   "fieldtype": "Code",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Formula"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-11-05 15:29:44.419105",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Performance Evaluation",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

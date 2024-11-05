@@ -1,0 +1,264 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:HR-Objective-{YYYY}-{####}",
+ "creation": "2024-11-03 11:22:53.799676",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "objective",
+  "is_group",
+  "parent_ojective",
+  "column_break_lhlt",
+  "progress",
+  "status",
+  "section_break_btzq",
+  "employee",
+  "employee_name",
+  "company",
+  "user",
+  "column_break_txxq",
+  "date",
+  "end_date",
+  "section_break_pnrj",
+  "kra",
+  "column_break_jxab",
+  "objective_cycle",
+  "section_break_jglx",
+  "description",
+  "lft",
+  "rgt",
+  "old_parent",
+  "parent_objective"
+ ],
+ "fields": [
+  {
+   "fieldname": "objective",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Objective",
+   "reqd": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "parent_ojective",
+   "fieldtype": "Link",
+   "label": "Parent Objective",
+   "options": "Objective"
+  },
+  {
+   "fieldname": "column_break_lhlt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "progress",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Progress",
+   "read_only_depends_on": "eval:doc.is_group || doc.status=='Closed'"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "\nPending\nIn Progress\nCompleted\nArchived\nClosed"
+  },
+  {
+   "fieldname": "section_break_btzq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "column_break_txxq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee.company",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fetch_from": "employee.user_id",
+   "fieldname": "user",
+   "fieldtype": "Data",
+   "label": "User"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "End Date"
+  },
+  {
+   "fieldname": "section_break_pnrj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "kra",
+   "fieldtype": "Link",
+   "label": "KRA",
+   "options": "KRA"
+  },
+  {
+   "fieldname": "column_break_jxab",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_jglx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "objective_cycle",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Objective Cycle",
+   "options": "Objective Cycle"
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "Objective"
+  },
+  {
+   "fieldname": "parent_objective",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Parent Objective",
+   "options": "Objective"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_tree": 1,
+ "links": [],
+ "modified": "2024-11-05 12:32:50.804657",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Objective",
+ "naming_rule": "Expression",
+ "nsm_parent_field": "parent_objective",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

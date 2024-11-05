@@ -1,0 +1,46 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-03 12:55:43.620116",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kra",
+  "weightage_"
+ ],
+ "fields": [
+  {
+   "description": "Key Result Area",
+   "fieldname": "kra",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "KRA",
+   "options": "KRA",
+   "reqd": 1
+  },
+  {
+   "fieldname": "weightage_",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Weightage (%)",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-11-03 13:01:27.488467",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Objective Template Goal",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

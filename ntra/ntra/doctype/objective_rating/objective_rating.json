@@ -1,0 +1,152 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-03 14:04:22.810696",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "employee_name",
+  "department",
+  "designation",
+  "column_break_vfos",
+  "company",
+  "select_qvzc",
+  "objective_cycle",
+  "start_date",
+  "end_date",
+  "section_break_amkk",
+  "final_score",
+  "kras_tab",
+  "objective_template",
+  "section_break_anxj",
+  "kra_vs_objective",
+  "section_break_wiyv",
+  "remark"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "column_break_vfos",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "select_qvzc",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "options": "\nDraft\nSubmitted\nCompleted\nCancelled",
+   "reqd": 1
+  },
+  {
+   "fieldname": "objective_cycle",
+   "fieldtype": "Link",
+   "label": "Objective Cycle",
+   "options": "Objective Cycle",
+   "reqd": 1
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date"
+  },
+  {
+   "fieldname": "section_break_amkk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "final_score",
+   "fieldtype": "Float",
+   "label": "Final Score"
+  },
+  {
+   "fieldname": "kras_tab",
+   "fieldtype": "Tab Break",
+   "label": "KRAs"
+  },
+  {
+   "fieldname": "objective_template",
+   "fieldtype": "Link",
+   "label": "Objective Template",
+   "options": "Objective Template"
+  },
+  {
+   "fieldname": "section_break_anxj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "kra_vs_objective",
+   "fieldtype": "Table",
+   "label": "KRA vs Objective",
+   "options": "Objective KRA"
+  },
+  {
+   "fieldname": "section_break_wiyv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remark",
+   "fieldtype": "Text Editor",
+   "label": "Remark"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-03 14:24:44.493821",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Objective Rating",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

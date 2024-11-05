@@ -146,6 +146,7 @@ doc_events = {
 	},
     "Goal": {
 		"validate": "ntra.events.goal_validation",
+        "after_insert": "ntra.events.create_task",
 	}
 
 }

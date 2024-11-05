@@ -1,0 +1,167 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-03 13:20:58.325867",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "objective_cycle",
+  "company",
+  "status",
+  "column_break_teax",
+  "start_date",
+  "end_date",
+  "section_break_krel",
+  "description",
+  "section_break_yqdk",
+  "objective_evaluation_met",
+  "applicable_for_tab",
+  "filters_section",
+  "branch",
+  "department",
+  "column_break_wavj",
+  "designation",
+  "section_break_hlla",
+  "get_employees",
+  "table_eujr"
+ ],
+ "fields": [
+  {
+   "fieldname": "objective_cycle",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Objective Cycle",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_teax",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "default": "Not Started",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Not Started\nIn Progress\nCompleted"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "End Date",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_krel",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "fieldname": "section_break_yqdk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "objective_evaluation_met",
+   "fieldtype": "Select",
+   "label": "Objective Evaluation Method",
+   "options": "Automated Based On Progress\nManual Rating"
+  },
+  {
+   "description": "Set optional filters to fetch employees in the appraisee list",
+   "fieldname": "applicable_for_tab",
+   "fieldtype": "Tab Break",
+   "label": "Applicable For"
+  },
+  {
+   "collapsible": 1,
+   "collapsible_depends_on": "eval: doc.__islocal",
+   "fieldname": "filters_section",
+   "fieldtype": "Section Break",
+   "label": "Filters"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "column_break_wavj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "section_break_hlla",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "get_employees",
+   "fieldtype": "Button",
+   "label": "Get Employees"
+  },
+  {
+   "fieldname": "table_eujr",
+   "fieldtype": "Table",
+   "options": "Objectives Employee Details"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-03 13:56:06.234097",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Objective Cycle",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
