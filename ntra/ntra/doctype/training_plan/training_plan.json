@@ -1,0 +1,206 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "TP-.####",
+ "creation": "2024-11-10 10:10:31.772653",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_1cpo",
+  "amended_from",
+  "name1",
+  "company",
+  "column_break_shlc",
+  "from",
+  "to",
+  "filters_section",
+  "branch",
+  "designation",
+  "column_break_anqr",
+  "department",
+  "training_course_type",
+  "section_break_kwjy",
+  "get_training_requests",
+  "table_tqgd",
+  "section_break_uiaf",
+  "total_estimated_cost",
+  "column_break_cggw",
+  "total_actual_cost",
+  "section_break_tben",
+  "table_oyzi"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_1cpo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Training Plan",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "column_break_shlc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "from",
+   "fieldtype": "Data",
+   "label": "From"
+  },
+  {
+   "fieldname": "to",
+   "fieldtype": "Date",
+   "label": "To"
+  },
+  {
+   "collapsible": 1,
+   "collapsible_depends_on": "eval: doc.__islocal",
+   "fieldname": "filters_section",
+   "fieldtype": "Section Break",
+   "label": "Filters"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "column_break_anqr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "training_course_type",
+   "fieldtype": "Link",
+   "label": "Training Course Type",
+   "options": "Training Course Type"
+  },
+  {
+   "fieldname": "section_break_kwjy",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "get_training_requests",
+   "fieldtype": "Button",
+   "label": "Get Training Requests"
+  },
+  {
+   "fieldname": "table_tqgd",
+   "fieldtype": "Table",
+   "label": "Courses",
+   "options": "Training Plan Table"
+  },
+  {
+   "fieldname": "section_break_uiaf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_estimated_cost",
+   "fieldtype": "Currency",
+   "label": "Total Estimated Cost"
+  },
+  {
+   "fieldname": "column_break_cggw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_actual_cost",
+   "fieldtype": "Currency",
+   "label": "Total Actual Cost"
+  },
+  {
+   "fieldname": "section_break_tben",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_oyzi",
+   "fieldtype": "Table",
+   "options": "Training Plan Employee"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-11-16 13:24:59.129840",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Training Plan",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

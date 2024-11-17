@@ -1,0 +1,122 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-16 11:40:26.921468",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "training_course",
+  "training_course_type",
+  "column_break_mlhe",
+  "date",
+  "claims_included",
+  "section_break_hwmf",
+  "elements_table",
+  "section_break_pnvt",
+  "total_estimated_cost",
+  "column_break_mcro",
+  "total_actual_cost",
+  "expenses_section",
+  "column_break_kgnc",
+  "expenses_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "training_course",
+   "fieldtype": "Link",
+   "label": "Training Course",
+   "options": "Training Course"
+  },
+  {
+   "fieldname": "training_course_type",
+   "fieldtype": "Link",
+   "label": "Training Course Type",
+   "options": "Training Course Type"
+  },
+  {
+   "fieldname": "column_break_mlhe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "default": "0",
+   "fieldname": "claims_included",
+   "fieldtype": "Check",
+   "label": "Claims Included"
+  },
+  {
+   "fieldname": "section_break_hwmf",
+   "fieldtype": "Section Break",
+   "label": "Course Element"
+  },
+  {
+   "fieldname": "elements_table",
+   "fieldtype": "Table",
+   "label": "Elements table",
+   "options": "Training Elements Table"
+  },
+  {
+   "fieldname": "section_break_pnvt",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_estimated_cost",
+   "fieldtype": "Currency",
+   "label": "Total Estimated Cost"
+  },
+  {
+   "fieldname": "column_break_mcro",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_actual_cost",
+   "fieldtype": "Currency",
+   "label": "Total Actual Cost"
+  },
+  {
+   "fieldname": "expenses_section",
+   "fieldtype": "Section Break",
+   "label": "Expenses"
+  },
+  {
+   "depends_on": "eval:doc.claims_included==1",
+   "fieldname": "expenses_details",
+   "fieldtype": "Table",
+   "label": "Expenses Details",
+   "options": "Course Expenses"
+  },
+  {
+   "depends_on": "eval.doc.",
+   "fieldname": "column_break_kgnc",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-16 12:17:52.728018",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Course Costing",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

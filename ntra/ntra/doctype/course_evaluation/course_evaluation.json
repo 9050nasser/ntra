@@ -1,0 +1,171 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-13 11:47:03.774512",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "department",
+  "instructor",
+  "column_break_qgqv",
+  "date",
+  "training_course",
+  "course_date",
+  "acquired_knowledge_section",
+  "table_clme",
+  "course_content_section",
+  "table_zbtv",
+  "instructor_effectiveness_section",
+  "table_bapu",
+  "course_material_section",
+  "table_muzw",
+  "environment_or_organization_and_venue_section",
+  "table_bgwo",
+  "overall_satisfaction_section",
+  "table_mlfj",
+  "internal_procedures_and_information_section",
+  "table_ssug"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "column_break_qgqv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "instructor",
+   "fieldtype": "Data",
+   "label": "Instructor"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "training_course",
+   "fieldtype": "Link",
+   "label": "Training Course",
+   "options": "Training Course"
+  },
+  {
+   "fieldname": "course_date",
+   "fieldtype": "Date",
+   "label": "Course Date"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "acquired_knowledge_section",
+   "fieldtype": "Section Break",
+   "label": "Acquired Knowledge "
+  },
+  {
+   "fieldname": "table_clme",
+   "fieldtype": "Table",
+   "options": "Course Evaluation Table"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "course_content_section",
+   "fieldtype": "Section Break",
+   "label": "Course Content"
+  },
+  {
+   "fieldname": "table_zbtv",
+   "fieldtype": "Table",
+   "options": "Course Evaluation Table"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "instructor_effectiveness_section",
+   "fieldtype": "Section Break",
+   "label": "Instructor Effectiveness"
+  },
+  {
+   "fieldname": "table_bapu",
+   "fieldtype": "Table",
+   "options": "Course Evaluation Table"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "course_material_section",
+   "fieldtype": "Section Break",
+   "label": "Course Material"
+  },
+  {
+   "fieldname": "table_muzw",
+   "fieldtype": "Table",
+   "options": "Course Evaluation Table"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "environment_or_organization_and_venue_section",
+   "fieldtype": "Section Break",
+   "label": "Environment Or Organization and Venue"
+  },
+  {
+   "fieldname": "table_bgwo",
+   "fieldtype": "Table",
+   "options": "Course Evaluation Table"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "overall_satisfaction_section",
+   "fieldtype": "Section Break",
+   "label": "Overall Satisfaction"
+  },
+  {
+   "fieldname": "table_mlfj",
+   "fieldtype": "Table",
+   "options": "Course Evaluation Table"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "internal_procedures_and_information_section",
+   "fieldtype": "Section Break",
+   "label": "Internal Procedures and Information"
+  },
+  {
+   "fieldname": "table_ssug",
+   "fieldtype": "Table",
+   "options": "Course Evaluation Table"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-13 12:13:24.733393",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Course Evaluation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

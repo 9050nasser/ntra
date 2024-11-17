@@ -1,0 +1,39 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-16 12:09:35.446213",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "claim_type",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "claim_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Claim Type",
+   "options": "Expense Claim Type"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-11-16 12:14:28.557783",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Course Expenses",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,61 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-11 13:29:13.891908",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "training_course",
+  "number_of_courses",
+  "estimated_cost_per_course",
+  "actual_cost_per_course"
+ ],
+ "fields": [
+  {
+   "fieldname": "training_course",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Training Course",
+   "options": "Training Course"
+  },
+  {
+   "fieldname": "number_of_courses",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Number Of Courses"
+  },
+  {
+   "fieldname": "estimated_cost_per_course",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Estimated Cost Per Course"
+  },
+  {
+   "fieldname": "actual_cost_per_course",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Actual Cost Per Course"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-11-11 13:45:30.496989",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Training Plan Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

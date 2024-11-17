@@ -1,0 +1,103 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-12 14:25:16.838259",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "instructor",
+  "column_break_yyqq",
+  "course",
+  "course_type",
+  "section_break_imwj",
+  "table_cnft",
+  "comments_section",
+  "text_editor_tgew",
+  "section_break_fpdc",
+  "recommended_trainings"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "instructor",
+   "fieldtype": "Data",
+   "label": "Instructor"
+  },
+  {
+   "fieldname": "column_break_yyqq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "course",
+   "fieldtype": "Link",
+   "label": "Course ",
+   "options": "Training Course"
+  },
+  {
+   "fieldname": "course_type",
+   "fieldtype": "Link",
+   "label": "Course Type",
+   "options": "Training Course Type"
+  },
+  {
+   "fieldname": "section_break_imwj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_cnft",
+   "fieldtype": "Table",
+   "label": "Evaluation Table",
+   "options": "Evaluation Elements Table"
+  },
+  {
+   "fieldname": "comments_section",
+   "fieldtype": "Section Break",
+   "label": "Comments"
+  },
+  {
+   "fieldname": "text_editor_tgew",
+   "fieldtype": "Text Editor",
+   "label": "Comments"
+  },
+  {
+   "fieldname": "section_break_fpdc",
+   "fieldtype": "Section Break",
+   "label": "Recommendation"
+  },
+  {
+   "fieldname": "recommended_trainings",
+   "fieldtype": "Text Editor",
+   "label": "Recommended Trainings"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-13 11:13:21.722403",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Trainee Evaluation",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

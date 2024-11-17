@@ -1,0 +1,89 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-12 13:31:43.498408",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "training_course",
+  "duration_days",
+  "from_date",
+  "column_break_uumu",
+  "training_course_type",
+  "hours",
+  "to_date",
+  "section_break_hllx",
+  "table_exht"
+ ],
+ "fields": [
+  {
+   "fieldname": "training_course",
+   "fieldtype": "Link",
+   "label": "Training Course",
+   "options": "Training Course"
+  },
+  {
+   "fieldname": "column_break_uumu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "duration_days",
+   "fieldtype": "Float",
+   "label": "Duration (Days)"
+  },
+  {
+   "fieldname": "training_course_type",
+   "fieldtype": "Link",
+   "label": "Training Course Type",
+   "options": "Training Course Type"
+  },
+  {
+   "fieldname": "hours",
+   "fieldtype": "Float",
+   "label": "Hours"
+  },
+  {
+   "fieldname": "section_break_hllx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_exht",
+   "fieldtype": "Table",
+   "options": "Training Session Table"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-17 11:00:31.427530",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Training Course Schedule",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,133 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "TC-.####",
+ "creation": "2024-11-10 09:05:53.796538",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "course_name",
+  "training_course_type",
+  "column_break_tqod",
+  "disable",
+  "section_break_jlqu",
+  "table_rwlr",
+  "section_break_hyya",
+  "total_estimated_cost",
+  "column_break_fmxy",
+  "total_actual_cost"
+ ],
+ "fields": [
+  {
+   "fieldname": "course_name",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Course Name",
+   "no_copy": 1,
+   "reqd": 1,
+   "set_only_once": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_tqod",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "disable",
+   "fieldtype": "Check",
+   "label": "Disable"
+  },
+  {
+   "fieldname": "section_break_jlqu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_rwlr",
+   "fieldtype": "Table",
+   "options": "Training Elements Table"
+  },
+  {
+   "fieldname": "section_break_hyya",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_estimated_cost",
+   "fieldtype": "Currency",
+   "label": "Total Estimated Cost"
+  },
+  {
+   "fieldname": "column_break_fmxy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_actual_cost",
+   "fieldtype": "Currency",
+   "label": "Total Actual Cost"
+  },
+  {
+   "fieldname": "training_course_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Training Course Type",
+   "options": "Training Course Type",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-11 13:03:42.786714",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Training Course",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

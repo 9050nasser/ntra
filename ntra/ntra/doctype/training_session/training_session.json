@@ -1,0 +1,41 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-12 13:43:25.190941",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "session_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "session_name",
+   "fieldtype": "Data",
+   "label": "Session Name"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-11-12 14:01:38.127992",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Training Session",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
