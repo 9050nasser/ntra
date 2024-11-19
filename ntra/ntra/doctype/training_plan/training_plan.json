@@ -67,7 +67,7 @@
   },
   {
    "fieldname": "from",
-   "fieldtype": "Data",
+   "fieldtype": "Date",
    "label": "From"
   },
   {
@@ -151,7 +151,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-16 13:24:59.129840",
+ "modified": "2024-11-19 05:15:32.589868",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Plan",

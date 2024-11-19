@@ -10,13 +10,15 @@
   "employee",
   "employee_name",
   "employee_grade",
+  "branch",
   "column_break_zkno",
   "date_imcq",
   "department",
   "designation",
   "status",
   "courses_section",
-  "training_course"
+  "training_course",
+  "training_course_type"
  ],
  "fields": [
   {
@@ -53,14 +55,16 @@
    "fieldname": "department",
    "fieldtype": "Link",
    "label": "Department",
-   "options": "Department"
+   "options": "Department",
+   "read_only": 1
   },
   {
    "fetch_from": "employee.designation",
    "fieldname": "designation",
    "fieldtype": "Link",
    "label": "Designation",
-   "options": "Designation"
+   "options": "Designation",
+   "read_only": 1
   },
   {
    "default": "Pending",
@@ -84,11 +88,27 @@
    "fieldtype": "Link",
    "label": "Training Course",
    "options": "Training Course"
+  },
+  {
+   "fetch_from": "employee.branch",
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "training_course.training_course_type",
+   "fieldname": "training_course_type",
+   "fieldtype": "Link",
+   "label": "Training Course Type",
+   "options": "Training Course Type",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-16 10:25:42.330830",
+ "modified": "2024-11-19 05:42:08.883937",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Request",
