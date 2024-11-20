@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "CC-.####",
  "creation": "2024-11-16 11:40:26.921468",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -97,10 +98,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-16 12:17:52.728018",
+ "modified": "2024-11-19 10:27:06.714384",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Course Costing",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

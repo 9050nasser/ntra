@@ -43,7 +43,8 @@
   },
   {
    "fieldname": "section_break_jlqu",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "hidden": 1
   },
   {
    "fieldname": "table_rwlr",
@@ -52,7 +53,8 @@
   },
   {
    "fieldname": "section_break_hyya",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "hidden": 1
   },
   {
    "fieldname": "total_estimated_cost",
@@ -81,7 +83,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-11 13:03:42.786714",
+ "modified": "2024-11-19 09:07:07.995941",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Course",
