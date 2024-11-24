@@ -26,7 +26,7 @@ app_license = "mit"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/ntra/css/ntra.css"
-# app_include_js = "/assets/ntra/js/ntra.js"
+# app_include_js = "/assets/ntra/js/goal_tree.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/ntra/css/ntra.css"
@@ -43,9 +43,11 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-doctype_js = {"Job Applicant" : "public/js/job_applicant.js"}
+doctype_js = {"Job Applicant" : "public/js/job_applicant.js",
+            "Employee Onboarding": "public/js/employee_onboarding.js",
+            "Goal": "public/js/goal.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
-# doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
+doctype_tree_js = {"Goal" : "public/js/goal_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
 # Svg Icons
@@ -146,6 +148,7 @@ doc_events = {
 	},
     "Goal": {
 		"validate": "ntra.events.goal_validation",
+        "on_update": "ntra.events.update_weight",
         "after_insert": "ntra.events.create_task",
 	}
 

@@ -38,3 +38,21 @@ def assign_task_to_users(self, task, users):
         "description": task.description or task.subject,
     }
     assign_to.add(args)
+
+def update_weight(doc, method):
+    # Fetch the total custom weight progress result of child goals
+        goals2 = frappe.db.sql("""
+            SELECT SUM(custom_weight_progress_result) AS total 
+            FROM `tabGoal` 
+            WHERE parent_goal = %s
+        """, (doc.parent_goal,), as_dict=True)
+
+        # Update the parent goal's custom weight progress
+        frappe.db.set_value("Goal", doc.parent_goal, "custom_weight_progress", goals2[0].get("total") or 0)
+
+def create_task(doc, method):
+    task = frappe.get_doc({
+        "doctype": "Task",
+        "subject": doc.goal_name,
+        "custom_parent_objective": doc.name,  
+    })

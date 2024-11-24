@@ -62,10 +62,10 @@ class CustomGoal(NestedSet):
 		if not parent_details:
 			return
 
-		# if self.employee != parent_details.employee:
-		# 	frappe.throw(
-		# 		_("Goal should be owned by the same employee as its parent goal."), title=_("Not Allowed")
-		# 	)
+		if self.employee != parent_details.employee:
+			frappe.throw(
+				_("Goal should be owned by the same employee as its parent goal."), title=_("Not Allowed")
+			)
 		if self.kra != parent_details.kra:
 			frappe.throw(
 				_("Goal should be aligned with the same KRA as its parent goal."), title=_("Not Allowed")
@@ -150,6 +150,11 @@ def get_children(doctype: str, parent: str, is_root: bool = False, **filters) ->
 			Goal.appraisal_cycle,
 			Goal.progress,
 			Goal.kra,
+			Goal.custom_weight,
+			Goal.custom_weight_progress,
+			Goal.custom_weight_progress_result,
+			Goal.custom_department
+
 		)
 		.where(Goal.status != "Archived")
 	)
