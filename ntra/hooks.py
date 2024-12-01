@@ -45,7 +45,8 @@ app_license = "mit"
 # include js in doctype views
 doctype_js = {"Job Applicant" : "public/js/job_applicant.js",
             "Employee Onboarding": "public/js/employee_onboarding.js",
-            "Goal": "public/js/goal.js"}
+            "Goal": "public/js/goal.js",
+            "Leave Application": "public/js/leave_application.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 doctype_tree_js = {"Goal" : "public/js/goal_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -150,7 +151,12 @@ doc_events = {
 		"validate": "ntra.events.goal_validation",
         "on_update": "ntra.events.update_weight",
         "after_insert": "ntra.events.create_task",
-	}
+	},
+    "Leave Application": {
+        "validate": "ntra.events.validate_maternity_leave",
+        "on_submit": "ntra.events.validate_attachment",
+        "validate": "ntra.events.leave_without_pay"
+    }
 
 }
 

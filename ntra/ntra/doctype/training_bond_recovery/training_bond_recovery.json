@@ -1,0 +1,38 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-25 11:06:42.230652",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "duration_served",
+  "expenses_to_return"
+ ],
+ "fields": [
+  {
+   "fieldname": "duration_served",
+   "fieldtype": "Code",
+   "in_list_view": 1,
+   "label": "Duration Served"
+  },
+  {
+   "fieldname": "expenses_to_return",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Expenses to Return"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-11-25 11:18:54.939146",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Training Bond Recovery",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

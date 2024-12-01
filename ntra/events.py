@@ -3,6 +3,8 @@ from frappe import _
 from datetime import datetime
 from frappe.utils import today
 from frappe.desk.form import assign_to
+from frappe.utils import add_to_date, today, date_diff
+
 
 def calculate_rating(doc, method):
     for row in doc.feedback_ratings:
@@ -56,3 +58,55 @@ def create_task(doc, method):
         "subject": doc.goal_name,
         "custom_parent_objective": doc.name,  
     })
+
+
+def validate_maternity_leave(doc, method):
+    maternity_leaves = frappe.db.get_all("Leave Type", filters={"custom_maternity_leave": 1}, fields=["name"], pluck="name")
+
+    leaves = tuple(maternity_leaves)
+    gender = frappe.get_doc("Employee", doc.employee).gender
+    if doc.leave_type in leaves and gender != "Female":
+        frappe.throw(_("Only female employees are eligible for Maternity Leave."))
+
+def validate_attachment(doc, method):
+    maternity_leaves = frappe.db.get_all("Leave Type", filters={"custom_maternity_leave": 1}, fields=["name"], pluck="name")
+    leaves = tuple(maternity_leaves)
+    files = frappe.db.get_all("File", filters={"attached_to_doctype": doc.doctype, "attached_to_name": doc.name})
+    if doc.leave_type in leaves:
+        if len(files) < 1:
+            frappe.throw(_("An attachment is required for Maternity Leave."))
+
+@frappe.whitelist()
+def get_leave_balance(leave_type_name, employee):
+
+    # Get the leave type document to fetch max allocation
+    leave_type = frappe.get_doc("Leave Type", leave_type_name)
+    maximum_allocation = leave_type.max_leaves_allowed
+
+    # Fetch all approved leave applications for the given leave type
+    all_leaves = frappe.db.get_all("Leave Application", filters={"leave_type": leave_type.name, "status": "Approved", "employee": employee}, fields=["total_leave_days"])
+
+    # Sum up the total leave days from all approved leave applications
+    total_leave_taken = sum(leave.get("total_leave_days", 0) for leave in all_leaves)
+
+    # Return the remaining balance
+    return maximum_allocation - total_leave_taken
+
+
+@frappe.whitelist()
+def leave_without_pay(doc, method):
+    leave_types = frappe.db.get_all("Leave Type", filters={"is_lwp": 1}, fields=["name"], pluck="name")
+
+    lwp = tuple(leave_types)
+    leave_type = frappe.get_doc("Leave Type", doc.leave_type)
+    employee = frappe.get_doc("Employee", doc.employee)
+    from_date = employee.date_of_joining
+    end_date = add_to_date(from_date, years=leave_type.custom_recalculation_period_years, days=-1)
+    order_date = doc.from_date
+
+    maximum_allowed = date_diff(end_date, order_date)
+    all_maximum_allowed = leave_type.max_leaves_allowed
+
+    if doc.leave_type in lwp:
+        if datetime.strptime(doc.to_date, "%Y-%m-%d").date() > end_date:
+            frappe.throw(_(f"You Cannot Submit a Leave Application After {end_date}"))

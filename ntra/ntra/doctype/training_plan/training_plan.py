@@ -4,7 +4,6 @@
 import frappe
 from frappe.model.document import Document
 
-
 class TrainingPlan(Document):
 	@frappe.whitelist()
 	def get_employees(self):
@@ -25,3 +24,18 @@ class TrainingPlan(Document):
 				"count":  y.count
 			})
 		return courses
+
+	@frappe.whitelist()
+	def get_training_requests(self):
+		reqs = []
+		for course in self.table_tqgd:
+			filters = {"status": "Approved", "date_imcq": ["Between", [getattr(self, "from"), self.to]], "training_course": course.training_course}
+			requests = frappe.db.get_all("Training Request", filters=filters, fields=["*"])
+			for request in requests:
+				reqs.append({
+					"training_request": request.name,
+					"employee": request.employee,
+					"designation": request.designation,
+					"training_course": request.training_course
+				})
+		return reqs

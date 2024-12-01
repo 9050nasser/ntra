@@ -8,6 +8,7 @@
   "training_course",
   "duration_days",
   "from_date",
+  "training_plan",
   "column_break_uumu",
   "training_course_type",
   "hours",
@@ -60,11 +61,18 @@
    "fieldname": "to_date",
    "fieldtype": "Date",
    "label": "To Date"
+  },
+  {
+   "fieldname": "training_plan",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Training Plan",
+   "options": "Training Plan"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-17 11:00:31.427530",
+ "modified": "2024-11-27 18:07:08.468494",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Course Schedule",

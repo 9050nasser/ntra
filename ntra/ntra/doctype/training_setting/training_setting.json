@@ -1,0 +1,73 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-11-25 10:45:44.943512",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "agreements_section",
+  "training_bond_agreement",
+  "recovery_section",
+  "training_bond_recovery"
+ ],
+ "fields": [
+  {
+   "fieldname": "training_bond_agreement",
+   "fieldtype": "Table",
+   "label": "Training Bond Agreement",
+   "options": "Training Bond Agreement"
+  },
+  {
+   "fieldname": "agreements_section",
+   "fieldtype": "Section Break",
+   "label": "Agreements"
+  },
+  {
+   "fieldname": "recovery_section",
+   "fieldtype": "Section Break",
+   "label": "Recovery"
+  },
+  {
+   "fieldname": "training_bond_recovery",
+   "fieldtype": "Table",
+   "label": "Training Bond Recovery",
+   "options": "Training Bond Recovery"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-11-25 11:17:10.990330",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Training Setting",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}

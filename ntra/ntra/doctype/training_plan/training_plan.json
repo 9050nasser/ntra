@@ -11,8 +11,9 @@
   "name1",
   "company",
   "column_break_shlc",
-  "from",
-  "to",
+  "from_date",
+  "to_date",
+  "training_course_schedule",
   "filters_section",
   "branch",
   "designation",
@@ -64,16 +65,6 @@
   {
    "fieldname": "column_break_shlc",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "from",
-   "fieldtype": "Date",
-   "label": "From"
-  },
-  {
-   "fieldname": "to",
-   "fieldtype": "Date",
-   "label": "To"
   },
   {
    "collapsible": 1,
@@ -146,12 +137,32 @@
    "fieldname": "table_oyzi",
    "fieldtype": "Table",
    "options": "Training Plan Employee"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "training_course_schedule",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Training Course Schedule",
+   "options": "Training Course Schedule Table"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-19 05:15:32.589868",
+ "modified": "2024-11-27 20:04:49.222763",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Plan",

@@ -1,0 +1,35 @@
+
+{% if not jQuery.isEmptyObject(data) %}
+<table class="table table-bordered small">
+	<thead>
+		<tr>
+			<th class="text-center">{{ __("Skill") }}</th>
+			<th class="text-center">{{ __("Proficiency") }}</th>
+			<th class="text-center">{{ __("Evaluation Date") }}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for(const [key, value] of Object.entries(data)) { %}
+			<tr>
+				<td class="text-center"> {%= value["skill"] %} </td>
+				<td class="text-center">
+                    {%
+                        var totalStars = 5; 
+                        var filledStars = Math.round(value["proficiency"] * totalStars); 
+                    %}
+                    {% for (var i = 0; i < filledStars; i++) { %}
+                        <span style="color: gold; font-size: x-large;">★</span>
+                    {% } %}
+                    {% for (var i = filledStars; i < totalStars; i++) { %}
+                        <span style="color: gold; font-size: x-large;">☆</span>
+                    {% } %}
+                </td>
+                
+				<td class="text-center"> {%= value["evaluation_date"] %} </td>
+			</tr>
+		{% } %}
+	</tbody>
+</table>
+{% else %}
+<p style="margin-top: 30px;"> {{ __("No Employee Skills.") }} </p>
+{% endif %}

@@ -9,6 +9,7 @@
   "employee_name",
   "column_break_rznv",
   "date",
+  "to_date",
   "training_course",
   "section_break_ukrs",
   "table_oozg"
@@ -33,7 +34,7 @@
   {
    "fieldname": "date",
    "fieldtype": "Date",
-   "label": "Date"
+   "label": "From Date"
   },
   {
    "fieldname": "training_course",
@@ -48,12 +49,18 @@
   {
    "fieldname": "table_oozg",
    "fieldtype": "Table",
+   "label": "Sessions",
    "options": "Session Assignment"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-17 15:26:59.699689",
+ "modified": "2024-11-27 20:09:43.303793",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Course Assignment",

@@ -1,0 +1,21 @@
+
+{% if not jQuery.isEmptyObject(data) %}
+<table class="table table-bordered small">
+	<thead>
+		<tr>
+			<th class="text-center">{{ __("Training Courses") }}</th>
+			<th class="text-center">{{ __("Date") }}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for(const [key, value] of Object.entries(data)) { %}
+			<tr>
+				<td class="text-center"> {%= value["course_assignment"] %} </td>
+				<td class="text-center"> {%= value["date"] %} </td>
+			</tr>
+		{% } %}
+	</tbody>
+</table>
+{% else %}
+<p style="margin-top: 30px;"> {{ __("No Employee Courses.") }} </p>
+{% endif %}
