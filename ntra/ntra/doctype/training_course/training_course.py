@@ -18,7 +18,8 @@ class TrainingCourse(Document):
 				"item_code": self.course_name,
 				"item_group": "Services",
 				"is_stock_item": 0,
-				"custom_course_item": 1
+				"custom_course_item": 1,
+				"stock_uom": "Nos"
 
 			})
 			course_item.insert()

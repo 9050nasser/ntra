@@ -21,7 +21,7 @@ frappe.ui.form.on("Leave Application", {
 			});
 		
 	},
-	validate(frm) {
+	after_save(frm) {
 		if (frm.doc.custom_maternity_leave) {
 			frappe.call({
 				method: 'ntra.events.get_leave_balance',
@@ -31,8 +31,7 @@ frappe.ui.form.on("Leave Application", {
 				},
 				callback: function(r) {
 					if (!r.exc) {
-                        frappe.msgprint(`Remaining Balance is : ${r.message}`)
-                        console.log(`Remaining Balance is : ${r.message}`)
+						frm.set_intro(`Remaining Balance is : ${r.message}`, 'blue')
 					}
 				}
 			});

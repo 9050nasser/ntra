@@ -1,16 +1,21 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
+ "autoname": "format:{training_course}-{#####}",
  "creation": "2024-11-17 15:21:00.594116",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "employee",
   "employee_name",
+  "enrollment_cost",
+  "currency",
   "column_break_rznv",
   "date",
   "to_date",
   "training_course",
+  "enrollment_status",
   "section_break_ukrs",
   "table_oozg"
  ],
@@ -56,14 +61,32 @@
    "fieldname": "to_date",
    "fieldtype": "Date",
    "label": "To Date"
+  },
+  {
+   "fieldname": "enrollment_cost",
+   "fieldtype": "Currency",
+   "label": "Enrollment Cost"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "enrollment_status",
+   "fieldtype": "Select",
+   "label": "Enrollment Status",
+   "options": "Attended\nCancelled\nillness\nPlaced\nRequested\nWaitlisted"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-27 20:09:43.303793",
+ "modified": "2024-12-07 03:13:09.029328",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Course Assignment",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

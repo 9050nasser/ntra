@@ -26,7 +26,7 @@ app_license = "mit"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/ntra/css/ntra.css"
-# app_include_js = "/assets/ntra/js/goal_tree.js"
+app_include_js = "/assets/ntra/js/socket.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/ntra/css/ntra.css"
@@ -155,9 +155,16 @@ doc_events = {
     "Leave Application": {
         "validate": "ntra.events.validate_maternity_leave",
         "on_submit": "ntra.events.validate_attachment",
-        "validate": "ntra.events.leave_without_pay"
-    }
-
+        "validate": "ntra.events.leave_without_pay",
+        "on_submit": "ntra.events.calculate_sick_leave_salary",
+        "validate": "ntra.event.leave_application.validate_time",
+    },
+    "Salary Slip": {
+        "after_insert": "ntra.events.append_sickleave"
+    },
+    "Attendance": {
+        "after_insert": "ntra.event.attendance.validate_attendance"
+	},
 }
 
 # Scheduled Tasks

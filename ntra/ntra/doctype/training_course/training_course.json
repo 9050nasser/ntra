@@ -1,7 +1,8 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
- "autoname": "TC-.####",
+ "autoname": "field:course_name",
  "creation": "2024-11-10 09:05:53.796538",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -83,11 +84,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-19 09:07:07.995941",
+ "modified": "2024-12-05 11:58:46.563786",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Course",
- "naming_rule": "Expression (old style)",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

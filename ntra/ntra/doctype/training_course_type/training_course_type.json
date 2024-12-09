@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:course_type",
  "creation": "2024-11-11 13:00:24.471639",
@@ -24,7 +25,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-11 13:01:35.412103",
+ "modified": "2024-12-05 11:59:15.489954",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Course Type",
