@@ -1,0 +1,57 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:state",
+ "creation": "2024-12-11 15:14:34.978011",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "state",
+  "column_break_bzmg",
+  "code"
+ ],
+ "fields": [
+  {
+   "fieldname": "state",
+   "fieldtype": "Data",
+   "label": "State",
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_bzmg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "code",
+   "fieldtype": "Int",
+   "label": "Code"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-11 15:21:08.080319",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "State",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1
+}

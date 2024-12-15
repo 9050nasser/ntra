@@ -11,6 +11,7 @@
   "training_course_type",
   "column_break_tqod",
   "disable",
+  "designations",
   "section_break_jlqu",
   "table_rwlr",
   "section_break_hyya",
@@ -80,11 +81,22 @@
    "label": "Training Course Type",
    "options": "Training Course Type",
    "reqd": 1
+  },
+  {
+   "fieldname": "designations",
+   "fieldtype": "Table MultiSelect",
+   "label": "Designations",
+   "options": "Designations"
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-12-05 11:58:46.563786",
+ "links": [
+  {
+   "link_doctype": "Course Costing",
+   "link_fieldname": "training_course"
+  }
+ ],
+ "modified": "2024-12-12 07:22:54.577581",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Course",
@@ -128,6 +140,24 @@
    "role": "HR User",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee Self Service",
+   "share": 1
   }
  ],
  "sort_field": "modified",

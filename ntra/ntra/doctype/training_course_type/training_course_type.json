@@ -25,7 +25,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-05 11:59:15.489954",
+ "modified": "2024-12-11 10:47:52.589442",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Course Type",
@@ -65,6 +65,26 @@
    "read": 1,
    "report": 1,
    "role": "HR User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee Self Service",
    "share": 1,
    "write": 1
   }

@@ -40,6 +40,7 @@
    "options": "Training Course"
   },
   {
+   "fetch_from": "course.training_course_type",
    "fieldname": "course_type",
    "fieldtype": "Link",
    "label": "Course Type",
@@ -78,7 +79,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-13 11:13:21.722403",
+ "modified": "2024-12-11 17:49:23.111941",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Trainee Evaluation",

@@ -3,26 +3,26 @@
 
 frappe.ui.form.on("Course Costing", {
     validate(frm) {
-        estimated_cost(frm)
+        // estimated_cost(frm)
     }
 });
 
-frappe.ui.form.on("Training Elements Table", {
-    elements_table_add(frm, cdn, cdt) {
-        estimated_cost(frm, cdt, cdn)
-	},
-    elements_table_remove(frm, cdn, cdt) {
-        estimated_cost(frm, cdt, cdn)
-	},
-});
+// frappe.ui.form.on("Training Elements Table", {
+//     elements_table_add(frm, cdn, cdt) {
+//         estimated_cost(frm, cdt, cdn)
+// 	},
+//     elements_table_remove(frm, cdn, cdt) {
+//         estimated_cost(frm, cdt, cdn)
+// 	},
+// });
 
 
-frappe.ui.form.on("Training Elements Table", "estimated_cost", function(frm, cdt, cdn) {
-	estimated_cost(frm, cdt, cdn)
-});
-frappe.ui.form.on("Training Elements Table", "actual_cost", function(frm, cdt, cdn) {
-	estimated_cost(frm, cdt, cdn)
-});
+// frappe.ui.form.on("Training Elements Table", "estimated_cost", function(frm, cdt, cdn) {
+// 	estimated_cost(frm, cdt, cdn)
+// });
+// frappe.ui.form.on("Training Elements Table", "actual_cost", function(frm, cdt, cdn) {
+// 	estimated_cost(frm, cdt, cdn)
+// });
 
 function estimated_cost(frm, cdt, cdn) {
     let totalEstimated = frm.doc.elements_table.reduce(function (sum, item) {

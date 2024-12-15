@@ -54,6 +54,7 @@
   {
    "fieldname": "max_permissions_times",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Max Permissions Times"
   },
   {
@@ -86,7 +87,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-08 12:36:20.718143",
+ "modified": "2024-12-12 10:21:55.594916",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Permission Type",

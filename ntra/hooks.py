@@ -45,6 +45,7 @@ app_include_js = "/assets/ntra/js/socket.js"
 # include js in doctype views
 doctype_js = {"Job Applicant" : "public/js/job_applicant.js",
             "Employee Onboarding": "public/js/employee_onboarding.js",
+            "Employee": "public/js/employee.js",
             "Goal": "public/js/goal.js",
             "Leave Application": "public/js/leave_application.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
@@ -157,36 +158,47 @@ doc_events = {
         "on_submit": "ntra.events.validate_attachment",
         "validate": "ntra.events.leave_without_pay",
         "on_submit": "ntra.events.calculate_sick_leave_salary",
-        "validate": "ntra.event.leave_application.validate_time",
+        "validate": "ntra.event.leave_application.validate_maximum_leaves_time",
     },
     "Salary Slip": {
         "after_insert": "ntra.events.append_sickleave"
     },
     "Attendance": {
-        "after_insert": "ntra.event.attendance.validate_attendance"
+        "after_insert": "ntra.event.attendance.validate_attendance",
+        "on_submit": "ntra.event.attendance.security_shift"
+                        
 	},
+    "Purchase Invoice": {
+        "on_submit": "ntra.event.purchase_invoice.update_actual_cost"
+    },
+    "Goal":{
+        "after_insert": "ntra.event.objective.after_insert"
+    },
+    "Task":{
+        "on_update": "ntra.event.task.after_save"
+    }
 }
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"ntra.tasks.all"
-# 	],
-# 	"daily": [
-# 		"ntra.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"ntra.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"ntra.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"ntra.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	# "all": [
+	# 	"ntra.tasks.all"
+	# ],
+	"daily": [
+		"ntra.api.update_employee_trainings"
+	],
+	# "hourly": [
+	# 	"ntra.tasks.hourly"
+	# ],
+	# "weekly": [
+	# 	"ntra.tasks.weekly"
+	# ],
+	# "monthly": [
+	# 	"ntra.tasks.monthly"
+	# ],
+}
 
 # Testing
 # -------

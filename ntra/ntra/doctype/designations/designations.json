@@ -1,36 +1,29 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2024-11-13 11:58:25.246366",
+ "creation": "2024-12-12 07:21:55.965578",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "course_evaluation",
-  "rating_gwah"
+  "designation"
  ],
  "fields": [
   {
-   "fieldname": "course_evaluation",
+   "fieldname": "designation",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Course Evaluation Element",
-   "options": "Course Evaluation Elements"
-  },
-  {
-   "fieldname": "rating_gwah",
-   "fieldtype": "Rating",
-   "in_list_view": 1,
-   "label": "Rate"
+   "label": "Designation",
+   "options": "Designation"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-12 09:36:40.339101",
+ "modified": "2024-12-12 07:22:23.928466",
  "modified_by": "Administrator",
  "module": "Ntra",
- "name": "Course Evaluation Table",
+ "name": "Designations",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

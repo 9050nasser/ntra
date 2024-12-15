@@ -1,36 +1,45 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2024-11-13 11:58:25.246366",
+ "creation": "2024-12-11 12:54:02.484230",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "course_evaluation",
-  "rating_gwah"
+  "course",
+  "date",
+  "cost"
  ],
  "fields": [
   {
-   "fieldname": "course_evaluation",
+   "fieldname": "course",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Course Evaluation Element",
-   "options": "Course Evaluation Elements"
+   "label": "Course",
+   "options": "Training Course"
   },
   {
-   "fieldname": "rating_gwah",
-   "fieldtype": "Rating",
+   "fieldname": "date",
+   "fieldtype": "Date",
    "in_list_view": 1,
-   "label": "Rate"
+   "label": "Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cost",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Cost",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-12 09:36:40.339101",
+ "modified": "2024-12-11 18:03:36.175213",
  "modified_by": "Administrator",
  "module": "Ntra",
- "name": "Course Evaluation Table",
+ "name": "Employee Courses",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",

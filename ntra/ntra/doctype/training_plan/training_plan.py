@@ -7,7 +7,7 @@ from frappe.model.document import Document
 class TrainingPlan(Document):
 	@frappe.whitelist()
 	def get_employees(self):
-		filters = {"status": "Approved", "date_imcq": ["Between", [getattr(self, "from"), self.to]]}
+		filters = {"status": "Approved", "date_imcq": ["Between", [self.from_date, self.to_date]]}
 		if self.branch:
 			filters.update({"branch": self.branch})
 		if self.department:
@@ -25,11 +25,19 @@ class TrainingPlan(Document):
 			})
 		return courses
 
+
+	@frappe.whitelist()
+	def get_training_actual_cost(self):
+		for row in self.table_tqgd:
+			courses = frappe.db.get_all("Course Costing", filters={"training_course": row.training_course}, fields=["*"])
+			return courses
+
+
 	@frappe.whitelist()
 	def get_training_requests(self):
 		reqs = []
 		for course in self.table_tqgd:
-			filters = {"status": "Approved", "date_imcq": ["Between", [getattr(self, "from"), self.to]], "training_course": course.training_course}
+			filters = {"status": "Approved", "date_imcq": ["Between", [self.from_date, self.to_date]], "training_course": course.training_course}
 			requests = frappe.db.get_all("Training Request", filters=filters, fields=["*"])
 			for request in requests:
 				reqs.append({

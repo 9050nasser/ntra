@@ -23,6 +23,7 @@ class CustomGoal(NestedSet):
 	def validate(self):
 		if self.appraisal_cycle:
 			validate_active_appraisal_cycle(self.appraisal_cycle)
+		self.progress = self.custom_weight_progress_result
 
 		validate_active_employee(self.employee)
 		self.validate_parent_fields()
@@ -77,17 +78,17 @@ class CustomGoal(NestedSet):
 			)
 
 	def validate_progress(self):
-		if flt(self.progress) > 100:
+		if flt(self.custom_weight_progress_result) > 100:
 			frappe.throw(_("Goal progress percentage cannot be more than 100."))
 
 	def set_status(self, status=None):
 		if self.status in ["Archived", "Closed"]:
 			return
-		if flt(self.progress) == 0:
+		if flt(self.custom_weight_progress_result) == 0:
 			self.status = "Pending"
-		elif flt(self.progress) == 100:
+		elif flt(self.custom_weight_progress_result) == 100:
 			self.status = "Completed"
-		elif flt(self.progress) < 100:
+		elif flt(self.custom_weight_progress_result) < 100:
 			self.status = "In Progress"
 
 	def update_kra_in_child_goals(self, doc_before_save):

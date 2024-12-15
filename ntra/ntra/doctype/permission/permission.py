@@ -120,21 +120,6 @@ class Permission(Document):
 			)
 			if not is_exist:
 				try:
-					# leave_application = frappe.get_doc({
-					# 	"doctype": "Leave Application",
-					# 	"employee": self.employee,
-					# 	"leave_type": permission_type.deduct_from_leave_type,
-					# 	"from_date": self.date,
-					# 	"to_date": self.date,
-					# 	"half_day": 1,
-					# 	"description": f"Automatically created for {self.doctype} on {self.date}",
-					# 	"posting_date": self.date,
-					# 	"status": "Approved",
-					# })
-					# leave_application.insert(ignore_permissions=True)
-					# leave_application.submit()
-					# frappe.msgprint(_("Leave Application Created"))
-					# return leave_application.name
 					company = frappe.db.get_single_value("Global Defaults", "default_company")
 					leave_ledger = frappe.get_doc({
 						"doctype": "Leave Ledger Entry",

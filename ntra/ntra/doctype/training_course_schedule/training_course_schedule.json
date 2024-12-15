@@ -34,6 +34,7 @@
    "label": "Duration (Days)"
   },
   {
+   "fetch_from": "training_course.training_course_type",
    "fieldname": "training_course_type",
    "fieldtype": "Link",
    "label": "Training Course Type",
@@ -73,7 +74,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-03 11:07:09.588029",
+ "modified": "2024-12-11 17:08:31.865554",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Course Schedule",
@@ -89,8 +90,52 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "select": 1,
    "share": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "select": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee Self Service",
+   "share": 1
   }
  ],
  "sort_field": "modified",
