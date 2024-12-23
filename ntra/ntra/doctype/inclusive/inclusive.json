@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-19 01:46:52.796582",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "inclusive",
+  "inside_network",
+  "outside_network"
+ ],
+ "fields": [
+  {
+   "fieldname": "inclusive",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Inclusive ",
+   "options": "Inclusive List",
+   "reqd": 1
+  },
+  {
+   "fieldname": "inside_network",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Inside Network"
+  },
+  {
+   "fieldname": "outside_network",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Outside Network"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-19 02:11:06.514746",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Inclusive",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

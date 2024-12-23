@@ -13,4 +13,20 @@ frappe.ui.form.on("Employee Onboarding", {
             };
         });
 	},
+    onload_post_render(frm){
+        if (!frm.doc.employee && frm.doc.docstatus === 1) {
+            frm.remove_custom_button("Employee", "Create")
+			frm.add_custom_button(
+				__("Employee"),
+				function () {
+					frappe.model.open_mapped_doc({
+						method: "ntra.event.employee_onboarding.make_employee",
+						frm: frm,
+					});
+				},
+				__("Create"),
+			);
+            frm.page.set_inner_btn_group_as_primary(__("Create"));
+		}
+    }
 });

@@ -6,16 +6,20 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "details_section",
   "training_course",
-  "duration_days",
   "from_date",
-  "training_plan",
+  "duration_days",
+  "schedule_confirmed",
   "column_break_uumu",
   "training_course_type",
-  "hours",
   "to_date",
+  "hours",
+  "training_plan",
   "section_break_hllx",
-  "table_exht"
+  "table_exht",
+  "course_content_section",
+  "content"
  ],
  "fields": [
   {
@@ -47,7 +51,8 @@
   },
   {
    "fieldname": "section_break_hllx",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Schedule"
   },
   {
    "fieldname": "table_exht",
@@ -67,14 +72,41 @@
   {
    "fieldname": "training_plan",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Training Plan",
-   "options": "Training Plan"
+   "options": "Training Plan",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "schedule_confirmed",
+   "fieldtype": "Check",
+   "label": "Schedule Confirmed"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "course_content_section",
+   "fieldtype": "Section Break",
+   "label": "Course Content"
+  },
+  {
+   "fieldname": "content",
+   "fieldtype": "Text Editor",
+   "label": "Content"
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-12-11 17:08:31.865554",
+ "links": [
+  {
+   "link_doctype": "Course Assignment",
+   "link_fieldname": "training_course_schedule"
+  }
+ ],
+ "modified": "2024-12-23 16:15:11.845504",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Course Schedule",

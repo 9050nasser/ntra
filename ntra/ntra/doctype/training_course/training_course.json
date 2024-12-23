@@ -7,11 +7,14 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "details_section",
   "course_name",
   "training_course_type",
   "column_break_tqod",
   "disable",
   "designations",
+  "section_break_hmua",
+  "course_description",
   "section_break_jlqu",
   "table_rwlr",
   "section_break_hyya",
@@ -45,8 +48,7 @@
   },
   {
    "fieldname": "section_break_jlqu",
-   "fieldtype": "Section Break",
-   "hidden": 1
+   "fieldtype": "Section Break"
   },
   {
    "fieldname": "table_rwlr",
@@ -87,6 +89,21 @@
    "fieldtype": "Table MultiSelect",
    "label": "Designations",
    "options": "Designations"
+  },
+  {
+   "fieldname": "section_break_hmua",
+   "fieldtype": "Section Break",
+   "label": "Description"
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "course_description",
+   "fieldtype": "Text Editor",
+   "label": "Course Description"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -96,7 +113,7 @@
    "link_fieldname": "training_course"
   }
  ],
- "modified": "2024-12-12 07:22:54.577581",
+ "modified": "2024-12-24 00:08:12.172848",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Course",

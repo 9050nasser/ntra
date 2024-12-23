@@ -1,0 +1,227 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{name1}",
+ "creation": "2024-12-19 01:52:11.566741",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_v0wc",
+  "amended_from",
+  "provider_name",
+  "provider_type",
+  "type_of_cover",
+  "network_type",
+  "room_type",
+  "column_break_yrsa",
+  "address",
+  "phone",
+  "governorate",
+  "annual_ceiling_per_life_insurd",
+  "worldwide",
+  "section_break_rdaq",
+  "table_jino",
+  "inclusive_tab",
+  "table_zvad",
+  "healthcare_membership_card_tab",
+  "name1",
+  "policy_no",
+  "membership_no",
+  "id_no",
+  "policy_holder",
+  "benefits",
+  "column_break_fhvu",
+  "card",
+  "valid_from",
+  "valid_to",
+  "attach_ykdc",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_v0wc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Medical Network Category",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "provider_name",
+   "fieldtype": "Link",
+   "label": "Provider Name",
+   "options": "Provider List"
+  },
+  {
+   "fieldname": "provider_type",
+   "fieldtype": "Link",
+   "label": "Provider Type",
+   "options": "Provider Type"
+  },
+  {
+   "fieldname": "type_of_cover",
+   "fieldtype": "Link",
+   "label": "Type Of Cover",
+   "options": "Cover List"
+  },
+  {
+   "fieldname": "network_type",
+   "fieldtype": "Link",
+   "label": "Network Type",
+   "options": "Network Type"
+  },
+  {
+   "fieldname": "room_type",
+   "fieldtype": "Link",
+   "label": "Room Type",
+   "options": "Room Type"
+  },
+  {
+   "fieldname": "column_break_yrsa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Phone",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "governorate",
+   "fieldtype": "Link",
+   "label": "Governorate",
+   "options": "Governorate"
+  },
+  {
+   "fieldname": "annual_ceiling_per_life_insurd",
+   "fieldtype": "Currency",
+   "label": "Annual Ceiling Per Life Insurd"
+  },
+  {
+   "fieldname": "worldwide",
+   "fieldtype": "Select",
+   "label": "Worldwide",
+   "options": "Covered\nNot Covered"
+  },
+  {
+   "fieldname": "section_break_rdaq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_jino",
+   "fieldtype": "Table",
+   "options": "Network Permission"
+  },
+  {
+   "fieldname": "inclusive_tab",
+   "fieldtype": "Tab Break",
+   "label": "Inclusive"
+  },
+  {
+   "fieldname": "table_zvad",
+   "fieldtype": "Table",
+   "options": "Inclusive"
+  },
+  {
+   "fieldname": "healthcare_membership_card_tab",
+   "fieldtype": "Tab Break",
+   "label": "Healthcare Membership Card"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name"
+  },
+  {
+   "fieldname": "policy_no",
+   "fieldtype": "Data",
+   "label": "Policy No"
+  },
+  {
+   "fieldname": "membership_no",
+   "fieldtype": "Data",
+   "label": "Membership No"
+  },
+  {
+   "fieldname": "id_no",
+   "fieldtype": "Data",
+   "label": "ID No"
+  },
+  {
+   "fieldname": "policy_holder",
+   "fieldtype": "Data",
+   "label": "Policy Holder"
+  },
+  {
+   "fieldname": "benefits",
+   "fieldtype": "Data",
+   "label": "Benefits"
+  },
+  {
+   "fieldname": "column_break_fhvu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "card",
+   "fieldtype": "Link",
+   "label": "Card",
+   "options": "Card"
+  },
+  {
+   "fieldname": "valid_from",
+   "fieldtype": "Date",
+   "label": "Valid From"
+  },
+  {
+   "fieldname": "valid_to",
+   "fieldtype": "Date",
+   "label": "Valid To"
+  },
+  {
+   "fieldname": "attach_ykdc",
+   "fieldtype": "Attach"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-12-19 02:08:16.440943",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Medical Network Category",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

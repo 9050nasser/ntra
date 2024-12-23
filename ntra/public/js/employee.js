@@ -1,4 +1,28 @@
 frappe.ui.form.on("Employee", {
+
+    gender: function (frm) {
+        if (frm.is_new()) { // Ensure this only runs for new documents
+            // Check if the child table is empty
+            if (!frm.doc.items || frm.doc.items.length === 0) {
+                frappe.call({
+                    method: 'ntra.events.get_employee_identification_type',
+                    callback: function (response) {
+                        if (response.message) {
+                            frm.doc.custom_employee_identification = []
+                            response.message.identefication.forEach(row => {
+                                if(frm.doc.gender == row.gender ||row.gender  == "" )
+                                {
+                                    const child = frm.add_child('custom_employee_identification');
+                                frappe.model.set_value(child.doctype, child.name, 'document', row.document_type);
+                            }
+                            });
+                            frm.refresh_field('custom_employee_identification');
+                        }
+                    }
+                });
+            }
+        }
+    },
     refresh: function(frm) {
         frm.set_query("salutation", function() {
             return {

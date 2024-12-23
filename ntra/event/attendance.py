@@ -73,11 +73,15 @@ def get_month_start_end(input_date):
 def security_shift(doc, method):
     month_start, month_end = get_month_start_end(doc.attendance_date)
     month_days = month_day(month_start, month_end)
-    shift = frappe.db.get_all(
+    shift_list = frappe.db.get_all(
         "Shift Assignment",
         filters={"employee": doc.employee, "status": "Active", "start_date": ["<=", today()]},
         fields=["shift_type"]
-    )[0]
+    )
+    if len(shift_list):
+        shift= shift_list[0]
+    else:
+        shift = None
     if shift:
         shift_type = frappe.get_doc("Shift Type", shift.shift_type)
         if shift_type.custom_security_shift:

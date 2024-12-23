@@ -1,0 +1,54 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-23 09:16:21.757542",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "provider_evaluation_element",
+  "item_weight",
+  "score",
+  "weighted_score"
+ ],
+ "fields": [
+  {
+   "fieldname": "provider_evaluation_element",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Provider Evaluation Element",
+   "options": "Provider Evaluation Element"
+  },
+  {
+   "fieldname": "item_weight",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Item Weight"
+  },
+  {
+   "fieldname": "score",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Score"
+  },
+  {
+   "fieldname": "weighted_score",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Weighted Score",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-23 09:32:12.187276",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Provider Technical Evaluation",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

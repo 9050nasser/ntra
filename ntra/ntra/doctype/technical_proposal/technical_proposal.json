@@ -1,0 +1,108 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "TEP-.####",
+ "creation": "2024-12-23 23:46:03.378946",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "target_audience",
+  "general_information_section",
+  "language",
+  "learning_methodology",
+  "column_break_plgh",
+  "duration_in_hours",
+  "duration_in_dyas",
+  "financial_proposal_section",
+  "training_location",
+  "payment_condition"
+ ],
+ "fields": [
+  {
+   "fieldname": "target_audience",
+   "fieldtype": "Text Editor",
+   "label": "Target Audience"
+  },
+  {
+   "fieldname": "general_information_section",
+   "fieldtype": "Section Break",
+   "label": "General Information"
+  },
+  {
+   "fieldname": "language",
+   "fieldtype": "Link",
+   "label": "Language",
+   "options": "Language"
+  },
+  {
+   "fieldname": "learning_methodology",
+   "fieldtype": "Small Text",
+   "label": "Learning Methodology"
+  },
+  {
+   "fieldname": "column_break_plgh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "duration_in_hours",
+   "fieldtype": "Data",
+   "label": "Duration in Hours"
+  },
+  {
+   "fieldname": "duration_in_dyas",
+   "fieldtype": "Data",
+   "label": "Duration in Dyas"
+  },
+  {
+   "fieldname": "financial_proposal_section",
+   "fieldtype": "Section Break",
+   "label": "Financial Proposal"
+  },
+  {
+   "fieldname": "training_location",
+   "fieldtype": "Text",
+   "label": "Training Location"
+  },
+  {
+   "fieldname": "payment_condition",
+   "fieldtype": "Text",
+   "label": "Payment Condition"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-24 00:12:14.810247",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Technical Proposal",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Supplier",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

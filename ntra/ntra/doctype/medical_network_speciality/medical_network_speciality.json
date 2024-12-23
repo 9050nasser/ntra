@@ -1,0 +1,32 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-19 13:58:20.706433",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "speciality"
+ ],
+ "fields": [
+  {
+   "fieldname": "speciality",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Speciality",
+   "options": "Speciality List"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-19 13:59:27.299497",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Medical Network Speciality",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

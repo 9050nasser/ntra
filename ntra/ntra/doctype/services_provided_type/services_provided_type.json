@@ -1,0 +1,32 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-18 18:22:55.177590",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "services_provided_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "services_provided_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Services provided List",
+   "options": "Services provided"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-19 23:35:09.316814",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Services provided Type",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

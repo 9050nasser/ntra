@@ -1,0 +1,99 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-21 15:53:35.267626",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_qufw",
+  "amended_from",
+  "form_name",
+  "relevant_hr",
+  "column_break_sdsz",
+  "type",
+  "last_update_date",
+  "section_break_ldlk",
+  "form_description"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_qufw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Forms Library",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "form_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Form Name",
+   "options": "Form"
+  },
+  {
+   "fieldname": "relevant_hr",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Relevant HR",
+   "options": "Relevant HR"
+  },
+  {
+   "fieldname": "column_break_sdsz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "Form Type"
+  },
+  {
+   "fieldname": "last_update_date",
+   "fieldtype": "Date",
+   "label": "Last Update Date"
+  },
+  {
+   "fieldname": "section_break_ldlk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "form_description",
+   "fieldtype": "Small Text",
+   "label": "Form Description"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-12-21 16:06:49.758347",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Forms Library",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

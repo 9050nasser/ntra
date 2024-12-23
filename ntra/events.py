@@ -3,8 +3,7 @@ from frappe import _
 from datetime import datetime
 from frappe.utils import today
 from frappe.desk.form import assign_to
-from frappe.utils import add_to_date, today, date_diff
-
+from frappe.utils import add_to_date, today, date_diff, getdate
 
 def calculate_rating(doc, method):
     for row in doc.feedback_ratings:
@@ -20,7 +19,96 @@ def calculate_rating2(doc, method):
 def goal_validation(doc, method):
     if str(doc.end_date) < today():
         frappe.throw(_("You Cannot Update Progress After End Date"))
+@frappe.whitelist()
+def get_employee_identification_type():
+    return frappe.get_cached_doc('Document List')
+@frappe.whitelist()
+def validate_employee(doc, method):
+    documents_emp = []
+    for row in doc.custom_employee_identification:
+        # frappe.get_doc('Identification Document Type', row.document)
+        data = frappe.db.sql(f"select name from `tabEmployee Identification Type` where parent='{row.document}' and employee='{doc.name}' ")
+        if data:
+            frappe.db.sql(f"Update `tabEmployee Identification Type` SET attach = '{row.attach}' where parent='{row.document}' and employee='{doc.name}' ")
+        else:
+            identification_document_type = frappe.get_doc('Identification Document Type', row.document)
+            # identification_document_type.custom_employee = doc.name
+            # identification_document_type.custom_employee_name = doc.employee_name
+            identification_document_type.append('custom_employee_document',{
+                'employee': doc.name,
+                'attach': row.attach,
+            })
+            documents_emp.append(identification_document_type)
+    for row in documents_emp:
+        row.save()
+    # if not frappe.db.exists("Identification Document Type", doc.name):
+       
+    # else:
+    #     identification_document_type = frappe.get_doc('Identification Document Type', doc.employee)
+    #     identification_document_type.custom_employee_name = doc.employee_name
+    #     identification_document_type.custom_employee_document = []
+    #     for row in doc.custom_employee_identification:
+    #         identification_document_type.append('custom_employee_document',{
+    #             'document': row.document,
+    #             'attach': row.attach,
+    #         })
+    #     identification_document_type.save()
+        pass
+    
 
+    pass
+@frappe.whitelist()
+def auto_approve_pending_leaves():
+    # Fetch leave applications pending for more than 10 days
+    leave_applications = frappe.get_all(
+        "Leave Application",
+        filters={
+            "status": "Open",  # Only pending leave applications
+            "docstatus": 0  # Not yet approved or rejected
+        },
+        fields=["name", "posting_date", "leave_approver"]
+    )
+
+    for leave in leave_applications:
+        # Calculate the difference between today and creation date
+        days_pending = date_diff(today(), getdate(leave["posting_date"]))
+
+        if days_pending > 10:
+            # Auto-approve the leave application
+            leave_doc = frappe.get_doc("Leave Application", leave["name"])
+            leave_doc.status = "Approved"
+            leave_doc.custom_approval_status = "Approved by System"
+            leave_doc.custom_is_an_exception = 1
+            leave_doc.save(ignore_permissions=True)
+            leave_doc.submit()
+            frappe.get_doc({
+                'doctype': 'Comment',
+                'comment_type': 'Comment',
+                'reference_doctype': 'Leave Application',
+                'reference_name': leave_doc.name,
+                'content':  f"""Leave application {leave['name']} was auto-approved due to no action\nfrom manager {leave['leave_approver']} within 10 days\nLeave Auto-Approval """
+
+            }).insert()
+           
+@frappe.whitelist()
+def validate_leave_application(doc, method):
+    leave_type = frappe.get_cached_doc('Leave Type', doc.leave_type)
+    if (doc.leave_type in ["Casual Leave", "Sick Leave"] and doc.to_date) or leave_type.custom_is_death_leave:
+        leave_end_date = getdate(doc.to_date)
+        current_date = getdate(today())
+
+        # Calculate the difference in days
+        diff = date_diff(current_date, leave_end_date)
+        notice_period = leave_type.custom_notice_period_for_leave_after_days_ or 2
+        if diff > notice_period and not doc.custom_is_an_exception:
+            frappe.throw(
+                f"Leave applications for {doc.leave_type} must be submitted within 2 days after the leave period ends."
+            )
+@frappe.whitelist()
+def is_death_leave(leave_type_name):
+    leave_type = frappe.get_cached_doc('Leave Type', leave_type_name)
+    return leave_type.custom_is_death_leave
+    
 def create_task(doc, method):
     user = frappe.db.get_value("Employee", doc.employee, "user_id")
     new_task = frappe.new_doc("Task")
@@ -103,7 +191,7 @@ def leave_without_pay(doc, method):
     
     if doc.leave_type in lwp:
         from_date = employee.date_of_joining
-        order_date = datetime.strptime(doc.from_date, "%Y-%m-%d").date()
+        order_date = datetime.strptime(str(doc.from_date), "%Y-%m-%d").date()
         end_date = add_to_date(from_date, years=leave_type.custom_recalculation_period_years, days=-1)
         
         # Calculate the start of the current 5-year period

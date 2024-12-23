@@ -7,8 +7,9 @@
  "field_order": [
   "employee",
   "instructor",
+  "course_assignment",
   "column_break_yyqq",
-  "course",
+  "training_course",
   "course_type",
   "section_break_imwj",
   "table_cnft",
@@ -34,13 +35,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "course",
-   "fieldtype": "Link",
-   "label": "Course ",
-   "options": "Training Course"
-  },
-  {
-   "fetch_from": "course.training_course_type",
+   "fetch_from": "training_course.training_course_type",
    "fieldname": "course_type",
    "fieldtype": "Link",
    "label": "Course Type",
@@ -75,11 +70,24 @@
    "fieldname": "recommended_trainings",
    "fieldtype": "Text Editor",
    "label": "Recommended Trainings"
+  },
+  {
+   "fieldname": "course_assignment",
+   "fieldtype": "Link",
+   "label": "Course Assignment",
+   "options": "Course Assignment",
+   "search_index": 1
+  },
+  {
+   "fieldname": "training_course",
+   "fieldtype": "Link",
+   "label": "Training Course",
+   "options": "Training Course"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-11 17:49:23.111941",
+ "modified": "2024-12-23 17:12:18.569840",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Trainee Evaluation",

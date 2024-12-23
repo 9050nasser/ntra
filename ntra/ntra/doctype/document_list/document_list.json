@@ -1,0 +1,41 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-20 19:14:26.801886",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "identefication"
+ ],
+ "fields": [
+  {
+   "fieldname": "identefication",
+   "fieldtype": "Table",
+   "label": "Identefication",
+   "options": "Identefication"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-12-20 19:15:02.349332",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Document List",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

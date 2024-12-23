@@ -3,9 +3,12 @@ from frappe.auth import LoginManager
 
 @frappe.whitelist(allow_guest = True)
 def app_login(usr,pwd):
-	login_manager = LoginManager()
-	login_manager.authenticate(usr,pwd)
-	login_manager.post_login()
+	try:
+		login_manager = LoginManager()
+		login_manager.authenticate(usr,pwd)
+		login_manager.post_login()
+	except:
+		pass
 	if frappe.response['message'] == 'Logged In':
 		user = login_manager.user
 		frappe.response['key_details'] = generate_key(user)

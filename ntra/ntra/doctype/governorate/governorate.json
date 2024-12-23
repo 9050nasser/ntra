@@ -2,19 +2,22 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "field:governorate",
+ "autoname": "format:{governorate_name}",
  "creation": "2024-11-26 12:23:03.240996",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
   "governorate",
-  "country"
+  "country",
+  "amended_from"
  ],
  "fields": [
   {
    "fieldname": "governorate",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Governorate",
+   "reqd": 1,
    "unique": 1
   },
   {
@@ -22,15 +25,26 @@
    "fieldtype": "Link",
    "label": "Country",
    "options": "Country"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Governorate",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2024-11-26 12:47:48.321019",
+ "modified": "2024-12-18 17:55:47.022974",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Governorate",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

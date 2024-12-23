@@ -2,11 +2,23 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Training Request", {
-	refresh(frm) {
-        if (frm.doc.employee){
+    refresh(frm) {
+        if (frm.doc.employee) {
             frm.trigger("make_dashboard")
         }
-	},
+        frm.set_query("training_course", function () {
+            return {
+                query: "ntra.api.get_designation_wise_employees",
+                filters: {
+                    "designation": frm.doc.designation // Example: Use a field value from the current form
+                }
+            };
+        });
+
+    },
+    employee(frm) {
+
+    },
     make_dashboard: function (frm) {
         let map;
         let course;
@@ -44,7 +56,7 @@ frappe.ui.form.on("Training Request", {
         frm.dashboard.show();
 
     },
-    employee (frm) {
+    employee(frm) {
         frm.trigger("make_dashboard")
     }
 });

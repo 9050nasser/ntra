@@ -1,0 +1,40 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-18 18:49:59.880396",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "amenities",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "amenities",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Amenities",
+   "options": "DocType Amenities"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Active\nInactive"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-18 19:27:22.310539",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Amenities",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

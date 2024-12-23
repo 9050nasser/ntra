@@ -2,6 +2,22 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Leave Application", {
+	leave_type(frm){
+		if (frm.doc.leave_type) {
+			frappe.call({
+				method: 'ntra.events.is_death_leave',
+				args: {
+					'leave_type_name': frm.doc.leave_type
+				},
+				callback: function(r) {
+					if (!r.exc) {
+						frm.toggle_reqd('custom_who_passed_away', r.message);
+					}
+				}
+			});
+			   
+		}
+	},
 	custom_maternity_leave(frm) {
 			
 			frm.set_query("employee", function(){

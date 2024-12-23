@@ -1,0 +1,164 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{meeting_room_name}",
+ "creation": "2024-12-18 18:55:47.855201",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_qmvk",
+  "amended_from",
+  "meeting_room_name",
+  "room_code",
+  "room_type",
+  "column_break_pyac",
+  "location",
+  "floor",
+  "room_capacity",
+  "room_status",
+  "booking_details_section",
+  "availability",
+  "booking_cost",
+  "column_break_hvdf",
+  "from_date",
+  "to_date",
+  "section_break_jbuo",
+  "table_dewx",
+  "section_break_aowe",
+  "comments"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_qmvk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Meeting Rooms",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "meeting_room_name",
+   "fieldtype": "Data",
+   "label": "Meeting Room Name"
+  },
+  {
+   "fieldname": "room_code",
+   "fieldtype": "Data",
+   "label": "Room Code"
+  },
+  {
+   "fieldname": "room_type",
+   "fieldtype": "Select",
+   "label": "Room Type",
+   "options": "Normal\nVip"
+  },
+  {
+   "fieldname": "column_break_pyac",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Link",
+   "label": "Location",
+   "options": "Buildings"
+  },
+  {
+   "fieldname": "floor",
+   "fieldtype": "Link",
+   "label": "Floor",
+   "options": "Floor"
+  },
+  {
+   "fieldname": "room_capacity",
+   "fieldtype": "Int",
+   "label": "Room Capacity"
+  },
+  {
+   "fieldname": "room_status",
+   "fieldtype": "Select",
+   "label": "Room Status",
+   "options": "Active\nNot Active\nUnder Maintenance"
+  },
+  {
+   "fieldname": "booking_details_section",
+   "fieldtype": "Section Break",
+   "label": "Booking Details"
+  },
+  {
+   "fieldname": "availability",
+   "fieldtype": "Select",
+   "label": "Availability",
+   "options": "Available\nUnavailable"
+  },
+  {
+   "fieldname": "booking_cost",
+   "fieldtype": "Currency",
+   "label": "Booking Cost"
+  },
+  {
+   "fieldname": "column_break_hvdf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Datetime",
+   "label": "From Date "
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Datetime",
+   "label": "To Date"
+  },
+  {
+   "fieldname": "section_break_jbuo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_dewx",
+   "fieldtype": "Table",
+   "options": "Amenities"
+  },
+  {
+   "fieldname": "section_break_aowe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "comments",
+   "fieldtype": "Small Text",
+   "label": "Comments"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-12-18 19:11:37.734809",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Meeting Rooms",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

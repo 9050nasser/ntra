@@ -21,13 +21,14 @@
   "department",
   "training_course_type",
   "section_break_kwjy",
-  "get_training_requests",
+  "get_courses",
   "table_tqgd",
   "section_break_uiaf",
   "total_estimated_cost",
   "column_break_cggw",
   "total_actual_cost",
   "section_break_tben",
+  "get_training_requests",
   "table_oyzi"
  ],
  "fields": [
@@ -48,6 +49,8 @@
   {
    "fieldname": "name1",
    "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Name"
   },
   {
@@ -92,6 +95,10 @@
   {
    "fieldname": "training_course_type",
    "fieldtype": "Link",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
    "label": "Training Course Type",
    "options": "Training Course Type"
   },
@@ -116,18 +123,22 @@
    "fieldtype": "Section Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_estimated_cost",
    "fieldtype": "Currency",
-   "label": "Total Estimated Cost"
+   "label": "Total Estimated Cost",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_cggw",
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_actual_cost",
    "fieldtype": "Currency",
-   "label": "Total Actual Cost"
+   "label": "Total Actual Cost",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_tben",
@@ -139,6 +150,7 @@
    "options": "Training Plan Employee"
   },
   {
+   "allow_bulk_edit": 1,
    "allow_on_submit": 1,
    "fieldname": "training_course_schedule",
    "fieldtype": "Table",
@@ -157,12 +169,46 @@
    "fieldname": "to_date",
    "fieldtype": "Date",
    "label": "To Date"
+  },
+  {
+   "fieldname": "get_courses",
+   "fieldtype": "Button",
+   "label": "Get Courses"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2024-11-27 20:04:49.222763",
+ "links": [
+  {
+   "group": "Purchasing",
+   "link_doctype": "Request for Quotation",
+   "link_fieldname": "custom_training_plan"
+  },
+  {
+   "group": "Purchasing",
+   "link_doctype": "Supplier Quotation",
+   "link_fieldname": "custom_training_plan"
+  },
+  {
+   "group": "Purchasing",
+   "link_doctype": "Purchase Order",
+   "link_fieldname": "custom_training_plan"
+  },
+  {
+   "group": "Purchasing",
+   "link_doctype": "Purchase Invoice",
+   "link_fieldname": "custom_training_plan"
+  },
+  {
+   "link_doctype": "Training Course Schedule",
+   "link_fieldname": "training_plan"
+  },
+  {
+   "link_doctype": "Provider Evaluation",
+   "link_fieldname": "training_plan"
+  }
+ ],
+ "modified": "2024-12-23 20:25:52.421141",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Plan",

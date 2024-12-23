@@ -11,6 +11,7 @@
   "employee_name",
   "enrollment_cost",
   "currency",
+  "training_course_schedule",
   "column_break_rznv",
   "date",
   "to_date",
@@ -23,6 +24,8 @@
   {
    "fieldname": "employee",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Employee",
    "options": "Employee"
   },
@@ -76,13 +79,31 @@
   {
    "fieldname": "enrollment_status",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Enrollment Status",
    "options": "\nAttended\nCancelled\nillness\nPlaced\nRequested\nWaitlisted"
+  },
+  {
+   "fieldname": "training_course_schedule",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Training Course Schedule",
+   "options": "Training Course Schedule",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-12-11 11:56:01.674087",
+ "links": [
+  {
+   "link_doctype": "Trainee Evaluation",
+   "link_fieldname": "course_assignment"
+  },
+  {
+   "link_doctype": "Course Evaluation",
+   "link_fieldname": "course_assignment"
+  }
+ ],
+ "modified": "2024-12-23 17:09:58.864460",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Course Assignment",

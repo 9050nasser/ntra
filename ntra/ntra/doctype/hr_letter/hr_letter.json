@@ -1,0 +1,142 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-21 15:17:23.201873",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_bxzs",
+  "amended_from",
+  "request_by",
+  "department",
+  "request_date",
+  "salary_wage",
+  "column_break_fcdc",
+  "status",
+  "purpose",
+  "purpose_of_the_letter",
+  "job_description",
+  "document_type_section",
+  "original_copy",
+  "send_via_email",
+  "section_break_jzoq",
+  "additional_information"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_bxzs",
+   "fieldtype": "Section Break",
+   "label": "Request new HR letter"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "HR Letter",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "request_by",
+   "fieldtype": "Link",
+   "label": "Request By",
+   "options": "User"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "purpose",
+   "fieldtype": "Link",
+   "label": "Purpose",
+   "options": "Purpose of Travel"
+  },
+  {
+   "fieldname": "request_date",
+   "fieldtype": "Date",
+   "label": "Request Date"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nAccept\nReject"
+  },
+  {
+   "fieldname": "salary_wage",
+   "fieldtype": "Currency",
+   "label": "Salary wage"
+  },
+  {
+   "fieldname": "column_break_fcdc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "purpose_of_the_letter",
+   "fieldtype": "Data",
+   "label": "Purpose of the letter"
+  },
+  {
+   "fieldname": "job_description",
+   "fieldtype": "Data",
+   "label": "Job Description"
+  },
+  {
+   "fieldname": "section_break_jzoq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "additional_information",
+   "fieldtype": "Small Text",
+   "label": "Additional Information"
+  },
+  {
+   "fieldname": "document_type_section",
+   "fieldtype": "Section Break",
+   "label": "Document Type"
+  },
+  {
+   "default": "0",
+   "fieldname": "original_copy",
+   "fieldtype": "Check",
+   "label": "Original Copy"
+  },
+  {
+   "default": "0",
+   "fieldname": "send_via_email",
+   "fieldtype": "Check",
+   "label": "Send Via Email"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-12-23 22:29:45.718976",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "HR Letter",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -8,6 +8,7 @@
   "employee",
   "department",
   "instructor",
+  "course_assignment",
   "column_break_qgqv",
   "date",
   "training_course",
@@ -142,11 +143,17 @@
    "fieldname": "table_ssug",
    "fieldtype": "Table",
    "options": "Course Evaluation Table"
+  },
+  {
+   "fieldname": "course_assignment",
+   "fieldtype": "Link",
+   "label": "Course Assignment",
+   "options": "Course Assignment"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-13 12:13:24.733393",
+ "modified": "2024-12-23 17:08:49.887518",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Course Evaluation",

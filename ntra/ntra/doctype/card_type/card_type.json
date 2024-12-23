@@ -1,0 +1,49 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-18 18:20:27.423442",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_sudh",
+  "card_type",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_sudh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "card_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Card List",
+   "options": "Card"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Card Type",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-19 23:35:25.142069",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Card Type",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

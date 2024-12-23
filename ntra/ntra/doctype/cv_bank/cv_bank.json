@@ -1,0 +1,96 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{applicant_name}",
+ "creation": "2024-12-17 23:25:24.614322",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "applicant_name",
+  "phone_number",
+  "applicant_category",
+  "job_applicant",
+  "column_break_sasf",
+  "email",
+  "resume_file",
+  "applicant_rating",
+  "employee"
+ ],
+ "fields": [
+  {
+   "fieldname": "applicant_category",
+   "fieldtype": "Select",
+   "label": "Job Applicant Category ",
+   "options": "Highly Qualified\nQualified\nLess Qualified\nRejected"
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "label": "Phone Number"
+  },
+  {
+   "fieldname": "column_break_sasf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email Address"
+  },
+  {
+   "fieldname": "applicant_rating",
+   "fieldtype": "Rating",
+   "label": "Applicant Rating"
+  },
+  {
+   "fieldname": "resume_file",
+   "fieldtype": "Attach",
+   "label": "Resume Attachment"
+  },
+  {
+   "fieldname": "applicant_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Applicant Name"
+  },
+  {
+   "default": "0",
+   "fieldname": "employee",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Employee"
+  },
+  {
+   "fieldname": "job_applicant",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Job Applicant",
+   "options": "Job Applicant"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-22 18:57:36.397767",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "CV Bank",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

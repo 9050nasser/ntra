@@ -1,0 +1,93 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{cat}-{category}",
+ "creation": "2024-12-21 18:54:20.689304",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_hyil",
+  "cat",
+  "column_break_sezx",
+  "category",
+  "section_break_vfpo",
+  "amount",
+  "column_break_lezd",
+  "representation_allowance_incentive",
+  "column_break_xsqz",
+  "excellence_incentive"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_hyil",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "cat",
+   "fieldtype": "Data",
+   "label": "Cat"
+  },
+  {
+   "fieldname": "column_break_sezx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Category"
+  },
+  {
+   "fieldname": "section_break_vfpo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "column_break_lezd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "representation_allowance_incentive",
+   "fieldtype": "Currency",
+   "label": "Representation Allowance Incentive"
+  },
+  {
+   "fieldname": "column_break_xsqz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "excellence_incentive",
+   "fieldtype": "Currency",
+   "label": "excellence incentive"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-21 20:40:26.128735",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Cat",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

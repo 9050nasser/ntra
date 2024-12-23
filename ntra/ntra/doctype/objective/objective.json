@@ -29,7 +29,8 @@
   "lft",
   "rgt",
   "old_parent",
-  "parent_objective"
+  "parent_objective",
+  "custom_is_group"
  ],
  "fields": [
   {
@@ -205,12 +206,21 @@
    "ignore_user_permissions": 1,
    "label": "Parent Objective",
    "options": "Objective"
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "default": "0",
+   "fieldname": "custom_is_group",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "label": "Is Group"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-11-05 12:32:50.804657",
+ "modified": "2024-12-23 21:06:51.068707",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Objective",
