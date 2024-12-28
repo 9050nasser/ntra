@@ -1,6 +1,9 @@
 import frappe
 from datetime import datetime, timedelta
-
+from frappe.utils import nowdate, getdate, today, flt, cint, date_diff
+from frappe import _
+from datetime import datetime, timedelta
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 def validate_attendance(doc, method):
     # Fetch approved permissions for the employee on the attendance date
     try:
@@ -148,3 +151,95 @@ def float_to_hhmmss(hours):
 
     # Format as HH:MM:SS
     return f"{hours:02}:{minutes:02}:{seconds:02}"
+
+@frappe.whitelist()
+def calculate_employee_record(doc,method=None):
+    filters = {
+            "skip_auto_attendance": 0,
+            "attendance": ("is", "not set"),
+            "shift": doc.shift,
+            "employee": doc.employee
+        }
+    logs = frappe.db.get_list(
+        "Employee Checkin", fields="*", filters=filters, order_by="time"
+    )
+    # if logs:
+    #     shift = frappe.get_doc("Shift Type", doc.shift)
+    #     if shift.enable_break:
+    #         calculate_break_time(logs, doc, shift)
+    pass
+
+def get_dates_different_in_minutes(date1: datetime, date2: datetime) -> float:
+    return (date1 - date2).total_seconds() / 60
+def get_date(date_time):
+        if type(date_time) == datetime:
+            date_time = date_time.strftime(DATE_FORMAT)
+        return date_time
+def _handle_multiple_same_checks(date1, date2):
+        if get_date(date1) is None or get_date(date2) is None:
+            return
+        checkin_date = datetime.strptime(get_date(date1), DATE_FORMAT)
+        checkout_date = datetime.strptime(get_date(date2), DATE_FORMAT)
+        minutes = (get_dates_different_in_minutes(checkout_date, checkin_date))
+        if minutes > 5:
+            return True
+
+def calculate_break_time(logs, doc, shift):
+    total_hours = break_duration = break_times= allowed_break_duration = 0
+    in_break = out_break = None
+    out_time = doc.out_time
+    while len(logs) >= 2:
+        if _handle_multiple_same_checks( logs[0].time,logs[1].time):         
+            total_hours += time_diff_in_hours(logs[0].time, logs[1].time)
+            in_break = logs[1].time
+            if len(logs) > 2:
+                break_times +=1
+                out_break = logs[2].time
+                if out_break == out_time:
+                    doc.out_time = None
+                on_time = 0
+                # if shift.break_type =="Fixed":
+                in_break = datetime.strptime(get_date(in_break), '%Y-%m-%d %H:%M:%S')
+                out_break = datetime.strptime(get_date(out_break), '%Y-%m-%d %H:%M:%S')
+                    # shift_in_break = datetime.strptime(str(shift.in_break), '%H:%M:%S')
+                    # shift_out_break = datetime.strptime(str(shift.out_break), '%H:%M:%S')
+                    # allowed_break_duration = (shift_out_break - shift_in_break).total_seconds()
+                    # shift.break_duration = allowed_break_duration
+                    # if (in_break.time() >= shift_in_break.time()) and (out_break.time() <= shift_out_break.time()):
+                        # on_time = 1
+                emp_record = frappe.new_doc("Employee Record")
+                emp_record.employee = doc.employee
+                emp_record.date = doc.attendance_date
+                emp_record.start_time = doc.in_break
+                emp_record.end_time = doc.out_break
+                emp_record.duration = doc.working_hours - total_hours
+
+                emp_record.insert()
+            in_break = out_break = None
+            del logs[:2]
+        else:
+            del logs[1]
+
+def time_diff_in_hours(start, end):
+    return round(float((end - start).total_seconds()) / 3600, 2)
+
+@frappe.whitelist()
+def validate_employee_checkin(doc, method):
+    # frappe.msgprint(f"{doc.shift}")
+    last_log = frappe.db.sql(f"""SELECT * from `tabEmployee Checkin` where employee = '{doc.employee}' and shift ='{doc.shift}' order by creation DESC limit 1 """, as_dict=1)
+    if last_log:
+        if last_log[0]['name'] == doc.name:
+                return
+        minutes = _check_if_created_checkin_or_not(last_log[0]['time'], doc.time)
+        if minutes <= 5:
+            frappe.throw("لقد تم تسجيل البصمة بالفعل")
+    pass
+
+def _check_if_created_checkin_or_not(date1, date2):
+        if get_date(date1) is None or get_date(date2) is None:
+            return
+        
+        checkin_date = datetime.strptime(get_date(date1), DATE_FORMAT)
+        checkout_date = datetime.strptime(get_date(date2), DATE_FORMAT)
+        minutes = (get_dates_different_in_minutes(checkout_date, checkin_date))
+        return minutes

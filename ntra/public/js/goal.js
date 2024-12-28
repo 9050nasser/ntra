@@ -16,7 +16,18 @@ frappe.ui.form.on("Goal", {
                             fieldname: 'description',
                             fieldtype: 'Text',
                             reqd: 1
-                        }
+                        },
+                        {
+                            label: 'Reason',
+                            fieldname: 'reason',
+                            fieldtype: 'Select',
+                            options: [
+                                "Not intelligent",
+                                "Unqualified",
+                                "Not aligned with the main objective" 
+                            ],
+                            reqd: 1
+                        },
                     ],
                     primary_action_label: 'Submit',
                     primary_action(values) {
@@ -27,7 +38,8 @@ frappe.ui.form.on("Goal", {
                                 goal_name: values.goal_name,
                                 description: values.description,
                                 employee: frm.doc.employee,
-                                objective: frm.doc.name
+                                objective: frm.doc.name,
+                                reason : values.reason
                             },
                             callback: function(r){
                                 if(r.message){

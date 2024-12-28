@@ -23,7 +23,8 @@ class TrainingRequest(Document):
 		for course in skill_map.custom_courses:
 			courses.append({
 				"course_assignment": course.course_assignment,
-				"date": course.date
+				"date": course.date,
+				"cost": course.cost
 			})
 		
 		return {

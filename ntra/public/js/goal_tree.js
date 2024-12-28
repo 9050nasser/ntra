@@ -201,9 +201,8 @@ frappe.treeview_settings["Goal"] = {
 			$(`
 				<span
 					class="pill small pull-right"
-					style="background-color: var(--bg-${status_color[node.data.status]}); color: var(--text-on-${
-						status_color[node.data.status]
-					}); font-weight:500">
+					style="background-color: var(--bg-${status_color[node.data.status]}); color: var(--text-on-${status_color[node.data.status]
+				}); font-weight:500">
 					${node.data.status}
 				</span>
 			`).insertBefore(node.$ul);

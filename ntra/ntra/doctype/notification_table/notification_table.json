@@ -1,0 +1,94 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-23 22:21:22.266654",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "screen_name",
+  "notify_before_days",
+  "notify_after_days",
+  "role",
+  "message_before",
+  "column_break_rqnn",
+  "field_name",
+  "filter",
+  "message_after",
+  "active"
+ ],
+ "fields": [
+  {
+   "fieldname": "screen_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Screen Name",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "notify_before_days",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Notify Before (Days)"
+  },
+  {
+   "fieldname": "notify_after_days",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Notify After (Days)"
+  },
+  {
+   "fieldname": "role",
+   "fieldtype": "Link",
+   "label": "Role",
+   "options": "Role"
+  },
+  {
+   "fieldname": "message_before",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Message Before"
+  },
+  {
+   "fieldname": "column_break_rqnn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "field_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Field Name"
+  },
+  {
+   "fieldname": "filter",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Filter"
+  },
+  {
+   "fieldname": "message_after",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Message After"
+  },
+  {
+   "default": "0",
+   "fieldname": "active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Active"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-24 11:50:34.449462",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Notification Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

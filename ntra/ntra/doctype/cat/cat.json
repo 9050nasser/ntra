@@ -25,7 +25,8 @@
   {
    "fieldname": "cat",
    "fieldtype": "Data",
-   "label": "Cat"
+   "label": "Cat",
+   "translatable": 1
   },
   {
    "fieldname": "column_break_sezx",
@@ -67,7 +68,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-21 20:40:26.128735",
+ "modified": "2024-12-24 10:36:04.551831",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Cat",

@@ -87,7 +87,7 @@ def update_employee_trainings():
             if employee_skillmap:
                 courses_to_remove_skillmap = []
                 for course2 in employee_skillmap.custom_courses:
-                    if course2.course_assignment == assignment.training_course and course2.date == assignment.date:
+                    if course2.course_assignment == assignment.name and course2.date == assignment.date:
                         courses_to_remove_skillmap.append(course2)
 
                 if courses_to_remove_skillmap:
@@ -137,4 +137,5 @@ def get_designation_wise_employees(doctype, txt, searchfield, start, page_len, f
         LEFT JOIN `tabDesignations` d ON tc.name = d.parent
         WHERE FIND_IN_SET(%s, d.designation) > 0;
     """, (designation))
+
 

@@ -27,8 +27,8 @@ def create_task(goal_name, description, is_group, parent_goal, name, priority="M
         "priority": priority,
         "is_group": is_group,
         "parent_task": parent_task,
-        "exp_start_date": nowdate(),
-        "exp_end_date": add_days(nowdate(), 7),
+        # "exp_start_date": nowdate(),
+        # "exp_end_date": add_days(nowdate(), 7),
         "custom_objective": name
     })
     task.insert()
@@ -36,7 +36,7 @@ def create_task(goal_name, description, is_group, parent_goal, name, priority="M
 
 
 @frappe.whitelist()
-def create_edit_task(goal_name, description, employee, objective):
+def create_edit_task(goal_name, description, employee, objective, reason):
     rt_employee = frappe.db.get_value("Employee", employee, "reports_to")
     rt_id = frappe.db.get_value("Employee", rt_employee, "user_id")
     if not rt_id:
@@ -51,7 +51,8 @@ def create_edit_task(goal_name, description, employee, objective):
         "exp_start_date": nowdate(),
         "exp_end_date": add_days(nowdate(), 7),
         "custom_objective": objective,
-        "custom_is_edit": 1
+        "custom_is_edit": 1,
+        "custom_respon": reason
     })
     goal.insert()
     return goal.name

@@ -1,0 +1,122 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "prompt",
+ "creation": "2024-12-26 11:15:18.970008",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_iksf",
+  "disabled",
+  "section_break_inwe",
+  "effective_from",
+  "company",
+  "column_break_runz",
+  "currency",
+  "standard_tax_exemption_amount",
+  "allow_tax_exemption",
+  "amended_from",
+  "section_break_gxtu",
+  "taxable_salary"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_iksf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Stamp Tax",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  },
+  {
+   "fieldname": "section_break_inwe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "effective_from",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Effective from",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "column_break_runz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "company.default_currency",
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "standard_tax_exemption_amount",
+   "fieldtype": "Currency",
+   "label": "Standard Tax Exemption Amount"
+  },
+  {
+   "default": "0",
+   "description": "If enabled, Tax Exemption Declaration will be considered for income tax calculation.",
+   "fieldname": "allow_tax_exemption",
+   "fieldtype": "Check",
+   "label": "Allow Tax Exemption"
+  },
+  {
+   "fieldname": "section_break_gxtu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "taxable_salary",
+   "fieldtype": "Table",
+   "label": "Taxable Salary",
+   "options": "Taxable Salary Slab"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-12-26 11:22:25.793222",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Stamp Tax",
+ "naming_rule": "Set by user",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

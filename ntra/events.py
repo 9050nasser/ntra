@@ -99,11 +99,12 @@ def validate_leave_application(doc, method):
 
         # Calculate the difference in days
         diff = date_diff(current_date, leave_end_date)
-        notice_period = leave_type.custom_notice_period_for_leave_after_days_ or 2
-        if diff > notice_period and not doc.custom_is_an_exception:
-            frappe.throw(
-                f"Leave applications for {doc.leave_type} must be submitted within 2 days after the leave period ends."
-            )
+        notice_period = leave_type.custom_notice_period_for_leave_after_days_
+        if notice_period:
+            if diff > notice_period and not doc.custom_is_an_exception:
+                frappe.throw(
+                    f"Leave applications for {doc.leave_type} must be submitted within 2 days after the leave period ends."
+                )
 @frappe.whitelist()
 def is_death_leave(leave_type_name):
     leave_type = frappe.get_cached_doc('Leave Type', leave_type_name)
@@ -303,3 +304,91 @@ def append_sickleave(doc, method):
         })
     doc.save()
     frappe.db.commit()
+
+def update_ad_hocs_for_appraisals():
+    for doc in frappe.db.get_list("Appraisal", {"docstatus":0}):
+        ad_hoc_list = frappe.db.get_list("Task", [["status", "!=", "Completed"], ["custom_ad_hoc_task", "=", 1], ["custom_employee", "=", doc.employee]], ["name as task"])
+        doc = frappe.get_doc("Appraisal", doc.name)
+        doc.set("custom_ad_hoc_task", ad_hoc_list)
+        doc.save()
+
+import frappe
+import requests
+from frappe import _
+
+@frappe.whitelist(allow_guest=True)
+def translate_name_arabic_to_english(doc, method):
+    """
+    Translates the Arabic names (first, middle, last) of a document to English.
+    Calls the translation API and stores the translation in the custom fields and Names Translation DocType.
+    """
+    # Translating the Arabic names and storing them in the corresponding fields
+    translate_and_store_name(doc.first_name, doc, 'first_name')
+    translate_and_store_name(doc.middle_name, doc, 'middle_name')
+    translate_and_store_name(doc.last_name, doc, 'last_name')
+
+    # Combine and set the full name in English
+    english_fullname = f"{doc.custom_first_name_english or ''} {doc.custom_middle_name_english or ''} {doc.custom_last_name_english or ''}".strip()
+    doc.db_set("custom_full_name_english", english_fullname or "")
+
+def translate_and_store_name(original_name, doc, name_type):
+    """
+    Handles the translation of a single name part (first, middle, last) from Arabic to English.
+    If the translation already exists, it will be reused. Otherwise, the translation API is called.
+    """
+    if original_name:
+        # Check if translation already exists
+        existing_translation = frappe.db.get_value('Names Translation', {'arabic_name': original_name}, 'english_name')
+
+        if existing_translation:
+            # If the translation exists, use it and store it
+            doc.db_set(f'custom_{name_type}_english', existing_translation.strip())
+        else:
+            # If translation doesn't exist, call the translation API
+            translated_name = translate_using_api(original_name)
+            
+            if translated_name:
+                # Store the translation in the Names Translation DocType
+                store_translation(original_name.strip(), translated_name.strip())
+                # Set the translated name back to the document
+                doc.db_set(f'custom_{name_type}_english', translated_name.strip())
+            else:
+                # Log error if translation fails
+                frappe.log_error(f"Translation failed for {name_type}: {original_name}", _("Translation Error"))
+
+def translate_using_api(text):
+    """
+    Uses an external translation API to translate text from Arabic to English.
+    Returns the translated text or an empty string if the translation fails.
+    """
+    try:
+        # Construct the API URL and make the request
+        api_url = f"https://api.mymemory.translated.net/get?q={text}&langpair=ar|en"
+        response = requests.get(api_url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        
+        # Extract the translated text from the API response
+        translated_text = response.json().get('responseData', {}).get('translatedText', '').strip()
+        
+        return translated_text if translated_text else ""
+    
+    except requests.RequestException as e:
+        # Log the error for debugging
+        frappe.log_error(f"API request failed for translation of '{text}': {str(e)}", _("API Error"))
+        return None
+
+def store_translation(arabic_name, english_name):
+    """
+    Stores the translation in the 'Names Translation' DocType to reuse in future.
+    """
+    try:
+        # Create a new record in the Names Translation DocType
+        new_translation = frappe.get_doc({
+            'doctype': 'Names Translation',
+            'arabic_name': arabic_name,
+            'english_name': english_name
+        })
+        new_translation.insert()
+    except Exception as e:
+        # Log any errors that occur during the insert
+        frappe.log_error(f"Failed to store translation for '{arabic_name}': {str(e)}", _("Translation Storage Error"))

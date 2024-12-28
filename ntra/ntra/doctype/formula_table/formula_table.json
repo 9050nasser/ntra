@@ -1,0 +1,58 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-27 23:33:36.515454",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "formula",
+  "fieldname",
+  "calculate_cost_by_field_name",
+  "calculate_cost",
+  "add_to_formula"
+ ],
+ "fields": [
+  {
+   "fieldname": "formula",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Formula",
+   "options": "Formula"
+  },
+  {
+   "fetch_from": "formula.fieldname",
+   "fieldname": "fieldname",
+   "fieldtype": "Data",
+   "label": "Fieldname"
+  },
+  {
+   "fieldname": "calculate_cost_by_field_name",
+   "fieldtype": "Data",
+   "label": "Calculate Cost By Field Name"
+  },
+  {
+   "fieldname": "calculate_cost",
+   "fieldtype": "Data",
+   "label": "Calculate Cost"
+  },
+  {
+   "fieldname": "add_to_formula",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "label": "Add To Formula"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-27 23:49:45.083822",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Formula Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

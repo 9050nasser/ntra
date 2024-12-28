@@ -6,7 +6,8 @@
  "engine": "InnoDB",
  "field_order": [
   "course_assignment",
-  "date"
+  "date",
+  "cost"
  ],
  "fields": [
   {
@@ -21,12 +22,18 @@
    "fieldtype": "Date",
    "in_list_view": 1,
    "label": "Date"
+  },
+  {
+   "fetch_from": "course_assignment.enrollment_cost",
+   "fieldname": "cost",
+   "fieldtype": "Currency",
+   "label": "Cost"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-11-17 15:29:42.801272",
+ "modified": "2024-12-24 23:27:06.908613",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Course Assignment Table",

@@ -7,7 +7,11 @@ def make_employee(source_name, target_doc=None):
 	doc.validate_employee_creation()
 
 	def set_missing_values(source, target):
-		target.personal_email, target.employee_number, target.designation = frappe.db.get_value("Job Applicant", source.job_applicant, ["email_id", "phone_number", "designation"])
+		target.personal_email, phone_number, target.designation, job_opening = frappe.db.get_value("Job Applicant", source.job_applicant, ["email_id", "phone_number", "designation", "job_title"])
+		target.append("custom_phone_no", {"mobile": phone_number})
+		if not target.designation:
+			target.designation = source.designation
+		target.custom_contract_type, target.employment_type = frappe.db.get_value("Job Opening", job_opening, ["custom_job_type", "employment_type"])
 		target.status = "Active"
 		target.holiday_list = source.holiday_list
 		target.date_of_joining = source.date_of_joining

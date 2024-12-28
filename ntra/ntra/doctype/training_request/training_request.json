@@ -82,7 +82,7 @@
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Status",
-   "options": "Pending\nApproved\nOn Hold\nRejected"
+   "options": "Pending\nDirect Manager Approved\nManager Approved\nApproved\nOn Hold\nRejected"
   },
   {
    "fieldname": "details_section",
@@ -131,7 +131,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-23 09:08:53.639203",
+ "modified": "2024-12-24 20:09:37.666871",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Request",

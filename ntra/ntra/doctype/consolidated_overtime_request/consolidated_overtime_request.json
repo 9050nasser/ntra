@@ -1,0 +1,54 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-27 13:13:14.204959",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "overtime_request",
+  "overtime_hours",
+  "overtime_type",
+  "overtime_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "overtime_request",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Overtime Request",
+   "options": "Overtime Request"
+  },
+  {
+   "fieldname": "overtime_hours",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Overtime Hours"
+  },
+  {
+   "fieldname": "overtime_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Overtime Type",
+   "options": "Holiday Overtime\nWeekend Overtime\nNormal Overtime"
+  },
+  {
+   "fieldname": "overtime_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Overtime Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-27 13:20:53.959386",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Consolidated Overtime Request",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

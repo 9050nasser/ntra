@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "allow_copy": 1,
+ "creation": "2016-11-16 17:12:46.437539",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "column_break_kxpy",
+  "training_course",
+  "session",
+  "attendance",
+  "trainees_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "attendance",
+   "fieldtype": "Section Break",
+   "label": "Attendance"
+  },
+  {
+   "fieldname": "column_break_kxpy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "training_course",
+   "fieldtype": "Link",
+   "label": "Training Course",
+   "options": "Training Course"
+  },
+  {
+   "fieldname": "trainees_html",
+   "fieldtype": "HTML",
+   "label": "Trainees HTML"
+  },
+  {
+   "fieldname": "session",
+   "fieldtype": "Link",
+   "label": "Session",
+   "options": "Training Session"
+  }
+ ],
+ "hide_toolbar": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-12-27 21:54:10.135809",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Course Attendance Tool",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "read": 1,
+   "role": "Administrator",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

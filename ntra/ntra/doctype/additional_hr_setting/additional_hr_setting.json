@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-25 12:28:16.721010",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enable_absence_auto_processing",
+  "first_fallback_leave_type",
+  "second_fallback_leave_type",
+  "max_day_per_month"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "enable_absence_auto_processing",
+   "fieldtype": "Check",
+   "label": "Enable Absence Auto Processing"
+  },
+  {
+   "fieldname": "first_fallback_leave_type",
+   "fieldtype": "Link",
+   "label": "First Fallback Leave Type",
+   "options": "Leave Type"
+  },
+  {
+   "fieldname": "second_fallback_leave_type",
+   "fieldtype": "Link",
+   "label": "Second Fallback Leave Type",
+   "options": "Leave Type"
+  },
+  {
+   "default": "0",
+   "fieldname": "max_day_per_month",
+   "fieldtype": "Int",
+   "label": "Max Day Per Month For Casual"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-12-28 11:28:01.273494",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Additional HR Setting",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

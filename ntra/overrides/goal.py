@@ -63,10 +63,10 @@ class CustomGoal(NestedSet):
 		if not parent_details:
 			return
 
-		if self.employee != parent_details.employee:
-			frappe.throw(
-				_("Goal should be owned by the same employee as its parent goal."), title=_("Not Allowed")
-			)
+		# if self.employee != parent_details.employee:
+		# 	frappe.throw(
+		# 		_("Goal should be owned by the same employee as its parent goal."), title=_("Not Allowed")
+		# 	)
 		if self.kra != parent_details.kra:
 			frappe.throw(
 				_("Goal should be aligned with the same KRA as its parent goal."), title=_("Not Allowed")
@@ -171,7 +171,11 @@ def get_children(doctype: str, parent: str, is_root: bool = False, **filters) ->
 	elif parent and not is_root:
 		# via expand child
 		query = query.where(Goal.parent_goal == parent)
-	else:
+		#NEW
+	elif filters.get("employee"):
+		ifnull = CustomFunction("IFNULL", ["value", "default"])
+		query = query.where(ifnull(Goal.parent_goal, "") != "")
+	elif is_root:
 		ifnull = CustomFunction("IFNULL", ["value", "default"])
 		query = query.where(ifnull(Goal.parent_goal, "") == "")
 

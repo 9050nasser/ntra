@@ -1,18 +1,20 @@
-
 {% if not jQuery.isEmptyObject(data) %}
 <table class="table table-bordered small">
 	<thead>
 		<tr>
 			<th class="text-center">{{ __("Training Courses") }}</th>
 			<th class="text-center">{{ __("Date") }}</th>
+			<th class="text-center">{{ __("Cost") }}</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for(const [key, value] of Object.entries(data)) { %}
-			<tr>
-				<td class="text-center"> {%= value["course_assignment"] %} </td>
-				<td class="text-center"> {%= value["date"] %} </td>
-			</tr>
+		<tr>
+			<td class="text-center"> {%= value["course_assignment"] %} </td>
+			<td class="text-center"> {%= value["date"] %} </td>
+			<td class="text-center"> {%= frappe.format(value["cost"], { fieldtype: 'Currency', options: 'currency' }, {
+				inline: true })%} </td>
+		</tr>
 		{% } %}
 	</tbody>
 </table>

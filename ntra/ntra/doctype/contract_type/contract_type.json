@@ -1,0 +1,61 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:contract_type",
+ "creation": "2024-12-24 20:35:19.460311",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "contract_type",
+  "begins_with",
+  "ends_with",
+  "current_number"
+ ],
+ "fields": [
+  {
+   "fieldname": "contract_type",
+   "fieldtype": "Data",
+   "label": "Contract Type",
+   "options": "Employee",
+   "unique": 1
+  },
+  {
+   "fieldname": "begins_with",
+   "fieldtype": "Int",
+   "label": "Begins with\t"
+  },
+  {
+   "fieldname": "ends_with",
+   "fieldtype": "Int",
+   "label": "Ends with"
+  },
+  {
+   "fieldname": "current_number",
+   "fieldtype": "Int",
+   "label": "Current Number"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-24 20:43:15.058374",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Contract Type",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

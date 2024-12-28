@@ -48,7 +48,10 @@ doctype_js = {"Job Applicant" : "public/js/job_applicant.js",
             "Employee": "public/js/employee.js",
             "Goal": "public/js/goal.js",
             "Leave Application": "public/js/leave_application.js",
-            "Task":"public/js/task.js"}
+            "Task":"public/js/task.js",
+            "Appraisal":"public/js/appraisal.js",
+            "Payroll Entry":"public/js/payroll_entry.js",
+            "Salary Component":"public/js/salary_component.js",}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 doctype_tree_js = {"Goal" : "public/js/goal_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -138,6 +141,9 @@ override_doctype_class = {
 	"Goal": "ntra.overrides.goal.CustomGoal",
     "Leave Application":"ntra.overrides.leave_application.CustomLeaveApplication",
     "Salary Slip":"ntra.overrides.salary_slip.CustomSalarySlip",
+    "Overtime Request": "ntra.overrides.overtime_request.CustomOvertimeRequest",
+    "Payroll Entry": "ntra.overrides.payroll_entry.CustomPayrollEntry",
+    "Salary Structure Assignment": "ntra.overrides.salary_structure_assignment.CustomSalaryStructureAssignment",
 }
 
 # Document Events
@@ -152,7 +158,9 @@ doc_events = {
 		"validate": "ntra.events.calculate_rating2",
 	},
     "Employee": {
-		"validate": "ntra.events.validate_employee",
+		"validate": ["ntra.events.validate_employee",
+                     "ntra.events.translate_name_arabic_to_english"],
+        "before_insert": "ntra.event.employee.validate"
 	},
     "Goal": {
 		"validate":[ 
@@ -163,8 +171,8 @@ doc_events = {
         "after_insert": "ntra.events.create_task",
 	},
     "Leave Application": {
-        "validate": ["ntra.events.validate_maternity_leave","ntra.events.leave_without_pay","ntra.event.leave_application.validate_maximum_leaves_time"],
-        "on_submit": ["ntra.events.validate_attachment","ntra.events.calculate_sick_leave_salary","ntra.events.validate_leave_application" ],
+        "validate": ["ntra.events.validate_maternity_leave","ntra.events.leave_without_pay","ntra.event.leave_application.validate_maximum_leaves_time","ntra.events.validate_leave_application"],
+        "on_submit": ["ntra.events.validate_attachment","ntra.events.calculate_sick_leave_salary" ],
         # "validate": "ntra.events.leave_without_pay",
         # "on_submit": "ntra.events.calculate_sick_leave_salary",
         # "validate": "ntra.event.leave_application.validate_maximum_leaves_time",
@@ -174,7 +182,7 @@ doc_events = {
     },
     "Attendance": {
         "after_insert": "ntra.event.attendance.validate_attendance",
-        "on_submit": "ntra.event.attendance.security_shift"
+        "on_submit": ["ntra.event.attendance.security_shift", "ntra.event.attendance.calculate_employee_record"],
                         
 	},
     "Purchase Invoice": {
@@ -194,7 +202,8 @@ scheduler_events = {
 	# ],
 	"daily": [
 		"ntra.api.update_employee_trainings",
-        "ntra.events.auto_approve_pending_leaves"
+        "ntra.events.auto_approve_pending_leaves",
+        "ntra.events.update_ad_hocs_for_appraisals"
 	],
 	# "hourly": [
 	# 	"ntra.tasks.hourly"

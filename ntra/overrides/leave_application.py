@@ -139,14 +139,15 @@ class CustomLeaveApplication(LeaveApplication):
         else:
             from_date = self.from_date
             to_date = self.to_date
-            difference_in_days = date_diff(self.to_date, self.from_date)
+            difference_in_days = date_diff(self.to_date, self.from_date) + 1
             unpaid_day=0
             total_leave_days = self.total_leave_days
             if difference_in_days > leave_type.custom_leave_period_paid:
                 unpaid_day = difference_in_days - leave_type.custom_leave_period_paid
                 self.total_leave_days = leave_type.custom_leave_period_paid
-                self.to_date = add_days(self.to_date, -1 * unpaid_day)
+                self.to_date = add_days(self.to_date, -1 * (unpaid_day))
                 # 
+                # frappe.msgprint(f"{self.from_date} {self.to_date}")
                 expiry_date = get_allocation_expiry_for_cf_leaves(
                 self.employee, self.leave_type, self.to_date, self.from_date
                     )
@@ -177,12 +178,13 @@ class CustomLeaveApplication(LeaveApplication):
             if unpaid_day:
                 self.total_leave_days = unpaid_day
                 self.to_date = to_date
-                self.from_date = add_days(self.from_date, leave_type.custom_leave_period_paid + 1)
+                self.from_date = add_days(self.from_date, leave_type.custom_leave_period_paid)
                 # frappe.throw(f"{self.from_date} {self.to_date}")
                 expiry_date = get_allocation_expiry_for_cf_leaves(
                 self.employee, self.leave_type, self.to_date, self.from_date
                     )
                 lwp = 1
+                # frappe.msgprint(f"{self.from_date} {self.to_date}")
                 if expiry_date:
                     self.create_ledger_entry_for_intermediate_allocation_expiry(expiry_date, submit, lwp)
                 else:
@@ -263,13 +265,14 @@ class CustomLeaveApplication(LeaveApplication):
         else:
             from_date = self.from_date
             to_date = self.to_date
-            difference_in_days = date_diff(self.to_date, self.from_date)
+            difference_in_days = date_diff(self.to_date, self.from_date) + 1
             unpaid_day=0
             total_leave_days = self.total_leave_days
             if difference_in_days > leave_type.custom_leave_period_paid:
                 unpaid_day = difference_in_days - leave_type.custom_leave_period_paid
                 self.total_leave_days = leave_type.custom_leave_period_paid
                 self.to_date = add_days(self.to_date, -1 * unpaid_day)
+                frappe.msgprint(f"{self.from_date} {self.to_date}")
                 for dt in daterange(getdate(self.from_date), getdate(self.to_date)):
                     date = dt.strftime("%Y-%m-%d")
                     attendance_name = frappe.db.exists(
@@ -292,7 +295,8 @@ class CustomLeaveApplication(LeaveApplication):
             if unpaid_day:
                 self.total_leave_days = unpaid_day
                 self.to_date = to_date
-                self.from_date = add_days(self.from_date, leave_type.custom_leave_period_paid + 1)
+                self.from_date = add_days(self.from_date, leave_type.custom_leave_period_paid)
+                frappe.msgprint(f"{self.from_date} {self.to_date}")
                 for dt in daterange(getdate(self.from_date), getdate(self.to_date)):
                     date = dt.strftime("%Y-%m-%d")
                     attendance_name = frappe.db.exists(

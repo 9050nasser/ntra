@@ -223,7 +223,7 @@
  "modified": "2024-12-23 21:06:51.068707",
  "modified_by": "Administrator",
  "module": "Ntra",
- "name": "Objective",
+ "name": "Objectives",
  "naming_rule": "Expression",
  "nsm_parent_field": "parent_objective",
  "owner": "Administrator",
