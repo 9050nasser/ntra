@@ -7,24 +7,21 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_eyky",
-  "clearance_for",
   "employee",
   "applicant_name",
+  "date",
   "phone_number",
-  "email_address",
-  "attach",
-  "security_check",
   "job_applicant",
   "amended_from",
-  "column_break_ogen",
-  "date",
-  "expiration_date",
-  "approval_date",
-  "type",
-  "designation",
   "status",
-  "section_break_mfhl",
-  "table_wtbk",
+  "column_break_ogen",
+  "clearance_for",
+  "type",
+  "approval_date",
+  "email_address",
+  "expiration_date",
+  "designation",
+  "attach",
   "feedback_section",
   "clearance_feedback"
  ],
@@ -137,32 +134,17 @@
    "options": "Job Applicant"
   },
   {
-   "description": "If No",
-   "fieldname": "security_check",
-   "fieldtype": "Date",
-   "label": "Security Check"
-  },
-  {
    "description": "If Yes",
    "fieldname": "approval_date",
    "fieldtype": "Date",
    "label": "Approval Date"
-  },
-  {
-   "fieldname": "section_break_mfhl",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "table_wtbk",
-   "fieldtype": "Table",
-   "options": "Security Approvals"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-28 13:47:35.603478",
+ "modified": "2024-12-28 23:32:33.042807",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Security Clearance",
