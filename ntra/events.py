@@ -1,7 +1,7 @@
 import frappe
 from frappe import _
 from datetime import datetime
-from frappe.utils import today
+from frappe.utils import today, add_days, nowdate
 from frappe.desk.form import assign_to
 from frappe.utils import add_to_date, today, date_diff, getdate
 
@@ -392,3 +392,19 @@ def store_translation(arabic_name, english_name):
     except Exception as e:
         # Log any errors that occur during the insert
         frappe.log_error(f"Failed to store translation for '{arabic_name}': {str(e)}", _("Translation Storage Error"))
+
+
+def proccess_contract_renewal():
+    """
+    making contract renewal documents for (contracts) contracts
+    """
+    list_of_contracts = frappe.db.get_list("Contracts", {"docstatus": 1, "document_status": "Approved", "end": ["<=", add_days(nowdate(), 30)]}, ["name", "employee"])
+    for contract in list_of_contracts:
+        if not frappe.get_value("Contract Renewal", {"employee_contract": contract.name}):
+            frappe.get_doc(dict(
+                doctype = "Contract Renewal",
+                employee = contract.employee,
+                date = nowdate(),
+                status = "Awaiting Response",
+                employee_contract = contract.name
+            )).insert()

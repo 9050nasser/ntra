@@ -1,0 +1,65 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{bonus}",
+ "creation": "2024-12-29 14:14:18.845602",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "bonus",
+  "column_break_krkp",
+  "percentage",
+  "column_break_kjok",
+  "amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "bonus",
+   "fieldtype": "Data",
+   "label": "Bonus"
+  },
+  {
+   "fieldname": "column_break_krkp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "percentage",
+   "fieldtype": "Percent",
+   "label": "Percentage"
+  },
+  {
+   "fieldname": "column_break_kjok",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-31 00:47:01.859127",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Bonus",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

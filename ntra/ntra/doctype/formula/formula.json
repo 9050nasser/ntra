@@ -1,6 +1,5 @@
 {
  "actions": [],
- "allow_rename": 1,
  "autoname": "field:fieldname",
  "creation": "2024-12-27 21:50:59.765865",
  "doctype": "DocType",
@@ -25,7 +24,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-28 00:42:20.325013",
+ "modified": "2025-01-01 00:15:42.372203",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Formula",

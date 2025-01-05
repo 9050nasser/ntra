@@ -12,19 +12,32 @@ class CourseAttendanceTool(Document):
 
 
 @frappe.whitelist()
-def get_student_attendance_records(training_course, date, session):
-	employees = frappe.db.get_list("Course Assignment", {"training_course": training_course}, ["name as parent", "employee as name", "employee_name", "'Absent' as Status"])
-	students = []
-	for employee in employees:
-		if frappe.db.get_value("Session Assignment", {"date": date, "parent": employee.parent, "training_session": session}, ["name"]):
-			employee.status = frappe.db.get_value("Session Assignment", {"date": date, "parent": employee.parent, "training_session": session}, ["attendance"])
-			students.append(employee)
+def get_student_attendance_records(date, training_course = None, session = None, employee = None):
+	conditions = ""
+	if training_course:
+		conditions += f" AND p.training_course = \"{training_course}\" "
+	if session:
+		conditions += f" AND c.training_session = \"{session}\" "
+	if employee:
+		conditions += f" AND p.employee = \"{employee}\" "
+	students = frappe.db.sql(f"""
+			SELECT
+				c.attendance as status,
+				c.name as parent,
+				p.employee as name, 
+				p.employee_name,
+				c.training_session as session,
+				p.training_course as course
+			From `tabSession Assignment` c
+			INNER JOIN `tabCourse Assignment` p ON c.parent = p.name
+			where c.date ="{date}" {conditions}
+	""", as_dict=True)
 	return students
 
 @frappe.whitelist()
-def mark_student_present_or_absent(date, session, students):
-	students = json.loads(students)
-	for student in students:
-		frappe.db.set_value("Session Assignment", {"date": date, "parent": student['parent'], "training_session": session}, "attendance", "Present" if student['checked'] else "Absent")
+def mark_student_present_or_absent(session_names):
+	cnames = json.loads(session_names)
+	for cname in cnames:
+		frappe.db.set_value("Session Assignment", cname["name"], "attendance", "Present" if cname['checked'] else "Absent")
 	
 	return 

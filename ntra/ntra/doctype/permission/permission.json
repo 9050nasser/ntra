@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "P-.####",
  "creation": "2024-12-08 12:14:31.102714",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -14,7 +15,8 @@
   "posting_date",
   "permission_type",
   "status",
-  "reason"
+  "reason",
+  "amended_from"
  ],
  "fields": [
   {
@@ -24,6 +26,7 @@
   {
    "fieldname": "employee",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Employee",
    "options": "Employee"
   },
@@ -56,6 +59,7 @@
    "fieldname": "permission_type",
    "fieldtype": "Link",
    "label": "Permission Type",
+   "link_filters": "[[\"Permission Type\",\"disable\",\"=\",0]]",
    "options": "Permission Type"
   },
   {
@@ -68,15 +72,26 @@
    "fieldname": "reason",
    "fieldtype": "Small Text",
    "label": "Reason"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Permission",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-08 12:18:07.244790",
+ "modified": "2024-12-31 10:15:49.986980",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Permission",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

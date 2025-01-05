@@ -8,25 +8,37 @@
  "engine": "InnoDB",
  "field_order": [
   "city",
-  "governorate"
+  "governorate",
+  "city_code"
  ],
  "fields": [
   {
    "fieldname": "city",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "City",
+   "reqd": 1,
    "unique": 1
   },
   {
    "fieldname": "governorate",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Governorate",
-   "options": "Governorate"
+   "options": "Governorate",
+   "reqd": 1
+  },
+  {
+   "fieldname": "city_code",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "City Code",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-11-26 13:38:17.428064",
+ "modified": "2025-01-04 18:21:29.050488",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "City",

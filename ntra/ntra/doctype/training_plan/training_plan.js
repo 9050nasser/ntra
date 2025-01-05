@@ -73,7 +73,7 @@ frappe.ui.form.on("Training Plan", {
                 }
             }, __("Actions"));
 
-            frm.add_custom_button(__('Request for Quotation'), function () {
+            frm.add_custom_button(__('Material Request'), function () {
                 frappe.prompt([
                     {
                         label: 'Supplier',
@@ -98,21 +98,23 @@ frappe.ui.form.on("Training Plan", {
                     }
 
                     // Create a new Request for Quotation document
-                    let rq = frappe.model.get_new_doc("Request for Quotation");
+                    let rq = frappe.model.get_new_doc("Material Request");
 
                     if (!rq) {
                         frappe.msgprint({
                             title: __('Error'),
                             indicator: 'red',
-                            message: __('Unable to create a new Request for Quotation.')
+                            message: __('Unable to create a new Material Request.')
                         });
                         return;
                     }
 
                     // Populate the items table
                     rq.items = [];
-                    rq.suppliers = [{ supplier: values.supplier }];
+                    // rq.suppliers = [{ supplier: values.supplier }];
                     rq.custom_training_plan = frm.doc.name;
+                    rq.transaction_date = frm.doc.from_date;
+                    rq.schedule_date= frm.doc.from_date;
                     let invalid_rows = []; // Track rows with invalid data
 
                     frm.doc.table_tqgd.forEach(row => {
@@ -129,8 +131,8 @@ frappe.ui.form.on("Training Plan", {
                                 conversion_factor: 1,
                                 schedule_date: frm.doc.from_date
                             });
-                            rq.transaction_date = values.date;
-                            rq.message_for_supplier = "Please supply the specified items at the best possible rates"
+                            // rq.transaction_date = values.date;
+                            // rq.message_for_supplier = "Please supply the specified items at the best possible rates"
                         }
                     });
 
@@ -151,7 +153,7 @@ frappe.ui.form.on("Training Plan", {
                         frappe.msgprint({
                             title: __('Error'),
                             indicator: 'red',
-                            message: __('No valid items found for the RFQ.')
+                            message: __('No valid items found for the MR.')
                         });
                         return;
                     }
@@ -166,12 +168,12 @@ frappe.ui.form.on("Training Plan", {
                             if (response.message) {
                                 let new_rfq_name = response.message.name;
                                 // Route to the new document for review
-                                frappe.set_route("Form", "Request for Quotation", new_rfq_name);
+                                frappe.set_route("Form", "Material Request", new_rfq_name);
                             } else {
                                 frappe.msgprint({
                                     title: __('Error'),
                                     indicator: 'red',
-                                    message: __('Failed to create the Request for Quotation.')
+                                    message: __('Failed to create the Material Request.')
                                 });
                             }
                         }

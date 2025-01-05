@@ -1,0 +1,74 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{bonus}",
+ "creation": "2024-12-29 12:31:05.902386",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "bonus",
+  "percentage",
+  "amount",
+  "from",
+  "to"
+ ],
+ "fields": [
+  {
+   "fieldname": "bonus",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Bonus",
+   "translatable": 1
+  },
+  {
+   "fieldname": "percentage",
+   "fieldtype": "Percent",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Percentage"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount"
+  },
+  {
+   "fieldname": "from",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "From"
+  },
+  {
+   "fieldname": "to",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "To"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-29 14:11:37.108221",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Bonus Table",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

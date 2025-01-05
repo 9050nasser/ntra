@@ -139,3 +139,12 @@ def get_designation_wise_employees(doctype, txt, searchfield, start, page_len, f
     """, (designation))
 
 
+@frappe.whitelist()
+def cancel(doctype, name):
+    # Example logic: Fetch employees based on a designation filter
+   try:
+        doc = frappe.get_doc(doctype, name)
+        doc.cancel()
+        return {"status": "success", "message": f"{name} cancelled successfully."}
+   except  Exception as e:
+        return {"status": "error", "message": str(e)}

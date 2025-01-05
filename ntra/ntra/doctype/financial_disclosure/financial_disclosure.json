@@ -1,0 +1,78 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-31 10:40:31.602779",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "received_date",
+  "disclosure_type",
+  "column_break_oghc",
+  "receiver_name",
+  "section_break_qqni",
+  "financial_disclosure_status",
+  "ministry_of_justice_comments"
+ ],
+ "fields": [
+  {
+   "fieldname": "received_date",
+   "fieldtype": "Date",
+   "label": "Received Date "
+  },
+  {
+   "fieldname": "column_break_oghc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "receiver_name",
+   "fieldtype": "Link",
+   "label": "Receiver Name",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "disclosure_type",
+   "fieldtype": "Int",
+   "label": "Disclosure Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_qqni",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "financial_disclosure_status",
+   "fieldtype": "Table",
+   "label": "Financial Disclosure Status",
+   "options": "Financial Disclosure Table"
+  },
+  {
+   "fieldname": "ministry_of_justice_comments",
+   "fieldtype": "Small Text",
+   "label": "Ministry Of Justice Comments "
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-31 10:51:55.418115",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Financial Disclosure",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,41 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "FD-.####",
+ "creation": "2024-12-31 10:47:16.501599",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ministry_justice_status",
+  "date"
+ ],
+ "fields": [
+  {
+   "fieldname": "ministry_justice_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Ministry Justice Status",
+   "options": "Paid\nReviewed\nSaved"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-31 10:54:06.924879",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Financial Disclosure Table",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

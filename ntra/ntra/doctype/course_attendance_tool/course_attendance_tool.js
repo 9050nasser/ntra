@@ -11,19 +11,19 @@ frappe.ui.form.on('Course Attendance Tool', {
 	},
 
 	student_group: function(frm) {
-		if (frm.doc.date && frm.doc.training_course && frm.doc.session) {
+		if (frm.doc.date) {
+			let args = {
+				date: frm.doc.date,
+				...(frm.doc.session && { session: frm.doc.session }),
+				...(frm.doc.training_course && { training_course: frm.doc.training_course }),
+				...(frm.doc.employee && { employee: frm.doc.employee }),
+			};
 			frm.students_area.find('.student-attendance-checks').html(`<div style='padding: 2rem 0'>Fetching...</div>`);
 			var method = "ntra.ntra.doctype.course_attendance_tool.course_attendance_tool.get_student_attendance_records";
-			console.log("working from student group")
 			frappe.call({
 				method: method,
-				args: {
-					training_course: frm.doc.training_course,
-					date: frm.doc.date,
-					session: frm.doc.session
-				},
+				args,
 				callback: function(r) {
-					console.log(r.message)
 					frm.events.get_students(frm, r.message);
 				}
 			})
@@ -40,6 +40,9 @@ frappe.ui.form.on('Course Attendance Tool', {
 		frm.trigger("student_group");
 	},
 	session: function(frm) {
+		frm.trigger("student_group");
+	},
+	employee: function(frm) {
 		frm.trigger("student_group");
 	},
 	get_students: function(frm, students) {
@@ -101,9 +104,10 @@ class StudentsEditor {
 						student_name: $check.data().studentName,
 						disabled: $check.prop("disabled"),
 						checked: $check.is(":checked"),
-						parent: $check.data().studentAssignment
+						name: $check.data().studentAssignment
 					});
 				});
+
 
 				var students_present = studs.filter(function(stud) {
 					return !stud.disabled && stud.checked;
@@ -122,9 +126,7 @@ class StudentsEditor {
 								freeze: true,
 								freeze_message: __("Marking attendance"),
 								args: {
-									date: frm.doc.date,
-									session: frm.doc.session,
-									students: studs
+									session_names: studs.map((stud=>{return {name: stud.name, checked: stud.checked}}))
 								},
 								callback: function(r) {
 									$(me.wrapper.find(".btn-mark-att")).attr("disabled", false);
@@ -142,7 +144,9 @@ class StudentsEditor {
 		// make html grid of students
 		let student_html = '';
 		for (let student of students) {
-			student_html += `<div class="col-sm-3">
+			let session = (!frm.doc.session)?`(Session:${student.session})`:"";
+			let course = (!frm.doc.training_course)?`(Course: ${student.course})`:"";
+			student_html += `<div class="col-sm-5">
 					<div class="checkbox">
 						<label>
 							<input
@@ -152,7 +156,7 @@ class StudentsEditor {
 								data-student-assignment="${student.parent}"
 								class="students-check"
 								${student.status==='Present' ? 'checked' : ''}>
-							${student.employee_name}
+							${student.employee_name} ${course} ${session}
 						</label>
 					</div>
 				</div>`;

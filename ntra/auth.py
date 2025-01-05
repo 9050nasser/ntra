@@ -13,6 +13,7 @@ def app_login(usr,pwd):
 		user = login_manager.user
 		frappe.response['key_details'] = generate_key(user)
 		frappe.response['user_details'] = get_user_details(user)
+		frappe.response['employee_id'] = get_employee_details()
 	else:
 		return False
 	
@@ -34,3 +35,10 @@ def get_user_details(user):
 	user_details = frappe.get_all("User",filters={"name":user},fields=["name","first_name","last_name","email","mobile_no","gender","role_profile_name"])
 	if user_details:
 		return user_details
+	
+def get_employee_details():
+	if not frappe.db.exists("Employee",{"user_id":frappe.session.user}):
+		return "No Employee Found"
+	employee_id = frappe.get_doc("Employee",{"user_id":frappe.session.user},"name")
+	if employee_id:
+		return employee_id.name

@@ -16,7 +16,8 @@
   "amount",
   "section_break_bmfe",
   "overtime_requests",
-  "amended_from"
+  "amended_from",
+  "consolidation_document"
  ],
  "fields": [
   {
@@ -85,12 +86,19 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "consolidation_document",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "consolidation_document",
+   "options": "Overtime Consolidation Tool"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-27 17:53:19.485731",
+ "modified": "2024-12-31 11:19:48.376590",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Consolidated Overtime",

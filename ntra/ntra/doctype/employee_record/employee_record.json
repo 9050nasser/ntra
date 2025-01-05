@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "ER-.####",
  "creation": "2024-12-25 21:31:49.716545",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -8,13 +9,17 @@
   "section_break_sbkr",
   "amended_from",
   "employee",
-  "date",
   "start_time",
   "end_time",
-  "duration",
   "type",
+  "permission_type",
+  "mission_type",
+  "status",
+  "column_break_mmai",
+  "date",
+  "duration",
   "reason",
-  "status"
+  "attendance"
  ],
  "fields": [
   {
@@ -40,6 +45,7 @@
   {
    "fieldname": "date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Date"
   },
   {
@@ -55,13 +61,16 @@
   {
    "fieldname": "duration",
    "fieldtype": "Duration",
+   "in_list_view": 1,
    "label": "Duration "
   },
   {
    "fieldname": "type",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Type",
-   "options": "Mission\nPermission\nSick Other"
+   "options": "\nMission\nPermission",
+   "reqd": 1
   },
   {
    "fieldname": "reason",
@@ -73,15 +82,42 @@
    "fieldtype": "Select",
    "label": "Status",
    "options": "Pending\nApproved\nRejected"
+  },
+  {
+   "fieldname": "column_break_mmai",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.type==\"Permission\"",
+   "fieldname": "permission_type",
+   "fieldtype": "Link",
+   "label": "Permission Type",
+   "mandatory_depends_on": "eval:doc.type==\"Permission\"",
+   "options": "Permission Type"
+  },
+  {
+   "depends_on": "eval:doc.type==\"Mission\"",
+   "fieldname": "mission_type",
+   "fieldtype": "Select",
+   "label": "Mission Type",
+   "mandatory_depends_on": "eval:doc.type==\"Mission\"",
+   "options": "\nHours\nDays"
+  },
+  {
+   "fieldname": "attendance",
+   "fieldtype": "Link",
+   "label": "Attendance",
+   "options": "Attendance"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-25 21:35:32.622160",
+ "modified": "2025-01-02 01:22:38.403065",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Employee Record",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
