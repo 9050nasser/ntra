@@ -7,7 +7,7 @@ from frappe.model.document import Document
 
 class CourseCosting(Document):
 	def validate(self):
-		# self.calculate_totals()
+		# self.calculate_totals() 
 		pass
 
 	def calculate_totals(self):
