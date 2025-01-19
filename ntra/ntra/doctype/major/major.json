@@ -1,0 +1,82 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:name1",
+ "creation": "2025-01-16 14:37:41.765051",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "major",
+  "column_break_lhsj",
+  "main_major",
+  "sub_major",
+  "section_break_dwti",
+  "description"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "depends_on": "eval:doc.main_major==1",
+   "fieldname": "major",
+   "fieldtype": "Link",
+   "label": "Major",
+   "options": "Major"
+  },
+  {
+   "fieldname": "column_break_lhsj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "main_major",
+   "fieldtype": "Check",
+   "label": "Main Major"
+  },
+  {
+   "default": "0",
+   "fieldname": "sub_major",
+   "fieldtype": "Check",
+   "label": "Sub Major"
+  },
+  {
+   "fieldname": "section_break_dwti",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-01-16 14:54:22.744019",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Major",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

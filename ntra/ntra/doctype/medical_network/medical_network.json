@@ -22,6 +22,7 @@
   "website",
   "location_link",
   "status",
+  "phone_number",
   "section_break_jncu",
   "phone",
   "branches",
@@ -150,12 +151,17 @@
    "fieldtype": "Table",
    "label": "Branches",
    "options": "Branches Medical Network"
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Phone",
+   "label": "Phone Number"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-19 23:45:00.265387",
+ "modified": "2025-01-18 21:00:06.578633",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Medical Network",

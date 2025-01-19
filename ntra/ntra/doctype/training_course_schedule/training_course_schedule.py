@@ -6,8 +6,8 @@ from frappe.model.document import Document
 
 
 class TrainingCourseSchedule(Document):
-	def validate(self):
-		self.make_assignment()
+	# def validate(self):
+	# 	self.make_assignment()
 	
 	def make_assignment(self):
         # Fetch the training plan document

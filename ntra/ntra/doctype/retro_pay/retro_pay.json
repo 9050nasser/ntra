@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:naming_series",
+ "creation": "2025-01-10 03:23:14.378059",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_yuyl",
+  "from_date",
+  "employee",
+  "employee_joining_date",
+  "uncalculated_days",
+  "posting_date",
+  "column_break_psks",
+  "to_date",
+  "employee_name",
+  "first_salary_date",
+  "actual_working_days",
+  "retro_pay_amount",
+  "salary_details_section",
+  "cat",
+  "amended_from",
+  "naming_series",
+  "column_break_wozs",
+  "net_salary"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_yuyl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_psks",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uncalculated_days",
+   "fieldtype": "Float",
+   "label": "Uncalculated Days"
+  },
+  {
+   "fieldname": "actual_working_days",
+   "fieldtype": "Float",
+   "label": "Actual Working Days"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Retro Pay",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "employee.date_of_joining",
+   "fieldname": "employee_joining_date",
+   "fieldtype": "Date",
+   "label": "Employee Joining Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "salary_details_section",
+   "fieldtype": "Section Break",
+   "label": "Salary Details"
+  },
+  {
+   "fetch_from": "employee.custom_cat",
+   "fieldname": "cat",
+   "fieldtype": "Link",
+   "label": "Cat",
+   "options": "Cat",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_wozs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee.custom_net_salary",
+   "fieldname": "net_salary",
+   "fieldtype": "Currency",
+   "label": "Net Salary",
+   "read_only": 1
+  },
+  {
+   "default": "RP-",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Naming Series",
+   "options": "RP-"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "fieldname": "retro_pay_amount",
+   "fieldtype": "Currency",
+   "label": "Retro Pay Amount"
+  },
+  {
+   "fieldname": "first_salary_date",
+   "fieldtype": "Date",
+   "label": "First Salary Date"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-01-10 04:07:02.743954",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Retro Pay",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

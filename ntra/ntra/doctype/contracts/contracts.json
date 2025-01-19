@@ -1,0 +1,310 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "EC-.####",
+ "creation": "2024-12-26 00:29:56.803557",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_kkkm",
+  "employee",
+  "contract_reference",
+  "status",
+  "column_break_afgo",
+  "document_status",
+  "type",
+  "amended_from",
+  "active_dates_section",
+  "start",
+  "column_break_dwya",
+  "end",
+  "period_of_service_dates_section",
+  "from",
+  "column_break_wtti",
+  "to",
+  "section_break_rkmy",
+  "duration",
+  "start_reason",
+  "contractor_job",
+  "column_break_akqc",
+  "units",
+  "end_reason",
+  "parties",
+  "section_break_nokz",
+  "extension_period",
+  "extension_reason",
+  "column_break_qhdq",
+  "unit",
+  "number_of_extension",
+  "effective_dates_section",
+  "from_date",
+  "column_break_rhny",
+  "to_date",
+  "section_break_cuey",
+  "description",
+  "section_break_oavn",
+  "more_information"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_kkkm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Contracts",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_afgo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Draft",
+   "fieldname": "document_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Document Status",
+   "options": "Draft\nSubmitted\nApproved\nRejected\nCompleted\nCancelled\nOn Hold",
+   "reqd": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Link",
+   "label": "Contract Type",
+   "options": "Contracts Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "active_dates_section",
+   "fieldtype": "Section Break",
+   "label": "Active Dates"
+  },
+  {
+   "fieldname": "start",
+   "fieldtype": "Date",
+   "label": "Start",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_dwya",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "end",
+   "fieldtype": "Date",
+   "label": "End",
+   "reqd": 1
+  },
+  {
+   "fieldname": "period_of_service_dates_section",
+   "fieldtype": "Section Break",
+   "label": "Period Of Service Dates"
+  },
+  {
+   "fetch_from": "employee.date_of_joining",
+   "fieldname": "from",
+   "fieldtype": "Date",
+   "label": "From"
+  },
+  {
+   "fieldname": "column_break_wtti",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "to",
+   "fieldtype": "Date",
+   "label": "To"
+  },
+  {
+   "fieldname": "section_break_rkmy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Int",
+   "label": "Duration"
+  },
+  {
+   "fieldname": "start_reason",
+   "fieldtype": "Data",
+   "label": "Start Reason"
+  },
+  {
+   "fetch_from": "employee.designation",
+   "fieldname": "contractor_job",
+   "fieldtype": "Link",
+   "label": "Contractual Job",
+   "options": "Designation"
+  },
+  {
+   "fieldname": "column_break_akqc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "units",
+   "fieldtype": "Link",
+   "label": "Units",
+   "link_filters": "[[\"UOM\",\"custom_contract_units\",\"=\",1]]",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "end_reason",
+   "fieldtype": "Data",
+   "label": "End Reason"
+  },
+  {
+   "fieldname": "parties",
+   "fieldtype": "Link",
+   "label": "Parties",
+   "options": "Parties"
+  },
+  {
+   "fieldname": "section_break_nokz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "extension_period",
+   "fieldtype": "Data",
+   "label": "Extension Period"
+  },
+  {
+   "fieldname": "extension_reason",
+   "fieldtype": "Data",
+   "label": "Extension Reason"
+  },
+  {
+   "fieldname": "column_break_qhdq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Data",
+   "label": "Unit"
+  },
+  {
+   "fieldname": "number_of_extension",
+   "fieldtype": "Int",
+   "label": "Number Of Extension"
+  },
+  {
+   "fieldname": "effective_dates_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Effective Dates"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "column_break_rhny",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date"
+  },
+  {
+   "fieldname": "section_break_cuey",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "section_break_oavn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "more_information",
+   "fieldtype": "Small Text",
+   "label": "More Information"
+  },
+  {
+   "fieldname": "contract_reference",
+   "fieldtype": "Int",
+   "label": "Contract Reference"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Contract Status",
+   "options": "\nA-ACTIVE\nT-TERMINATION"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-01-14 13:28:21.493867",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Contracts",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

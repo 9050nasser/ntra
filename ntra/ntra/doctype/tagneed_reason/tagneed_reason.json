@@ -6,18 +6,11 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "tagneed_state",
-  "column_break_hjxm",
   "tagneed_reason_id",
-  "column_break_ymhe",
-  "tagneed_reason_name"
+  "column_break_hjxm",
+  "column_break_ymhe"
  ],
  "fields": [
-  {
-   "fieldname": "tagneed_state",
-   "fieldtype": "Int",
-   "label": "Tagneed State"
-  },
   {
    "fieldname": "column_break_hjxm",
    "fieldtype": "Column Break"
@@ -25,22 +18,16 @@
   {
    "fieldname": "tagneed_reason_id",
    "fieldtype": "Int",
-   "label": "Tagneed Reason Id"
+   "label": "Tagneed Reason "
   },
   {
    "fieldname": "column_break_ymhe",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "tagneed_reason_name",
-   "fieldtype": "Text Editor",
-   "label": "Tagneed Reason Name",
-   "length": 500
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-11 16:29:29.571368",
+ "modified": "2025-01-16 16:08:47.504098",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Tagneed Reason",

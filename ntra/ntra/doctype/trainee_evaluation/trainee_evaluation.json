@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "TEV-.#####",
  "creation": "2024-11-12 14:25:16.838259",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -12,6 +13,7 @@
   "training_course",
   "course_type",
   "section_break_imwj",
+  "course_evaluation_elements_template",
   "table_cnft",
   "comments_section",
   "text_editor_tgew",
@@ -83,14 +85,21 @@
    "fieldtype": "Link",
    "label": "Training Course",
    "options": "Training Course"
+  },
+  {
+   "fieldname": "course_evaluation_elements_template",
+   "fieldtype": "Link",
+   "label": "Evaluation Element Template",
+   "options": "Evaluation Element Template"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-23 17:12:18.569840",
+ "modified": "2025-01-19 04:06:23.611025",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Trainee Evaluation",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

@@ -10,6 +10,7 @@
   "type_name",
   "allow_without_deduction",
   "deduct_from_leave_balance",
+  "disable",
   "column_break_ofgi",
   "max_permissions_minutes_per_month",
   "max_permissions_times",
@@ -49,6 +50,7 @@
   {
    "fieldname": "max_permissions_minutes_per_month",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Max Permissions Minutes Per Month"
   },
   {
@@ -60,6 +62,7 @@
   {
    "fieldname": "max_permission_period_minutes",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Max Permission Period (Minutes)"
   },
   {
@@ -68,6 +71,7 @@
    "label": "Permission Frequency Per Month"
   },
   {
+   "depends_on": "eval:doc.deduct_from_leave_balance==1",
    "fieldname": "deduct_from_leave_type",
    "fieldtype": "Link",
    "label": "Deduct From Leave Type",
@@ -80,14 +84,21 @@
   },
   {
    "default": "0",
+   "depends_on": "eval:doc.deduct_from_leave_balance==1",
    "fieldname": "is_half_day",
    "fieldtype": "Check",
    "label": "Is Half Day"
+  },
+  {
+   "default": "0",
+   "fieldname": "disable",
+   "fieldtype": "Check",
+   "label": "Disable"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-12 10:21:55.594916",
+ "modified": "2024-12-31 10:13:28.352025",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Permission Type",

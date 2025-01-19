@@ -51,7 +51,8 @@ doctype_js = {"Job Applicant" : "public/js/job_applicant.js",
             "Task":"public/js/task.js",
             "Appraisal":"public/js/appraisal.js",
             "Payroll Entry":"public/js/payroll_entry.js",
-            "Salary Component":"public/js/salary_component.js",}
+            "Salary Component":"public/js/salary_component.js",
+            "Travel Request": "public/js/travel_request.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 doctype_tree_js = {"Goal" : "public/js/goal_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -144,6 +145,7 @@ override_doctype_class = {
     "Overtime Request": "ntra.overrides.overtime_request.CustomOvertimeRequest",
     "Payroll Entry": "ntra.overrides.payroll_entry.CustomPayrollEntry",
     "Salary Structure Assignment": "ntra.overrides.salary_structure_assignment.CustomSalaryStructureAssignment",
+    "Leave Ledger Entry": "ntra.overrides.leave_ledger_entry.CustomLeaveLedgerEntry",
 }
 
 # Document Events
@@ -154,13 +156,17 @@ doc_events = {
 	"Employee Performance Feedback": {
 		"validate": "ntra.events.calculate_rating",
 	},
+    "Employee Transfer":{
+        "before_submit": "ntra.event.employee_transfer.before_submit"
+    },
     "Appraisal": {
 		"validate": "ntra.events.calculate_rating2",
 	},
     "Employee": {
 		"validate": ["ntra.events.validate_employee",
                      "ntra.events.translate_name_arabic_to_english"],
-        "before_insert": "ntra.event.employee.validate"
+        "before_insert": "ntra.event.employee.validate",
+        # "before_save": "ntra.effective_dates.before_save",
 	},
     "Goal": {
 		"validate":[ 
@@ -178,11 +184,16 @@ doc_events = {
         # "validate": "ntra.event.leave_application.validate_maximum_leaves_time",
     },
     "Salary Slip": {
-        "after_insert": "ntra.events.append_sickleave"
+        "after_insert": "ntra.events.append_sickleave",
+        "before_save": ["ntra.event.salary_slip.get_stamp_tax_amount",
+                        "ntra.event.salary_slip.stamp_tax_formula"],
+        "validate": ["ntra.event.salary_slip.calculate_leave_without_pay"
+                        ],
     },
     "Attendance": {
         "after_insert": "ntra.event.attendance.validate_attendance",
         "on_submit": ["ntra.event.attendance.security_shift", "ntra.event.attendance.calculate_employee_record"],
+        "on_cancel": ["ntra.event.attendance.on_cancel_attendance"],
                         
 	},
     "Purchase Invoice": {
@@ -203,7 +214,9 @@ scheduler_events = {
 	"daily": [
 		"ntra.api.update_employee_trainings",
         "ntra.events.auto_approve_pending_leaves",
-        "ntra.events.update_ad_hocs_for_appraisals"
+        "ntra.events.update_ad_hocs_for_appraisals",
+        "ntra.events.expired_document_type",
+        "ntra.events.proccess_contract_renewal"
 	],
 	# "hourly": [
 	# 	"ntra.tasks.hourly"
@@ -309,3 +322,8 @@ fixtures = [
         ]
     ]}
 ]
+
+import frappe
+import ntra
+
+frappe.api.handle = ntra.handle

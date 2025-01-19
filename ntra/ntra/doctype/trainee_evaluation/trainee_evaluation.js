@@ -19,4 +19,34 @@ frappe.ui.form.on("Trainee Evaluation", {
         };
 
     },
+    course_evaluation_elements_template(frm) {
+        get_childtable(frm, frm.doc.course_evaluation_elements_template, 'table_cnft');
+    }
 });
+
+function get_childtable(frm, fieldname, chidltable) {
+    frappe.call({
+        method: 'frappe.client.get',
+        args: {
+            doctype: 'Evaluation Element Template',
+            name: fieldname
+        },
+        callback: function (response) {
+            if (response.message) {
+                const template = response.message;
+                const items = template.evaluation_element_table || [];
+
+                // Clear existing child table entries
+                frm.clear_table(chidltable);
+                // Add each item to the child table
+                items.forEach(item => {
+                    const row = frm.add_child(chidltable);
+                    row.evaluation_elements = item.link_uepu;
+                });
+
+                // Refresh the table view
+                frm.refresh_field(chidltable);
+            }
+        }
+    });
+}

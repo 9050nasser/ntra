@@ -57,7 +57,8 @@
    "fieldname": "company",
    "fieldtype": "Link",
    "label": "Company",
-   "options": "Company"
+   "options": "Company",
+   "reqd": 1
   },
   {
    "fieldname": "department",
@@ -113,6 +114,7 @@
    "label": "Get Training Requests"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "table_tqgd",
    "fieldtype": "Table",
    "label": "Courses",
@@ -145,6 +147,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "table_oyzi",
    "fieldtype": "Table",
    "options": "Training Plan Employee"
@@ -162,13 +165,15 @@
    "allow_on_submit": 1,
    "fieldname": "from_date",
    "fieldtype": "Date",
-   "label": "From Date"
+   "label": "From Date",
+   "reqd": 1
   },
   {
    "allow_on_submit": 1,
    "fieldname": "to_date",
    "fieldtype": "Date",
-   "label": "To Date"
+   "label": "To Date",
+   "reqd": 1
   },
   {
    "fieldname": "get_courses",
@@ -181,7 +186,7 @@
  "links": [
   {
    "group": "Purchasing",
-   "link_doctype": "Request for Quotation",
+   "link_doctype": "Material Request",
    "link_fieldname": "custom_training_plan"
   },
   {
@@ -208,7 +213,7 @@
    "link_fieldname": "training_plan"
   }
  ],
- "modified": "2024-12-23 20:25:52.421141",
+ "modified": "2025-01-19 04:16:33.571684",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Plan",
@@ -216,6 +221,8 @@
  "owner": "Administrator",
  "permissions": [
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -224,6 +231,7 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "select": 1,
    "share": 1,
    "submit": 1,
    "write": 1

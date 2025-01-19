@@ -1,0 +1,59 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-01-10 01:38:24.103685",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employer",
+  "position",
+  "from_date",
+  "to_date",
+  "social_insurance_availability"
+ ],
+ "fields": [
+  {
+   "fieldname": "employer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": " Employer"
+  },
+  {
+   "fieldname": "position",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Position"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "To Date"
+  },
+  {
+   "fieldname": "social_insurance_availability",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Social Insurance Availability"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-01-10 01:40:41.305497",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Beginning",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,59 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-01-10 01:04:38.584878",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "post_graduate_studies",
+  "from_date",
+  "to_date",
+  "major",
+  "grade_gpa"
+ ],
+ "fields": [
+  {
+   "fieldname": "post_graduate_studies",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Post Graduate Studies"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "To Date"
+  },
+  {
+   "fieldname": "major",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Major"
+  },
+  {
+   "fieldname": "grade_gpa",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Grade/ GPA"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-01-10 01:08:26.355344",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Post Graduate Studies",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

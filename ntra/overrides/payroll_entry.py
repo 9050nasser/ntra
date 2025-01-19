@@ -80,7 +80,7 @@ class CustomPayrollEntry(Document):
 				(SalarySlip.employee.isin([emp.employee for emp in self.employees]))
 				& (SalarySlip.start_date == self.start_date)
 				& (SalarySlip.end_date == self.end_date)
-				& (SalarySlip.salary_structure == self.custom_salary_structure)
+				& (SalarySlip.salary_structure == self.custom_salary_structure) #NEW
 				& (SalarySlip.docstatus != 2)
 			)
 		).run(as_dict=True)
@@ -170,6 +170,7 @@ class CustomPayrollEntry(Document):
 			end_date=self.end_date,
 			payroll_payable_account=self.payroll_payable_account,
 			salary_slip_based_on_timesheet=self.salary_slip_based_on_timesheet,
+			salary_structure=self.custom_salary_structure, #NEW
 		)
 
 		if not self.salary_slip_based_on_timesheet:
@@ -180,16 +181,18 @@ class CustomPayrollEntry(Document):
 	@frappe.whitelist()
 	def fill_employee_details(self):
 		filters = self.make_filters()
-		employees = get_employee_list(filters=filters, as_dict=True, ignore_match_conditions=True)
+		employees = get_employee_list(filters=filters, as_dict=True, ignore_match_conditions=False)
 		self.set("employees", [])
 
 		if not employees:
 			error_msg = _(
-				"No employees found for the mentioned criteria:<br>Company: {0}<br> Currency: {1}<br>Payroll Payable Account: {2}"
+				"No employees found for the mentioned criteria:<br>Company: {0}<br> Currency: {1}<br>Payroll Payable Account: {2}<br>Salary Structure: {3}"
 			).format(
 				frappe.bold(self.company),
 				frappe.bold(self.currency),
 				frappe.bold(self.payroll_payable_account),
+				frappe.bold(self.custom_salary_structure), #NEW
+
 			)
 			if self.branch:
 				error_msg += "<br>" + _("Branch: {0}").format(frappe.bold(self.branch))
@@ -238,7 +241,7 @@ class CustomPayrollEntry(Document):
 					"payroll_entry": self.name,
 					"exchange_rate": self.exchange_rate,
 					"currency": self.currency,
-					"salary_structure": self.custom_salary_structure,
+					"salary_structure": self.custom_salary_structure, #NEW
 				}
 			)
 			if len(employees) > 30 or frappe.flags.enqueue_payroll_entry:
@@ -1192,7 +1195,7 @@ class CustomPayrollEntry(Document):
 
 
 def get_salary_structure(
-	company: str, currency: str, salary_slip_based_on_timesheet: int, payroll_frequency: str
+	company: str, currency: str, salary_slip_based_on_timesheet: int, payroll_frequency: str, salary_structure: str
 ) -> list[str]:
 	SalaryStructure = frappe.qb.DocType("Salary Structure")
 
@@ -1205,6 +1208,7 @@ def get_salary_structure(
 			& (SalaryStructure.company == company)
 			& (SalaryStructure.currency == currency)
 			& (SalaryStructure.salary_slip_based_on_timesheet == salary_slip_based_on_timesheet)
+			& (SalaryStructure.name == salary_structure) #NEW
 		)
 	)
 
@@ -1307,7 +1311,7 @@ def set_match_conditions(query, qb_object):
 	return query
 
 
-def remove_payrolled_employees(emp_list, start_date, end_date):
+def remove_payrolled_employees(emp_list, start_date, end_date, salary_structure):
 	SalarySlip = frappe.qb.DocType("Salary Slip")
 
 	employees_with_payroll = (
@@ -1317,6 +1321,7 @@ def remove_payrolled_employees(emp_list, start_date, end_date):
 			(SalarySlip.docstatus == 1)
 			& (SalarySlip.start_date == start_date)
 			& (SalarySlip.end_date == end_date)
+			& (SalarySlip.salary_structure == salary_structure[0])
 		)
 	).run(pluck=True)
 
@@ -1578,11 +1583,13 @@ def get_employee_list(
 	offset=None,
 	ignore_match_conditions=False,
 ) -> list:
+	
 	sal_struct = get_salary_structure(
 		filters.company,
 		filters.currency,
 		filters.salary_slip_based_on_timesheet,
 		filters.payroll_frequency,
+		filters.salary_structure,
 	)
 
 	if not sal_struct:
@@ -1599,13 +1606,14 @@ def get_employee_list(
 		offset=offset,
 		ignore_match_conditions=ignore_match_conditions,
 	)
-
+	print(sal_struct[0])
+	print(emp_list)
 	if as_dict:
 		employees_to_check = {emp.employee: emp for emp in emp_list}
 	else:
 		employees_to_check = {emp[0]: emp for emp in emp_list}
 
-	return remove_payrolled_employees(employees_to_check, filters.start_date, filters.end_date)
+	return remove_payrolled_employees(employees_to_check, filters.start_date, filters.end_date, sal_struct)
 
 
 @frappe.whitelist()

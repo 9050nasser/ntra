@@ -32,6 +32,7 @@ class Permission(Document):
 	def on_submit(self):
 		self.validate_duplicate_record()
 		self.process_permission()
+		self.update_working_hours()
 
 	def validate(self):
 		self.validate_count()
@@ -142,4 +143,9 @@ class Permission(Document):
 		else:
 			frappe.msgprint(_("Permission does not require leave deduction."))
 
-			
+	def update_working_hours(self):
+		if self.status == "Approved" and frappe.db.get_value("Permission Type", self.permission_type, "allow_without_deduction"):	
+			permission_period = (get_datetime(self.to_time) - get_datetime(self.from_time)).total_seconds()/3600
+			working_hours = frappe.db.get_value("Attendance", {"employee": self.employee, "attendance_date": getdate(self.date), "docstatus": 1}, "working_hours")
+			working_hours = working_hours if working_hours else 0
+			frappe.db.set_value("Attendance", {"employee": self.employee, "attendance_date": getdate(self.date), "docstatus": 1}, "working_hours", working_hours + permission_period)

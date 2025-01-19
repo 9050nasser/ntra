@@ -8,7 +8,7 @@ from frappe.query_builder.custom import ConstantColumn
 from frappe.query_builder.functions import Coalesce
 from frappe.query_builder.terms import SubQuery
 from collections import defaultdict
-
+from functools import reduce  # To combine conditions dynamically
 class BulkAbsenceProcessing(Document):
     @frappe.whitelist()
     def process_absences(self):
@@ -30,7 +30,7 @@ class BulkAbsenceProcessing(Document):
         # Convert defaultdict to a list
         result = list(employee_attendance.values())
         for record in result:
-            
+            # frappe.throw(f"{record}")
             # employee = frappe.get_doc("Employee", record["employee"])
             employee = record['employee']
             attendance = record.get('attendance', [])
@@ -47,14 +47,16 @@ class BulkAbsenceProcessing(Document):
             ).get("leave_balance", 0)
             # frappe.throw(f"{casual_leave_balance} {annual_leave_balance}")
             # Get shift hours
-            shift_hours = get_shift_hours(employee)
+            
             
             # Initialize index
             idx = -1
 
             # Deduct casual leaves
-            
+            frappe.msgprint(f"{casual_leave_balance}       {annual_leave_balance}")
             deduction = min(casual_leave_balance, hr_setting.max_day_per_month)
+            frappe.msgprint(f"{deduction}")
+            
             if deduction:
                 for x in range(deduction):
                     casual_leave_balance = get_leave_balance_on(
@@ -82,13 +84,16 @@ class BulkAbsenceProcessing(Document):
             if not casual_leave_balance and not annual_leave_balance:
                 for att in attendance:
                     if att.get('shift',None):
-                        shift_hours = get_shift_hours(employee, attendance)
+                        shift_hours = get_shift_hours(employee, att.get('shift',None), date = self.from_date)
+                    else:
+                        shift_hours = get_shift_hours(employee , date = self.from_date)
                     attendance_name = att.get('name')
                     if attendance_name:
                         frappe.db.set_value("Attendance", attendance_name, "working_hours", -shift_hours)
-                        frappe.db.set_value("Attendance", attendance_name, "status", "On Leave")
+                        # frappe.db.set_value("Attendance", attendance_name, "status", "")
 
         frappe.db.commit()
+        frappe.msgprint(f"{len(self.employee_table)} records processed successfully.")
         return {"message": f"{len(self.employee_table)} records processed successfully."}
 
 
@@ -115,6 +120,26 @@ class BulkAbsenceProcessing(Document):
 
         Employee = frappe.qb.DocType("Employee")
         Grade = frappe.qb.DocType("Employee Grade")
+        conditions = [
+            (Employee.status == "Active"),
+            (Attendance.status == "Absent"),
+            (Attendance.attendance_date >= self.from_date),
+            (Attendance.attendance_date <= self.to_date),
+            (Attendance.docstatus == 1),
+        ]
+
+        # Add optional conditions
+        if self.employee_grade:
+            conditions.append(Employee.grade == self.employee_grade)
+        if self.employment_type:
+            conditions.append(Employee.employment_type == self.employment_type)
+        if self.branch:
+            conditions.append(Employee.branch == self.branch)
+        if self.designation:
+            conditions.append(Employee.designation == self.designation)
+        if self.department:
+            conditions.append(Employee.department == self.department)
+        combined_conditions = reduce(lambda x, y: x & y, conditions)
         query = (
             frappe.qb.get_query(
                 Employee,
@@ -125,9 +150,7 @@ class BulkAbsenceProcessing(Document):
             .left_join(Attendance)
             .on(Employee.name == Attendance.employee)
             .where(
-                (Employee.status == "Active")
-                & (Attendance.status == "Absent")
-                # & ((Employee.relieving_date > self.from_date) | (Employee.relieving_date.isnull()))
+               combined_conditions
             )
             .select(
                 Coalesce(Attendance.attendance_date).as_("attendance_date"),
@@ -135,7 +158,7 @@ class BulkAbsenceProcessing(Document):
                 Coalesce(Attendance.status).as_("status"),
                 Coalesce(Employee.designation).as_("designation"),
                 Coalesce(Attendance.shift).as_("shift"),
-            )
+            ).orderby(Employee.name, Attendance.attendance_date)
         )
         data =  query.run(as_dict=True)
         self.employee_table = []
@@ -177,15 +200,20 @@ def deduct_leave(employee, leave_type, date):
     leave_application.submit()
 
 from datetime import datetime
-def get_shift_hours(employee, shift=None):
+def get_shift_hours(employee, shift=None, date=None):
     # Fetch shift duration for the employee
     employee = frappe.get_cached_doc("Employee", employee)
     shift_type =None
     if(shift):
-        shift_type = frappe.get_cached_doc('Shift Type', employee.default_shift)
+        shift_type = frappe.get_cached_doc('Shift Type', shift)
 
-    if employee.default_shift:
+    if employee.default_shift and not shift:
         shift_type = frappe.get_cached_doc('Shift Type', employee.default_shift)
+    if not shift_type:
+        data = frappe.db.sql(f"SELECT shift_type FROM `tabShift Assignment` WHERE employee = '{employee.name}' AND docstatus = 1 order by start_date DESC" ,as_dict=True)
+        if data:
+            shift_type = frappe.get_cached_doc('Shift Type', data[0]['shift_type'])
+    # frappe.throw(f"{shift_type}")
     def get_working_hours(start_time, end_time):
         # Parse the time strings into datetime objects
         start = datetime.strptime(str(start_time), "%H:%M:%S")

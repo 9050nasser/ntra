@@ -6,9 +6,16 @@ def create_bulk_assignment(training_course_schedule, training_plan):
         # Fetch the required documents
         course_schedule = frappe.get_doc("Training Course Schedule", training_course_schedule)
         plan = frappe.get_doc("Training Plan", training_plan)
-        is_duplicated = frappe.db.exists({"doctype": "Course Assignment", "training_course": course_schedule.training_course, "training_course_schedule": course_schedule.name})
+
+        # Check if assignments are already created
+        is_duplicated = frappe.db.exists({
+            "doctype": "Course Assignment",
+            "training_course": course_schedule.training_course,
+            "training_course_schedule": course_schedule.name
+        })
         if is_duplicated:
             frappe.throw(_("Assignments already created for this course schedule."))
+
         # Validate data presence
         if not course_schedule.table_exht:
             frappe.throw("No sessions found in the course schedule.")
@@ -24,8 +31,16 @@ def create_bulk_assignment(training_course_schedule, training_plan):
                 assignment.to_date = course_schedule.to_date
                 assignment.training_course = employee.training_course
                 assignment.training_course_schedule = course_schedule.name
-                for cost in plan.table_tqgd:
-                    assignment.enrollment_cost = cost.actual_cost_per_course
+                
+                # Match enrollment cost to the course
+                matching_cost = next(
+                    (cost.actual_cost_per_course for cost in plan.table_tqgd if cost.training_course == employee.training_course),
+                    None
+                )
+                if matching_cost is not None:
+                    assignment.enrollment_cost = matching_cost
+                else:
+                    assignment.enrollment_cost = 0  # Set a default value if no match is found
                 
                 # Append sessions to the child table
                 for session in course_schedule.table_exht:
@@ -35,16 +50,18 @@ def create_bulk_assignment(training_course_schedule, training_plan):
                         "time": session.time,
                         "location": session.location
                     })
-                
+
+                # Insert the new assignment document
                 assignment.insert()
 
         # Commit all changes
         frappe.db.commit()
         return {"status": "success", "message": "Assignments created successfully."}
-    
     except Exception as e:
         frappe.log_error(frappe.get_traceback(), "Bulk Assignment Error")
         return {"status": "error", "message": str(e)}
+
+    
     
 @frappe.whitelist()
 def update_employee_trainings():
@@ -139,3 +156,51 @@ def get_designation_wise_employees(doctype, txt, searchfield, start, page_len, f
     """, (designation))
 
 
+@frappe.whitelist()
+def cancel(doctype, name):
+    # Example logic: Fetch employees based on a designation filter
+   try:
+        doc = frappe.get_doc(doctype, name)
+        doc.cancel()
+        return {"status": "success", "message": f"{name} cancelled successfully."}
+   except  Exception as e:
+        return {"status": "error", "message": str(e)}
+
+
+@frappe.whitelist()
+def get_medical_provider():
+    # Example logic: Fetch employees based on a designation filter
+    condition = ''
+    if frappe.form_dict.get("governorate"):
+        condition += f"AND MN.governorate ={frappe.form_dict.get("governorate")}"
+    if frappe.form_dict.get("area"):
+        condition += f"AND MN.city ={frappe.form_dict.get("area")}"
+    if frappe.form_dict.get("speciality"):
+        condition += f"AND SL.speciality ={frappe.form_dict.get("speciality")}"
+    if frappe.form_dict.get("provider_type"):
+        condition += f"AND MN.provider_type ={frappe.form_dict.get("provider_type")}"
+    if frappe.form_dict.get("name"):
+        condition += f"AND MN.name Like '%{frappe.form_dict.get("name")}%'"
+
+    limit_start = int(frappe.form_dict.get("limit_start", 0))
+    limit_page_length = int(frappe.form_dict.get("limit_page_length", 20)) 
+    query=f"""
+        SELECT * from `tabMedical Network` MN JOIN `tabSpeciality List` SL ON SL.parent = MN.name 
+        WHERE
+        1 = 1
+{condition}
+LIMIT {limit_start}, {limit_page_length}
+        """
+    query_2=f"""
+        SELECT count(MN.name)as cnt from `tabMedical Network` MN JOIN `tabSpeciality List` SL ON SL.parent = MN.name 
+        WHERE
+        1 = 1
+{condition}
+        """
+    data_1 = frappe.db.sql(query, as_dict = 1)
+    data_2 = frappe.db.sql(query_2, as_dict = 1)
+    cnt = data_2[0]['cnt']if data_2 else 0
+    return {
+        "count":cnt,
+        "data":data_1
+    }

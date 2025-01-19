@@ -7,7 +7,13 @@
  "engine": "InnoDB",
  "field_order": [
   "document",
-  "attach"
+  "received",
+  "received_date",
+  "start_date",
+  "end_date",
+  "attach",
+  "print",
+  "expired"
  ],
  "fields": [
   {
@@ -22,12 +28,64 @@
    "fieldtype": "Attach",
    "in_list_view": 1,
    "label": "Attach"
+  },
+  {
+   "fieldname": "print",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Print"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "End Date"
+  },
+  {
+   "fieldname": "received_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Received Date"
+  },
+  {
+   "default": "No",
+   "fieldname": "received",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Received",
+   "options": "Yes\nNo"
+  },
+  {
+   "default": "0",
+   "fieldname": "expired",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Expired",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-20 19:13:43.747272",
+ "modified": "2025-01-16 11:56:20.990481",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Employee Identification",

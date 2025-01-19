@@ -6,7 +6,7 @@ frappe.ui.form.on("Goal", {
                     title: 'Custom Dialog',
                     fields: [
                         {
-                            label: 'Goal Name',
+                            label: 'Task Name',
                             fieldname: 'goal_name',
                             fieldtype: 'Data',
                             reqd: 1

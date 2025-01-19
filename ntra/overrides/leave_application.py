@@ -4,6 +4,7 @@ from hrms.hr.doctype.leave_application.leave_application import LeaveApplication
 from hrms.hr.utils import (
     get_holiday_dates_for_employee
 )
+from datetime import datetime
 from frappe.utils import (
     getdate,
     add_days,
@@ -16,6 +17,8 @@ from hrms.hr.doctype.leave_application.leave_application import get_allocation_e
 from erpnext.setup.doctype.employee.employee import get_holiday_list_for_employee
 
 class CustomLeaveApplication(LeaveApplication):
+    def validate_attendance(self):
+        pass
     def create_ledger_entry_for_intermediate_allocation_expiry(self, expiry_date, submit, lwp):
         """Splits leave application into two ledger entries to consider expiry of allocation"""
         raise_exception = False if frappe.flags.in_patch else True
@@ -234,10 +237,10 @@ class CustomLeaveApplication(LeaveApplication):
             doc.flags.ignore_validate = True
             doc.insert(ignore_permissions=True)
             doc.submit()
+            doc.db_set("working_hours", 0)
     def update_attendance(self):
         if self.status != "Approved":
             return
-
         holiday_dates = []
         if not frappe.db.get_value("Leave Type", self.leave_type, "include_holiday"):
             holiday_dates = get_holiday_dates_for_employee(self.employee, self.from_date, self.to_date)
@@ -320,3 +323,149 @@ class CustomLeaveApplication(LeaveApplication):
             self.from_date = from_date
             self.to_date = to_date         
     pass
+
+    def validate_dates_across_allocation(self):
+        if not self.custom_maternity_leave:
+            if frappe.db.get_value("Leave Type", self.leave_type, "allow_negative"):
+                return
+            if frappe.db.get_value("Leave Type", self.leave_type, "custom_rest"):
+                return
+            if frappe.db.get_value("Leave Type", self.leave_type, "custom_skip_allocation"):
+                return
+			
+            alloc_on_from_date, alloc_on_to_date = self.get_allocation_based_on_application_dates()
+
+            if not (alloc_on_from_date or alloc_on_to_date):
+                frappe.throw(_("Application period cannot be outside leave allocation period"))
+            elif self.is_separate_ledger_entry_required(alloc_on_from_date, alloc_on_to_date):
+                frappe.throw(
+					_("Application period cannot be across two allocation records"),
+					exc=LeaveAcrossAllocationsError,
+				)
+
+    def show_insufficient_balance_message(self, leave_balance_for_consumption: float) -> None:
+        if not self.custom_maternity_leave:
+            if frappe.db.get_value("Leave Type", self.leave_type, "custom_rest"):
+                return
+            if frappe.db.get_value("Leave Type", self.leave_type, "custom_skip_allocation"):
+                return
+            alloc_on_from_date, alloc_on_to_date = self.get_allocation_based_on_application_dates()
+
+            if frappe.db.get_value("Leave Type", self.leave_type, "allow_negative"):
+                if leave_balance_for_consumption != self.leave_balance:
+                    msg = _("Warning: Insufficient leave balance for Leave Type {0} in this allocation.").format(
+						frappe.bold(self.leave_type)
+					)
+                    msg += "<br><br>"
+                    msg += _(
+						"Actual balances aren't available because the leave application spans over different leave allocations. You can still apply for leaves which would be compensated during the next allocation."
+					)
+                else:
+                    msg = _("Warning: Insufficient leave balance for Leave Type {0}.").format(
+						frappe.bold(self.leave_type)
+					)
+
+                frappe.msgprint(msg, title=_("Warning"), indicator="orange")
+            else:
+                frappe.throw(
+					_("Insufficient leave balance for Leave Type {0}").format(frappe.bold(self.leave_type)),
+					exc=InsufficientLeaveBalanceError,
+					title=_("Insufficient Balance"),
+				)
+
+@frappe.whitelist()
+def get_leave_details(employee, date, for_salary_slip=False):
+    allocation_records = get_leave_allocation_records(employee, date)
+    leave_allocation = {}
+    precision = cint(frappe.db.get_single_value("System Settings", "float_precision", cache=True))
+
+    for d in allocation_records:
+        allocation = allocation_records.get(d, frappe._dict())
+        to_date = date if for_salary_slip else allocation.to_date
+        remaining_leaves = get_leave_balance_on(
+            employee,
+            d,
+            date,
+            to_date=to_date,
+            consider_all_leaves_in_the_allocation_period=False if for_salary_slip else True,
+        )
+
+        leaves_taken = get_leaves_for_period(employee, d, allocation.from_date, to_date) * -1
+        leaves_pending = get_leaves_pending_approval_for_period(employee, d, allocation.from_date, to_date)
+        expired_leaves = allocation.total_leaves_allocated - (remaining_leaves + leaves_taken)
+
+        leave_allocation[d] = {
+            "total_leaves": flt(allocation.total_leaves_allocated, precision),
+            "expired_leaves": flt(expired_leaves, precision) if expired_leaves > 0 else 0,
+            "leaves_taken": flt(leaves_taken, precision),
+            "leaves_pending_approval": flt(leaves_pending, precision),
+            "remaining_leaves": flt(remaining_leaves, precision),
+        }
+
+    # is used in set query
+    lwp = frappe.get_list("Leave Type", filters={"is_lwp": 1}, pluck="name")
+    allowed_leaves = frappe.get_list("Leave Type", filters={"custom_allow_without_allocation"}, pluck="name")
+    return {
+        "leave_allocation": leave_allocation,
+        "leave_approver": get_leave_approver(employee),
+        "lwps": lwp,
+        "allowed_leaves": allowed_leaves
+    }
+
+def get_leaves_for_period(
+    employee: str,
+    leave_type: str,
+    from_date: datetime.date,
+    to_date: datetime.date,
+    skip_expired_leaves: bool = True,
+) -> float:
+    leave_entries = get_leave_entries(employee, leave_type, from_date, to_date)
+    leave_days = 0
+
+    for leave_entry in leave_entries:
+        inclusive_period = leave_entry.from_date >= getdate(from_date) and leave_entry.to_date <= getdate(
+            to_date
+        )
+
+        if inclusive_period and leave_entry.transaction_type == "Leave Encashment":
+            leave_days += leave_entry.leaves
+        elif leave_entry.transaction_type == "Permission":
+            leave_days += leave_entry.leaves
+
+        elif (
+            inclusive_period
+            and leave_entry.transaction_type == "Leave Allocation"
+            and leave_entry.is_expired
+            and not skip_expired_leaves
+        ):
+            leave_days += leave_entry.leaves
+
+        elif leave_entry.transaction_type == "Leave Application":
+            if leave_entry.from_date < getdate(from_date):
+                leave_entry.from_date = from_date
+            if leave_entry.to_date > getdate(to_date):
+                leave_entry.to_date = to_date
+
+            half_day = 0
+            half_day_date = None
+            # fetch half day date for leaves with half days
+            if leave_entry.leaves % 1:
+                half_day = 1
+                half_day_date = frappe.db.get_value(
+                    "Leave Application", leave_entry.transaction_name, "half_day_date"
+                )
+
+            leave_days += (
+                get_number_of_leave_days(
+                    employee,
+                    leave_type,
+                    leave_entry.from_date,
+                    leave_entry.to_date,
+                    half_day,
+                    half_day_date,
+                    holiday_list=leave_entry.holiday_list,
+                )
+                * -1
+            )
+
+    return leave_days

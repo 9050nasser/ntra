@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "SC-.#####",
  "creation": "2024-10-28 09:53:58.610123",
@@ -10,21 +11,20 @@
   "clearance_for",
   "employee",
   "applicant_name",
+  "date",
   "phone_number",
-  "email_address",
-  "attach",
-  "security_check",
   "job_applicant",
   "amended_from",
-  "column_break_ogen",
-  "date",
-  "expiration_date",
-  "approval_date",
-  "type",
-  "designation",
   "status",
-  "section_break_mfhl",
-  "table_wtbk",
+  "attach_1",
+  "column_break_ogen",
+  "type",
+  "approval_date",
+  "email_address",
+  "expiration_date",
+  "designation",
+  "attach",
+  "security_attach",
   "feedback_section",
   "clearance_feedback"
  ],
@@ -62,7 +62,7 @@
   {
    "fieldname": "attach",
    "fieldtype": "Attach",
-   "label": "Attach"
+   "label": "Attach 2"
   },
   {
    "fieldname": "amended_from",
@@ -82,8 +82,7 @@
    "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
-   "label": "Date",
-   "reqd": 1
+   "label": "Date"
   },
   {
    "fieldname": "type",
@@ -137,32 +136,27 @@
    "options": "Job Applicant"
   },
   {
-   "description": "If No",
-   "fieldname": "security_check",
-   "fieldtype": "Date",
-   "label": "Security Check"
-  },
-  {
    "description": "If Yes",
    "fieldname": "approval_date",
    "fieldtype": "Date",
    "label": "Approval Date"
   },
   {
-   "fieldname": "section_break_mfhl",
-   "fieldtype": "Section Break"
+   "fieldname": "security_attach",
+   "fieldtype": "Attach",
+   "label": "Attach 3"
   },
   {
-   "fieldname": "table_wtbk",
-   "fieldtype": "Table",
-   "options": "Security Approvals"
+   "fieldname": "attach_1",
+   "fieldtype": "Attach",
+   "label": "Attach 1"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_calendar_and_gantt": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-28 13:47:35.603478",
+ "modified": "2025-01-15 14:22:43.845261",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Security Clearance",

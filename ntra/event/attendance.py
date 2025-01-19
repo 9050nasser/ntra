@@ -151,7 +151,10 @@ def float_to_hhmmss(hours):
 
     # Format as HH:MM:SS
     return f"{hours:02}:{minutes:02}:{seconds:02}"
-
+class DictToObj:
+    def __init__(self, dictionary):
+        for key, value in dictionary.items():
+            setattr(self, key, value)
 @frappe.whitelist()
 def calculate_employee_record(doc,method=None):
     filters = {
@@ -160,13 +163,14 @@ def calculate_employee_record(doc,method=None):
             "shift": doc.shift,
             "employee": doc.employee
         }
-    logs = frappe.db.get_list(
-        "Employee Checkin", fields="*", filters=filters, order_by="time"
-    )
-    # if logs:
-    #     shift = frappe.get_doc("Shift Type", doc.shift)
-    #     if shift.enable_break:
-    #         calculate_break_time(logs, doc, shift)
+    # logs = frappe.db.get_all(
+    #     "Employee Checkin", fields="*", filters=filters, order_by="time DESC"
+    # )
+    logs = frappe.db.sql(f"""SELECT * from `tabEmployee Checkin` where employee = '{doc.employee}' and shift ='{doc.shift}' and skip_auto_attendance = 0 and attendance IS NOT NULL and DATE(time) = '{doc.attendance_date}' order by time  """,as_dict=1)
+    logs = [DictToObj(log) for log in logs]
+    if logs:
+        shift = frappe.get_cached_doc("Shift Type", doc.shift)
+        calculate_break_time(logs, doc, shift)      
     pass
 
 def get_dates_different_in_minutes(date1: datetime, date2: datetime) -> float:
@@ -177,7 +181,7 @@ def get_date(date_time):
         return date_time
 def _handle_multiple_same_checks(date1, date2):
         if get_date(date1) is None or get_date(date2) is None:
-            return
+            return False
         checkin_date = datetime.strptime(get_date(date1), DATE_FORMAT)
         checkout_date = datetime.strptime(get_date(date2), DATE_FORMAT)
         minutes = (get_dates_different_in_minutes(checkout_date, checkin_date))
@@ -188,12 +192,43 @@ def calculate_break_time(logs, doc, shift):
     total_hours = break_duration = break_times= allowed_break_duration = 0
     in_break = out_break = None
     out_time = doc.out_time
+    if doc.in_time:
+        uncoverd_in = datetime.strptime(str(doc.in_time), '%Y-%m-%d %H:%M:%S')
+        shift_start_time = datetime.strptime(str(shift.start_time), '%H:%M:%S')
+        shift_start_time = datetime.strptime(f'{doc.attendance_date} {shift_start_time.strftime("%H:%M:%S")}', '%Y-%m-%d %H:%M:%S')
+        uncoverd_time = time_diff_sec(shift_start_time , uncoverd_in)
+        if uncoverd_time > 0:
+            emp_record = frappe.new_doc("Employee Record")
+            emp_record.employee = doc.employee
+            emp_record.date = doc.attendance_date
+            emp_record.start_time = shift_start_time
+            emp_record.end_time = uncoverd_in
+            emp_record.duration = uncoverd_time
+            emp_record.attendance = doc.name
+            emp_record.flags.ignore_mandatory = True
+            emp_record.insert(ignore_mandatory=True)
+
+    if doc.out_time:
+        uncoverd_out = datetime.strptime(str(doc.out_time), '%Y-%m-%d %H:%M:%S')
+        shift_end_time = datetime.strptime(str(shift.end_time), '%H:%M:%S')
+        shift_end_time = datetime.strptime(f'{doc.attendance_date} {shift_end_time.strftime("%H:%M:%S")}', '%Y-%m-%d %H:%M:%S')
+        uncoverd_time = time_diff_sec(uncoverd_out , shift_end_time)
+        
+        if uncoverd_time > 0:
+            emp_record = frappe.new_doc("Employee Record")
+            emp_record.employee = doc.employee
+            emp_record.date = doc.attendance_date
+            emp_record.start_time = doc.out_time
+            emp_record.end_time = shift_end_time
+            emp_record.duration = uncoverd_time
+            emp_record.attendance = doc.name
+
+            emp_record.flags.ignore_mandatory = True
+            emp_record.insert(ignore_mandatory=True)
     while len(logs) >= 2:
-        if _handle_multiple_same_checks( logs[0].time,logs[1].time):         
-            total_hours += time_diff_in_hours(logs[0].time, logs[1].time)
+        if _handle_multiple_same_checks( logs[0].time,logs[1].time):
             in_break = logs[1].time
             if len(logs) > 2:
-                break_times +=1
                 out_break = logs[2].time
                 if out_break == out_time:
                     doc.out_time = None
@@ -201,28 +236,39 @@ def calculate_break_time(logs, doc, shift):
                 # if shift.break_type =="Fixed":
                 in_break = datetime.strptime(get_date(in_break), '%Y-%m-%d %H:%M:%S')
                 out_break = datetime.strptime(get_date(out_break), '%Y-%m-%d %H:%M:%S')
-                    # shift_in_break = datetime.strptime(str(shift.in_break), '%H:%M:%S')
-                    # shift_out_break = datetime.strptime(str(shift.out_break), '%H:%M:%S')
-                    # allowed_break_duration = (shift_out_break - shift_in_break).total_seconds()
-                    # shift.break_duration = allowed_break_duration
-                    # if (in_break.time() >= shift_in_break.time()) and (out_break.time() <= shift_out_break.time()):
-                        # on_time = 1
+                times = time_diff_sec(in_break, out_break )
                 emp_record = frappe.new_doc("Employee Record")
                 emp_record.employee = doc.employee
                 emp_record.date = doc.attendance_date
-                emp_record.start_time = doc.in_break
-                emp_record.end_time = doc.out_break
-                emp_record.duration = doc.working_hours - total_hours
-
-                emp_record.insert()
+                emp_record.start_time = in_break
+                emp_record.end_time = out_break
+                emp_record.duration = times
+                emp_record.attendance = doc.name
+                emp_record.flags.ignore_mandatory = True
+                emp_record.insert(ignore_mandatory=True)
             in_break = out_break = None
             del logs[:2]
         else:
             del logs[1]
-
+def time_diff_sec(start, end):
+    return round(float((end - start).total_seconds()), 2)
 def time_diff_in_hours(start, end):
     return round(float((end - start).total_seconds()) / 3600, 2)
 
+@frappe.whitelist()
+def on_cancel_attendance(doc, method):
+    data = frappe.db.sql(f"""Select name, docstatus from `tabEmployee Record` where attendance = '{doc.name}' """)
+    
+
+    for d in data:
+        if d[1] == 0:
+            frappe.delete_doc("Employee Record", d[0])
+        elif d[1] == 1:
+            frappe.get_doc("Employee Record", d[0]).cancel()
+            frappe.delete_doc("Employee Record", d[0])
+        elif d[1] == 2:
+            frappe.delete_doc("Employee Record", d[0])
+    pass
 @frappe.whitelist()
 def validate_employee_checkin(doc, method):
     # frappe.msgprint(f"{doc.shift}")

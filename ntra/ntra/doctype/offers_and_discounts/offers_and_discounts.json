@@ -10,6 +10,7 @@
   "offers_name",
   "discount_percentage",
   "category",
+  "benefit_catogery",
   "employee_access",
   "column_break_vrmi",
   "governorate",
@@ -100,12 +101,18 @@
   {
    "fieldname": "section_break_uiyc",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "benefit_catogery",
+   "fieldtype": "Link",
+   "label": "Benefit Catogery",
+   "options": "Benefit Catogery"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-18 17:54:39.923951",
+ "modified": "2025-01-07 01:59:55.379816",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Offers and Discounts",

@@ -49,7 +49,8 @@
    "fieldtype": "Date",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "Date"
+   "label": "Date",
+   "reqd": 1
   },
   {
    "default": "0",
@@ -72,10 +73,12 @@
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_actual_cost",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Total Actual Cost"
+   "label": "Total Actual Cost",
+   "read_only": 1
   },
   {
    "fieldname": "expenses_section",
@@ -111,6 +114,7 @@
   {
    "fieldname": "table_qyub",
    "fieldtype": "Table",
+   "hidden": 1,
    "options": "Training Elements Table"
   }
  ],
@@ -122,7 +126,7 @@
    "link_fieldname": "training_course"
   }
  ],
- "modified": "2024-12-24 00:09:57.070771",
+ "modified": "2025-01-19 04:16:05.377975",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Course Costing",

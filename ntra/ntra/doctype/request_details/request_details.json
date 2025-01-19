@@ -1,0 +1,169 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{requestor}-{#######}",
+ "creation": "2024-12-27 22:38:20.639591",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_qsqb",
+  "amended_from",
+  "requestor",
+  "meeting_rooms",
+  "room_capacity",
+  "column_break_qziw",
+  "guest_number",
+  "start_date",
+  "request_stauts",
+  "column_break_wjop",
+  "available_slot",
+  "from_time",
+  "to_time",
+  "total_time",
+  "section_break_wilb",
+  "table_csol",
+  "section_break_ksad",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_qsqb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Request Details",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "requestor",
+   "fieldtype": "Link",
+   "label": "Requestor",
+   "options": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "meeting_rooms",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Meeting Rooms",
+   "options": "Meetings Room",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_qziw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "guest_number",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Guest Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "request_stauts",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Request Status",
+   "options": "\nPending\nApproved\nRejected"
+  },
+  {
+   "fieldname": "column_break_wjop",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "available_slot",
+   "fieldtype": "Select",
+   "label": "Available Slot"
+  },
+  {
+   "fieldname": "from_time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "From Time",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "depends_on": "from_time",
+   "fieldname": "to_time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "To Time",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "depends_on": "to_time",
+   "fetch_from": "meeting_rooms.appointment_duration",
+   "fieldname": "total_time",
+   "fieldtype": "Data",
+   "label": "Total Minutes"
+  },
+  {
+   "fieldname": "section_break_wilb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_csol",
+   "fieldtype": "Table",
+   "options": "Amenities"
+  },
+  {
+   "fieldname": "section_break_ksad",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fetch_from": "meeting_rooms.room_capacity",
+   "fieldname": "room_capacity",
+   "fieldtype": "Int",
+   "label": "Room Capacity",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-01-07 01:38:16.038763",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Request Details",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

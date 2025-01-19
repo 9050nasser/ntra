@@ -18,10 +18,12 @@
   "room_status",
   "booking_details_section",
   "availability",
-  "booking_cost",
-  "column_break_hvdf",
   "from_date",
-  "to_date",
+  "column_break_hvdf",
+  "from",
+  "to",
+  "section_break_awgl",
+  "times",
   "section_break_jbuo",
   "table_dewx",
   "section_break_aowe",
@@ -97,23 +99,13 @@
    "options": "Available\nUnavailable"
   },
   {
-   "fieldname": "booking_cost",
-   "fieldtype": "Currency",
-   "label": "Booking Cost"
-  },
-  {
    "fieldname": "column_break_hvdf",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "from_date",
-   "fieldtype": "Datetime",
-   "label": "From Date "
-  },
-  {
-   "fieldname": "to_date",
-   "fieldtype": "Datetime",
-   "label": "To Date"
+   "fieldtype": "Date",
+   "label": "Date "
   },
   {
    "fieldname": "section_break_jbuo",
@@ -132,12 +124,36 @@
    "fieldname": "comments",
    "fieldtype": "Small Text",
    "label": "Comments"
+  },
+  {
+   "fieldname": "from",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "To",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_awgl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "times",
+   "fieldtype": "Table",
+   "label": "Times",
+   "options": "Times"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-18 19:11:37.734809",
+ "modified": "2024-12-30 22:33:10.748684",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Meeting Rooms",

@@ -1,7 +1,7 @@
 import frappe
 from frappe import _
 from datetime import datetime
-from frappe.utils import today
+from frappe.utils import today, add_days, nowdate
 from frappe.desk.form import assign_to
 from frappe.utils import add_to_date, today, date_diff, getdate
 
@@ -22,6 +22,15 @@ def goal_validation(doc, method):
 @frappe.whitelist()
 def get_employee_identification_type():
     return frappe.get_cached_doc('Document List')
+@frappe.whitelist()
+def employee_document_template(document_type):
+    return frappe.get_cached_doc('Employee Document Template', document_type)
+
+@frappe.whitelist()
+def expired_document_type():
+    frappe.db.sql("""
+        UPDATE `tabEmployee Identification` set expired = 1  where end_date < CURDATE()  and parenttype = 'Employee' and expired = 0;
+    """)
 @frappe.whitelist()
 def validate_employee(doc, method):
     documents_emp = []
@@ -230,10 +239,13 @@ from datetime import timedelta
 def calculate_sick_leave_salary(doc, method):
     # جلب الشرائح من Leave Type
     slabs = frappe.get_doc("Leave Type", doc.leave_type)
-    monthly_salary = frappe.db.get_all("Salary Structure Assignment", filters={"employee": doc.employee}, order_by="from_date desc", fields=["*"])[0]
     if slabs.custom_is_sick_leave:
+        ssa = frappe.db.get_all("Salary Structure Assignment", filters={"employee": doc.employee}, order_by="from_date desc", fields=["*"])
+        if not len(ssa):
+            frappe.throw(_("There is no Salary Structure Assignment linked With this employee!"))
     # حساب عدد الأيام الكلية
-
+        monthly_salary = ssa[0]
+        
         total_days = date_diff(doc.to_date, doc.from_date) + 1
         current_date = getdate(doc.from_date)
         ledger_entries = []
@@ -392,3 +404,19 @@ def store_translation(arabic_name, english_name):
     except Exception as e:
         # Log any errors that occur during the insert
         frappe.log_error(f"Failed to store translation for '{arabic_name}': {str(e)}", _("Translation Storage Error"))
+
+
+def proccess_contract_renewal():
+    """
+    making contract renewal documents for (contracts) contracts
+    """
+    list_of_contracts = frappe.db.get_list("Contracts", {"docstatus": 1, "document_status": "Approved", "end": ["<=", add_days(nowdate(), 30)]}, ["name", "employee"])
+    for contract in list_of_contracts:
+        if not frappe.get_value("Contract Renewal", {"employee_contract": contract.name}):
+            frappe.get_doc(dict(
+                doctype = "Contract Renewal",
+                employee = contract.employee,
+                date = nowdate(),
+                status = "Awaiting Response",
+                employee_contract = contract.name
+            )).insert()
