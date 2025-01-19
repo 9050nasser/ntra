@@ -27,4 +27,4 @@ def mark_student_present_or_absent(date, session, students):
 	for student in students:
 		frappe.db.set_value("Session Assignment", {"date": date, "parent": student['parent'], "training_session": session}, "attendance", "Present" if student['checked'] else "Absent")
 	
-	return 
+	return
