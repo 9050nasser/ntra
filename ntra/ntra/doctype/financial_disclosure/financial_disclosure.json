@@ -1,6 +1,8 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
+ "autoname": "FDD-.#####",
  "creation": "2024-12-31 10:40:31.602779",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -8,7 +10,7 @@
   "received_date",
   "disclosure_type",
   "column_break_oghc",
-  "receiver_name",
+  "employee",
   "section_break_qqni",
   "financial_disclosure_status",
   "ministry_of_justice_comments"
@@ -17,21 +19,20 @@
   {
    "fieldname": "received_date",
    "fieldtype": "Date",
-   "label": "Received Date "
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Received Date ",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_oghc",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "receiver_name",
-   "fieldtype": "Link",
-   "label": "Receiver Name",
-   "options": "Employee"
-  },
-  {
    "fieldname": "disclosure_type",
    "fieldtype": "Int",
+   "in_list_view": 1,
    "label": "Disclosure Type",
    "read_only": 1
   },
@@ -49,14 +50,22 @@
    "fieldname": "ministry_of_justice_comments",
    "fieldtype": "Small Text",
    "label": "Ministry Of Justice Comments "
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-31 10:51:55.418115",
+ "modified": "2025-01-15 00:11:19.129901",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Financial Disclosure",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {

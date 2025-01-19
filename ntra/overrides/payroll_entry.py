@@ -1311,7 +1311,7 @@ def set_match_conditions(query, qb_object):
 	return query
 
 
-def remove_payrolled_employees(emp_list, start_date, end_date):
+def remove_payrolled_employees(emp_list, start_date, end_date, salary_structure):
 	SalarySlip = frappe.qb.DocType("Salary Slip")
 
 	employees_with_payroll = (
@@ -1321,6 +1321,7 @@ def remove_payrolled_employees(emp_list, start_date, end_date):
 			(SalarySlip.docstatus == 1)
 			& (SalarySlip.start_date == start_date)
 			& (SalarySlip.end_date == end_date)
+			& (SalarySlip.salary_structure == salary_structure[0])
 		)
 	).run(pluck=True)
 
@@ -1605,13 +1606,14 @@ def get_employee_list(
 		offset=offset,
 		ignore_match_conditions=ignore_match_conditions,
 	)
-
+	print(sal_struct[0])
+	print(emp_list)
 	if as_dict:
 		employees_to_check = {emp.employee: emp for emp in emp_list}
 	else:
 		employees_to_check = {emp[0]: emp for emp in emp_list}
 
-	return remove_payrolled_employees(employees_to_check, filters.start_date, filters.end_date)
+	return remove_payrolled_employees(employees_to_check, filters.start_date, filters.end_date, sal_struct)
 
 
 @frappe.whitelist()

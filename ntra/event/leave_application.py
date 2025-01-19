@@ -32,3 +32,13 @@ def validate_maximum_leaves_time(doc, method):
                     
                     frappe.throw(_(f"Remaining Leaves for This Month is {int(shift.custom_monthly_leave_allocation - leaves[0].total_leaves)} of {int(shift.custom_monthly_leave_allocation)}"))
     
+
+def on_submit(doc, method):
+    attendance_list = frappe.db.get_list("Attendance", [["docstatus", "=", 1],["employee", "=", doc.employee], ["attendance_date", "between", [doc.from_date, doc.to_date]]])
+    for attendance in attendance_list:
+        frappe.db.set_value("Attendance", attendance.name, dict(
+            status = "On Leave",
+            working_hours = 0,
+            leave_type = doc.leave_type,
+            leave_application = doc.name
+        ))

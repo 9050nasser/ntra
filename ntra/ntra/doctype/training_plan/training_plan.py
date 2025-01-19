@@ -8,6 +8,7 @@ class TrainingPlan(Document):
 
 	def validate(self):
 		self.check_duplicates()
+	
 
 	@frappe.whitelist()
 	def get_employees(self):
@@ -50,26 +51,69 @@ class TrainingPlan(Document):
 	def get_training_requests(self):
 		reqs = []
 		for course in self.table_tqgd:
-			filters = {"status": "Approved", "date_imcq": ["Between", [self.from_date, self.to_date]], "training_course": course.training_course}
-			requests = frappe.db.get_all("Training Request", filters=filters, fields=["*"])
-			for request in requests:
-				reqs.append({
-					"training_request": request.name,
-					"employee": request.employee,
-					"designation": request.designation,
-					"training_course": request.training_course
-				})
+			filters = {
+				"status": "Approved",
+				"date_imcq": ["Between", [self.from_date, self.to_date]],
+				"training_course": course.training_course,
+			}
+
+			# Fetch approved requests that are not already in another training plan
+			requests = frappe.db.sql("""
+				SELECT 
+					tr.name AS training_request,
+					tr.employee,
+					tr.designation,
+					tr.training_course
+				FROM 
+					`tabTraining Request` tr
+				WHERE 
+					tr.status = 'Approved'
+					AND tr.date_imcq BETWEEN %(from_date)s AND %(to_date)s
+					AND tr.training_course = %(training_course)s
+					AND NOT EXISTS (
+						SELECT 1 
+						FROM `tabTraining Plan` tp 
+						JOIN `tabTraining Plan Employee` tpd ON tpd.parent = tp.name
+						WHERE tpd.training_request = tr.name and tp.docstatus = 1
+					)
+			""", {
+				"from_date": self.from_date,
+				"to_date": self.to_date,
+				"training_course": course.training_course
+			}, as_dict=True)
+
+			reqs.extend(requests)
+		
 		return reqs
+
 	
 	def check_duplicates(self):
-		# Check for duplicate training courses
+    # Iterate through each row in the child table
 		for row in self.table_oyzi:
+			# Query to find duplicates
 			requests = frappe.db.sql("""
-			SELECT tp.name as name, tpe.training_course as course FROM `tabTraining Plan` tp
-			LEFT JOIN `tabTraining Plan Employee` tpe ON tp.name = tpe.parent
-			WHERE tp.name != %s AND tpe.training_course = %s
-			""", (self.name, row.training_course), as_dict=True)
+				SELECT tp.name as training_plan, tpe.training_request
+				FROM `tabTraining Plan` tp
+				LEFT JOIN `tabTraining Plan Employee` tpe ON tp.name = tpe.parent
+				WHERE tp.name != %s 
+				AND tpe.training_request = %s
+				AND tp.docstatus = 1
+			""", (self.name, row.training_request), as_dict=True)
+
+			# If duplicates are found, throw an error
 			if requests:
-            # Create a list of training plan names that already have the course
-				plan_courses = [request.get('course') for request in requests]
-				frappe.throw(f"Training Course {plan_courses} already exists in Training Plans: <a href='/app/training-plan/{requests[0].name}'>{requests[0].name}</a>")
+				# Extract duplicate training plan details
+				plan_names = [request.get('training_plan') for request in requests]
+				frappe.throw(
+					f"Training Request {row.training_request} already exists in Training Plan(s): " +
+					", ".join([f"<a href='/app/training-plan/{name}'>{name}</a>" for name in plan_names])
+				)
+	@frappe.whitelist()
+	def check_correct_courses(self):
+		# Create a set of valid training courses from table_oyzi
+		valid_courses = {row2.training_course for row2 in self.table_oyzi}
+		
+		# Filter rows in table_tqgd where training_course is in valid_courses
+		self.table_tqgd = [row for row in self.table_tqgd if row.training_course in valid_courses]
+
+

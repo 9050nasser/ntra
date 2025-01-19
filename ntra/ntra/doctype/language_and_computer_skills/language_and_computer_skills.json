@@ -1,0 +1,56 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-01-10 01:19:37.509877",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "languages",
+  "speaking",
+  "reading",
+  "writing"
+ ],
+ "fields": [
+  {
+   "fieldname": "languages",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Languages",
+   "options": "Arabic\nEnglish\nDeutsch \nFrench\nState another language, if applicable\n"
+  },
+  {
+   "fieldname": "speaking",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Speaking",
+   "options": "Excellent\nGood\nFair"
+  },
+  {
+   "fieldname": "reading",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Reading",
+   "options": "Excellent\nGood\nFair"
+  },
+  {
+   "fieldname": "writing",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Writing",
+   "options": "Excellent\nGood\nFair"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-01-10 01:26:27.488400",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Language and Computer Skills",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

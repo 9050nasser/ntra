@@ -174,7 +174,7 @@ def get_children(doctype: str, parent: str, is_root: bool = False, **filters) ->
 		#NEW
 	elif filters.get("employee"):
 		ifnull = CustomFunction("IFNULL", ["value", "default"])
-		query = query.where(ifnull(Goal.parent_goal, "") != "")
+		query = query.where(ifnull(Goal.parent_goal, "") == "")
 	elif is_root:
 		ifnull = CustomFunction("IFNULL", ["value", "default"])
 		query = query.where(ifnull(Goal.parent_goal, "") == "")

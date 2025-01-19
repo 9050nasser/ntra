@@ -1,0 +1,34 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-01-18 15:30:21.981867",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "course_evaluation_elements"
+ ],
+ "fields": [
+  {
+   "fieldname": "course_evaluation_elements",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": " Course Evaluation Elements",
+   "options": "Course Evaluation Elements"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-01-18 15:32:43.619953",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Course Evaluation Elements Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

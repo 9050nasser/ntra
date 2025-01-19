@@ -7,7 +7,7 @@ from frappe.model.document import Document
 
 class EmployeeRecord(Document):
 	def create_permission(self):
-		permission = frappe.new_doc("Mission Application")
+		permission = frappe.new_doc("Permission")
 		permission.employee = self.employee
 		permission.permission_type = self.permission_type
 		permission.from_time = self.start_time

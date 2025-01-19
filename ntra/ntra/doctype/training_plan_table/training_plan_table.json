@@ -13,6 +13,7 @@
  ],
  "fields": [
   {
+   "allow_on_submit": 1,
    "fieldname": "training_course",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -22,6 +23,7 @@
    "options": "Training Course"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "number_of_courses",
    "fieldtype": "Int",
    "in_list_view": 1,
@@ -30,6 +32,7 @@
    "label": "Number Of Courses"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "estimated_cost_per_course",
    "fieldtype": "Currency",
    "in_list_view": 1,
@@ -38,6 +41,7 @@
    "label": "Estimated Cost Per Course"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "actual_cost_per_course",
    "fieldtype": "Currency",
    "in_list_view": 1,
@@ -47,7 +51,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-24 01:03:20.793304",
+ "modified": "2025-01-18 23:54:38.280573",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Plan Table",

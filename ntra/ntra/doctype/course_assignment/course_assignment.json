@@ -9,6 +9,7 @@
  "field_order": [
   "employee",
   "employee_name",
+  "department",
   "enrollment_cost",
   "currency",
   "training_course_schedule",
@@ -90,6 +91,15 @@
    "label": "Training Course Schedule",
    "options": "Training Course Schedule",
    "read_only": 1
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Department",
+   "options": "Department"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -103,7 +113,7 @@
    "link_fieldname": "course_assignment"
   }
  ],
- "modified": "2024-12-23 17:09:58.864460",
+ "modified": "2025-01-18 13:53:24.965585",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Course Assignment",

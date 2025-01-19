@@ -4,6 +4,7 @@ from hrms.hr.doctype.leave_application.leave_application import LeaveApplication
 from hrms.hr.utils import (
     get_holiday_dates_for_employee
 )
+from datetime import datetime
 from frappe.utils import (
     getdate,
     add_days,
@@ -16,6 +17,8 @@ from hrms.hr.doctype.leave_application.leave_application import get_allocation_e
 from erpnext.setup.doctype.employee.employee import get_holiday_list_for_employee
 
 class CustomLeaveApplication(LeaveApplication):
+    def validate_attendance(self):
+        pass
     def create_ledger_entry_for_intermediate_allocation_expiry(self, expiry_date, submit, lwp):
         """Splits leave application into two ledger entries to consider expiry of allocation"""
         raise_exception = False if frappe.flags.in_patch else True
@@ -234,10 +237,10 @@ class CustomLeaveApplication(LeaveApplication):
             doc.flags.ignore_validate = True
             doc.insert(ignore_permissions=True)
             doc.submit()
+            doc.db_set("working_hours", 0)
     def update_attendance(self):
         if self.status != "Approved":
             return
-
         holiday_dates = []
         if not frappe.db.get_value("Leave Type", self.leave_type, "include_holiday"):
             holiday_dates = get_holiday_dates_for_employee(self.employee, self.from_date, self.to_date)

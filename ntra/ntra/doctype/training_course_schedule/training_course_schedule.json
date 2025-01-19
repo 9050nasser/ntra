@@ -62,11 +62,13 @@
   {
    "fieldname": "from_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "From Date"
   },
   {
    "fieldname": "to_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "To Date"
   },
   {
@@ -74,7 +76,6 @@
    "fieldtype": "Link",
    "label": "Training Plan",
    "options": "Training Plan",
-   "read_only": 1,
    "search_index": 1
   },
   {
@@ -100,13 +101,14 @@
   }
  ],
  "index_web_pages_for_search": 1,
+ "is_calendar_and_gantt": 1,
  "links": [
   {
    "link_doctype": "Course Assignment",
    "link_fieldname": "training_course_schedule"
   }
  ],
- "modified": "2024-12-23 16:15:11.845504",
+ "modified": "2025-01-19 04:33:34.013061",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Training Course Schedule",

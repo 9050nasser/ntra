@@ -51,7 +51,8 @@ doctype_js = {"Job Applicant" : "public/js/job_applicant.js",
             "Task":"public/js/task.js",
             "Appraisal":"public/js/appraisal.js",
             "Payroll Entry":"public/js/payroll_entry.js",
-            "Salary Component":"public/js/salary_component.js",}
+            "Salary Component":"public/js/salary_component.js",
+            "Travel Request": "public/js/travel_request.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 doctype_tree_js = {"Goal" : "public/js/goal_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -186,6 +187,8 @@ doc_events = {
         "after_insert": "ntra.events.append_sickleave",
         "before_save": ["ntra.event.salary_slip.get_stamp_tax_amount",
                         "ntra.event.salary_slip.stamp_tax_formula"],
+        "validate": ["ntra.event.salary_slip.calculate_leave_without_pay"
+                        ],
     },
     "Attendance": {
         "after_insert": "ntra.event.attendance.validate_attendance",
@@ -212,6 +215,7 @@ scheduler_events = {
 		"ntra.api.update_employee_trainings",
         "ntra.events.auto_approve_pending_leaves",
         "ntra.events.update_ad_hocs_for_appraisals",
+        "ntra.events.expired_document_type",
         "ntra.events.proccess_contract_renewal"
 	],
 	# "hourly": [
@@ -318,3 +322,8 @@ fixtures = [
         ]
     ]}
 ]
+
+import frappe
+import ntra
+
+frappe.api.handle = ntra.handle

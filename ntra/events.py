@@ -23,6 +23,15 @@ def goal_validation(doc, method):
 def get_employee_identification_type():
     return frappe.get_cached_doc('Document List')
 @frappe.whitelist()
+def employee_document_template(document_type):
+    return frappe.get_cached_doc('Employee Document Template', document_type)
+
+@frappe.whitelist()
+def expired_document_type():
+    frappe.db.sql("""
+        UPDATE `tabEmployee Identification` set expired = 1  where end_date < CURDATE()  and parenttype = 'Employee' and expired = 0;
+    """)
+@frappe.whitelist()
 def validate_employee(doc, method):
     documents_emp = []
     for row in doc.custom_employee_identification:
@@ -230,10 +239,13 @@ from datetime import timedelta
 def calculate_sick_leave_salary(doc, method):
     # جلب الشرائح من Leave Type
     slabs = frappe.get_doc("Leave Type", doc.leave_type)
-    monthly_salary = frappe.db.get_all("Salary Structure Assignment", filters={"employee": doc.employee}, order_by="from_date desc", fields=["*"])[0]
     if slabs.custom_is_sick_leave:
+        ssa = frappe.db.get_all("Salary Structure Assignment", filters={"employee": doc.employee}, order_by="from_date desc", fields=["*"])
+        if not len(ssa):
+            frappe.throw(_("There is no Salary Structure Assignment linked With this employee!"))
     # حساب عدد الأيام الكلية
-
+        monthly_salary = ssa[0]
+        
         total_days = date_diff(doc.to_date, doc.from_date) + 1
         current_date = getdate(doc.from_date)
         ledger_entries = []

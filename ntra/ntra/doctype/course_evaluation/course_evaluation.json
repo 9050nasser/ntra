@@ -14,18 +14,25 @@
   "training_course",
   "course_date",
   "acquired_knowledge_section",
+  "acquired_knowledge_template",
   "table_clme",
   "course_content_section",
+  "course_content",
   "table_zbtv",
   "instructor_effectiveness_section",
+  "instructor_effectiveness_template",
   "table_bapu",
   "course_material_section",
+  "course_material_template",
   "table_muzw",
   "environment_or_organization_and_venue_section",
+  "environment_or_organization_and_venue_template",
   "table_bgwo",
   "overall_satisfaction_section",
+  "overall_satisfaction_template",
   "table_mlfj",
   "internal_procedures_and_information_section",
+  "internal_procedures_and_information_template",
   "table_ssug"
  ],
  "fields": [
@@ -149,11 +156,53 @@
    "fieldtype": "Link",
    "label": "Course Assignment",
    "options": "Course Assignment"
+  },
+  {
+   "fieldname": "acquired_knowledge_template",
+   "fieldtype": "Link",
+   "label": "Acquired Knowledge Template",
+   "options": "Course Evaluation Elements Template"
+  },
+  {
+   "fieldname": "course_content",
+   "fieldtype": "Link",
+   "label": "Course Content Template",
+   "options": "Course Evaluation Elements Template"
+  },
+  {
+   "fieldname": "instructor_effectiveness_template",
+   "fieldtype": "Link",
+   "label": "Instructor Effectiveness Template",
+   "options": "Course Evaluation Elements Template"
+  },
+  {
+   "fieldname": "course_material_template",
+   "fieldtype": "Link",
+   "label": "Course Material Template",
+   "options": "Course Evaluation Elements Template"
+  },
+  {
+   "fieldname": "environment_or_organization_and_venue_template",
+   "fieldtype": "Link",
+   "label": "Environment Or Organization and Venue Template",
+   "options": "Course Evaluation Elements Template"
+  },
+  {
+   "fieldname": "overall_satisfaction_template",
+   "fieldtype": "Link",
+   "label": "Overall Satisfaction Template",
+   "options": "Course Evaluation Elements Template"
+  },
+  {
+   "fieldname": "internal_procedures_and_information_template",
+   "fieldtype": "Link",
+   "label": "Internal Procedures and Information Template",
+   "options": "Course Evaluation Elements Template"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-12-23 17:08:49.887518",
+ "modified": "2025-01-18 15:47:14.060369",
  "modified_by": "Administrator",
  "module": "Ntra",
  "name": "Course Evaluation",

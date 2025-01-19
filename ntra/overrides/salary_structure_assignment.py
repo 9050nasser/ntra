@@ -20,12 +20,71 @@ class CustomSalaryStructureAssignment(Document):
 		self.validate_company()
 		self.validate_income_tax_slab()
 		self.set_payroll_payable_account()
+		self.calculate_components()
+		self.calculate_components_total()
 
 		if not self.get("payroll_cost_centers"):
 			self.set_payroll_cost_centers()
 
 		self.validate_cost_center_distribution()
 		self.warn_about_missing_opening_entries()
+
+	def calculate_components_total(self):
+		total_earning = 0
+		total_deduction = 0
+		for row in self.custom_earning:
+			if not row.custom_skip_calculate_in_assignment:
+				total_earning += row.amount
+		for row in self.custom_deduction:
+			if not row.custom_skip_calculate_in_assignment:
+				total_deduction += row.amount
+		self.custom_total_earning = total_earning
+		self.custom_total_deduction = total_deduction
+		self.custom_net_total = total_earning - total_deduction
+			
+
+	@frappe.whitelist()
+	def calculate_components(self):
+		# Define a context to include all fields from Salary Structure Assignment
+		context = self.as_dict()
+
+		# Fetch related Employee document
+		employee = frappe.get_doc("Employee", self.employee) if self.employee else None
+
+		# Add fields from the Employee Doctype to the context
+		if employee:
+			context.update({fieldname: getattr(employee, fieldname, 0) for fieldname in employee.as_dict()})
+
+		# Add all abbreviations and amounts from both child tables to the context
+		for row in self.custom_earning + self.custom_deduction:
+			context[row.abbr] = row.amount or 0
+
+		# Calculate custom earnings
+		for row in self.custom_earning:
+			try:
+				# Skip formula evaluation if amount is already set
+				# if row.amount is None or row.amount == 0:
+				if row.formula and row.amount_based_on_formula:
+					row.amount = frappe.safe_eval(row.formula, context)
+				# Update the context with the newly calculated amount
+				context[row.abbr] = row.amount or 0
+			except Exception as e:
+				frappe.throw(f"Error in formula for {row.abbr}: {str(e)}")
+
+		# Calculate custom deductions
+		for row in self.custom_deduction:
+			try:
+				# Skip formula evaluation if amount is already set
+				# if row.amount is None or row.amount == 0:
+				if row.formula and row.amount_based_on_formula:
+					row.amount = frappe.safe_eval(row.formula, context)
+				# Update the context with the newly calculated amount
+				context[row.abbr] = row.amount or 0
+			except Exception as e:
+				frappe.throw(f"Error in formula for {row.abbr}: {str(e)}")
+
+		# Save changes to the document
+		self.flags.ignore_validate_update_after_submit = True
 
 	def validate_dates(self):
 		joining_date, relieving_date = frappe.db.get_value(

@@ -1,0 +1,170 @@
+{
+ "actions": [],
+ "autoname": "field:meeting_room_name",
+ "creation": "2025-01-06 18:08:02.783893",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "meeting_room_name",
+  "room_code",
+  "room_type",
+  "column_break_pqpx",
+  "room_capacity",
+  "location",
+  "floor",
+  "agent_detail_section",
+  "room_status",
+  "availability_of_slots",
+  "holiday_list",
+  "appointment_details_section",
+  "appointment_duration",
+  "section_break_omtl",
+  "amenities_details",
+  "section_break_gect",
+  "comments"
+ ],
+ "fields": [
+  {
+   "fieldname": "agent_detail_section",
+   "fieldtype": "Section Break",
+   "label": "Meeting Room Available"
+  },
+  {
+   "fieldname": "availability_of_slots",
+   "fieldtype": "Table",
+   "label": "Availability Of Slots",
+   "options": "Appointment Booking Slots",
+   "reqd": 1
+  },
+  {
+   "fieldname": "holiday_list",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Holiday List",
+   "options": "Holiday List"
+  },
+  {
+   "fieldname": "appointment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Appointment Details"
+  },
+  {
+   "default": "60",
+   "fieldname": "appointment_duration",
+   "fieldtype": "Int",
+   "label": "Appointment Duration (In Minutes)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "meeting_room_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Meeting Room Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "room_type",
+   "fieldtype": "Select",
+   "label": "Room Type",
+   "options": "Normal\nVip"
+  },
+  {
+   "fieldname": "room_code",
+   "fieldtype": "Data",
+   "label": "Room Code"
+  },
+  {
+   "fieldname": "room_capacity",
+   "fieldtype": "Int",
+   "label": "Room Capacity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_pqpx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Link",
+   "label": "Location",
+   "options": "Buildings"
+  },
+  {
+   "fieldname": "floor",
+   "fieldtype": "Link",
+   "label": "Floor",
+   "options": "Floor"
+  },
+  {
+   "fieldname": "room_status",
+   "fieldtype": "Select",
+   "label": "Room Status",
+   "options": "Active\nNot Active\nUnder Maintenance",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_gect",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "comments",
+   "fieldtype": "Small Text",
+   "label": "Comments"
+  },
+  {
+   "fieldname": "section_break_omtl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amenities_details",
+   "fieldtype": "Table",
+   "label": "Amenities Details",
+   "options": "Amenities"
+  }
+ ],
+ "links": [],
+ "modified": "2025-01-07 01:12:54.947034",
+ "modified_by": "Administrator",
+ "module": "Ntra",
+ "name": "Meetings Room",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

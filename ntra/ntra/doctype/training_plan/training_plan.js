@@ -4,23 +4,26 @@
 frappe.ui.form.on("Training Plan", {
     get_courses(frm) {
         get_employee_details(frm)
-        estimated_cost(frm)
+
     },
     get_training_requests(frm) {
         get_requests(frm)
+        check_correct_courses(frm)
     },
     validate(frm) {
-        estimated_cost(frm)
 
     },
     on_update(frm) {
         estimated_cost(frm)
     },
     refresh(frm) {
-        frm.add_custom_button(__('Update Cost'), function () {
-            get_training_actual_cost(frm)
-            estimated_cost(frm)
-        });
+        if (frm.doc.docstatus == 1) {
+            frm.add_custom_button(__('Update Cost'), function () {
+                get_training_actual_cost(frm)
+
+
+            });
+        }
 
         if (frm.doc.docstatus == 1) {
             frm.add_custom_button(__('Course Schedule'), function () {
@@ -52,6 +55,7 @@ frappe.ui.form.on("Training Plan", {
                                     reject(error);
                                 }
                             });
+
                         });
                     });
 
@@ -59,10 +63,12 @@ frappe.ui.form.on("Training Plan", {
                     Promise.all(schedulePromises)
                         .then(() => {
                             frm.refresh_field("training_course_schedule");
+
                             return frm.save("Update");
                         })
                         .then(() => {
                             frappe.msgprint(__('All schedules have been created successfully.'));
+
                         })
                         .catch((error) => {
                             console.error('Error in creating schedules:', error);
@@ -75,12 +81,6 @@ frappe.ui.form.on("Training Plan", {
 
             frm.add_custom_button(__('Material Request'), function () {
                 frappe.prompt([
-                    {
-                        label: 'Supplier',
-                        fieldname: 'supplier',
-                        fieldtype: 'Link',
-                        options: 'Supplier',
-                    },
                     {
                         label: 'Date',
                         fieldname: 'date',
@@ -113,8 +113,8 @@ frappe.ui.form.on("Training Plan", {
                     rq.items = [];
                     // rq.suppliers = [{ supplier: values.supplier }];
                     rq.custom_training_plan = frm.doc.name;
-                    rq.transaction_date = frm.doc.from_date;
-                    rq.schedule_date= frm.doc.from_date;
+                    rq.transaction_date = values.date;
+                    rq.schedule_date = values.date;
                     let invalid_rows = []; // Track rows with invalid data
 
                     frm.doc.table_tqgd.forEach(row => {
@@ -129,7 +129,7 @@ frappe.ui.form.on("Training Plan", {
                                 uom: "Nos", // Ensure 'Nos' is a valid UOM in your system
                                 stock_uom: "Nos",
                                 conversion_factor: 1,
-                                schedule_date: frm.doc.from_date
+                                schedule_date: values.date
                             });
                             // rq.transaction_date = values.date;
                             // rq.message_for_supplier = "Please supply the specified items at the best possible rates"
@@ -180,17 +180,6 @@ frappe.ui.form.on("Training Plan", {
                     });
                 });
             }, __("Actions"));
-
-
-
-
-
-
-
-
-
-
-
         }
     }
 
@@ -235,8 +224,6 @@ function get_employee_details(frm) {
             }
         }
     });
-    frm.save();
-
 }
 
 function get_training_actual_cost(frm) {
@@ -261,7 +248,7 @@ function get_training_actual_cost(frm) {
                         });
                     });
                     frm.refresh_field("table_tqgd");
-                    frm.save("Update")
+                    estimated_cost(frm)
                     if (updated) {
                         frappe.msgprint(__("Courses costing updated successfully."));
                     } else {
@@ -300,18 +287,48 @@ function get_requests(frm) {
             }
         }
     });
+
 }
 
 function estimated_cost(frm, cdt, cdn) {
-    let totalEstimated = frm.doc.table_tqgd.reduce(function (sum, item) {
-        return sum + (item.estimated_cost_per_course || 0);
-    }, 0);
-    let totalActual = frm.doc.table_tqgd.reduce(function (sum, item) {
-        return sum + (item.actual_cost_per_course || 0);
-    }, 0);
-    frm.set_value("total_estimated_cost", totalEstimated)
-    frm.set_value("total_actual_cost", totalActual)
-    frm.save("Update")
-    frm.refresh_field("total_estimated_cost")
+    if (frm.doc.table_tqgd.length > 0 || frm.doc.table_oyzi.length > 0) {
+        console.log("Calculating cost")
+        let totalEstimated = frm.doc.table_tqgd.reduce(function (sum, item) {
+            return sum + (item.estimated_cost_per_course || 0);
+        }, 0);
+        let totalActual = frm.doc.table_tqgd.reduce(function (sum, item) {
+            return sum + (item.actual_cost_per_course || 0);
+        }, 0);
+        console.log(totalEstimated)
+        console.log(totalActual)
+        frm.set_value("total_estimated_cost", totalEstimated)
+        frm.set_value("total_actual_cost", totalActual)
+        frm.refresh_field("total_estimated_cost")
+        if (frm.doc.docstatus == 1) {
+
+            frm.save("Update");
+        } else {
+            frm.save();
+        }
+    }
+}
+
+function check_correct_courses(frm) {
+    if (frm.doc.table_oyzi.length > 0) {
+        // Get the rows from both child tables
+        let table_tqgd = frm.doc.table_tqgd || [];
+        let table_oyzi = frm.doc.table_oyzi || [];
+
+        // Extract the valid training courses from table_oyzi
+        let valid_courses = table_oyzi.map(row => row.training_course);
+
+        // Filter rows in table_tqgd that have valid training courses
+        let filtered_tqgd = table_tqgd.filter(row => valid_courses.includes(row.training_course));
+
+        // Update the child table and refresh the field
+        frm.set_value('table_tqgd', filtered_tqgd);
+        frm.refresh_field('table_tqgd');
+        frm.save("Update");
+    }
 }
 

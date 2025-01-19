@@ -13,6 +13,6 @@ def create_new_contract(status, employee_contract):
 		old_contract = frappe.get_doc("Contracts", employee_contract)
 		contract_copy = frappe.copy_doc(old_contract)
 		contract_copy.start = contract_copy.end = None
-		contract_copy.insert()
+		contract_copy.insert(ignore_mandatory=True)
 		frappe.db.commit()
 		return contract_copy.name

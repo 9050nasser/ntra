@@ -287,6 +287,7 @@ class CustomSalarySlip(TransactionBase):
 					& (ss.docstatus != 2)
 					& (ss.employee == self.employee)
 					& (ss.name != self.name)
+					& (ss.salary_structure == self.salary_structure) # check if salary structure is same NEW
 				)
 			)
 
@@ -609,7 +610,8 @@ class CustomSalarySlip(TransactionBase):
 			self.start_date,
 			self.end_date,
 		)
-
+		is_death_leave = 0
+		death_leave_period = 0
 		for d in working_days_list:
 			if self.relieving_date and d > self.relieving_date:
 				continue
@@ -635,9 +637,13 @@ class CustomSalarySlip(TransactionBase):
 				equivalent_lwp_count *= (
 					fraction_of_daily_salary_per_leave if fraction_of_daily_salary_per_leave else 1
 				)
-
+			if cint(leave.custom_is_death_leave):
+				is_death_leave +=	1 
+				death_leave_period = leave.custom_leave_period_paid
 			lwp += equivalent_lwp_count
-
+		if is_death_leave > death_leave_period:
+			lwp = lwp - death_leave_period
+			pass
 		return lwp
 
 	def get_leave_type_map(self) -> dict:
@@ -1500,11 +1506,13 @@ class CustomSalarySlip(TransactionBase):
 
 		# Structured tax amount
 		eval_locals, default_data = self.get_data_for_eval()
-		self.total_structured_tax_amount = calculate_tax_by_tax_slab(
-			self.total_taxable_earnings_without_full_tax_addl_components,
+		self.total_structured_tax_amount = calculate_tax_by_tax_slab2(
 			self.tax_slab,
 			self.whitelisted_globals,
 			eval_locals,
+			self.employee,
+			self.start_date,
+			self.end_date
 		)
 
 		self.current_structured_tax_amount = (
@@ -1514,8 +1522,8 @@ class CustomSalarySlip(TransactionBase):
 		# Total taxable earnings with additional earnings with full tax
 		self.full_tax_on_additional_earnings = 0.0
 		if self.current_additional_earnings_with_full_tax:
-			self.total_tax_amount = calculate_tax_by_tax_slab(
-				self.total_taxable_earnings, self.tax_slab, self.whitelisted_globals, eval_locals
+			self.total_tax_amount = calculate_tax_by_tax_slab2(
+				self.tax_slab, self.whitelisted_globals, eval_locals, self.employee, self.start_date, self.end_date
 			)
 			self.full_tax_on_additional_earnings = self.total_tax_amount - self.total_structured_tax_amount
 
@@ -2093,6 +2101,8 @@ class CustomSalarySlip(TransactionBase):
 					},
 				)
 
+	def get_tax_components(self):
+		pass
 
 def unlink_ref_doc_from_salary_slip(doc, method=None):
 	"""Unlinks accrual Journal Entry from Salary Slips on cancellation"""
@@ -2142,40 +2152,143 @@ def get_payroll_payable_account(company, payroll_entry):
 
 	return payroll_payable_account
 
+from datetime import datetime
 
-def calculate_tax_by_tax_slab(annual_taxable_earning, tax_slab, eval_globals=None, eval_locals=None):
+# compute taxes Code new way
+def calculate_tax_by_tax_slab2(tax_slab, eval_globals=None, eval_locals=None, employee=None, start_date=None, end_date= None):
+	payroll_period = frappe.db.get_value("Payroll Period", [["start_date", "<=", start_date], ["end_date", ">=", end_date]], ["name", "start_date", "end_date"], as_dict=True)
+	# get all earned taxable income for employee inside the payroll period
+	comulative_taxable_incomes = frappe.db.sql("""
+		SELECT
+			sum(sd.amount) as amount
+		FROM `tabSalary Detail` sd
+		JOIN `tabSalary Component` sc ON sc.name = sd.salary_component
+		JOIN `tabSalary Slip` ss ON sd.parent = ss.name
+		JOIN `tabPayroll Period` pp ON pp.start_date <= ss.start_date AND pp.end_date >= ss.end_date
+		WHERE
+			sc.type = "Earning"
+			AND sc.is_tax_applicable = 1
+			AND ss.employee = %s
+			AND pp.name = %s
+	""",(employee, payroll_period.name), as_dict = True)
+	comulative_taxable_income = comulative_taxable_incomes[0].amount if len(comulative_taxable_incomes) else 0
+	# divide amount depend on slaps
+	divided_amount = divide_depend_on_slaps(comulative_taxable_income, tax_slab.slabs, tax_slab.standard_tax_exemption_amount, eval_globals, eval_locals)
+	# compute the comulative amount
+	comulative_tax = sum([d["amount"] * d["percent_deduction"]/100 for d in divided_amount])
+	print(f"comulative tax: {comulative_tax}")
+	# get previous taxes
+	previous_comulative_tax_amount = frappe.db.get_value("Salary Slip", [["start_date", ">=", payroll_period.start_date], ["end_date", "<=", payroll_period.end_date]], "SUM(current_month_income_tax)")
+
+	return comulative_tax - previous_comulative_tax_amount
+
+def divide_depend_on_slaps(income_amount, slabs, exempted_amount ,eval_globals, eval_locals):
+	amount = income_amount - exempted_amount
+	divition_list = []
+	for slab in slabs:
+		cond = cstr(slab.condition).strip()
+		if cond and not eval_tax_slab_condition(cond, eval_globals, eval_locals):
+			continue
+		if slab.to_amount:
+			if amount > slab.to_amount:
+				divition_list.append(dict(
+					amount = slab.to_amount - slab.from_amount,
+					percent_deduction = slab.percent_deduction
+				))
+			else:
+				if amount > slab.from_amount:
+					divition_list.append(dict(
+						amount = amount - slab.from_amount,
+						percent_deduction = slab.percent_deduction
+					))
+					break
+		else:
+			divition_list.append(dict(
+				amount = amount - slab.from_amount,
+				percent_deduction = slab.percent_deduction
+			))
+			break
+	return divition_list
+		
+
+
+
+#end compute taxes Code new way
+
+
+def calculate_tax_by_tax_slab(annual_taxable_earning, tax_slab, eval_globals=None, eval_locals=None, employee=None, is_reward=None, start_date=None):
+    print(employee, is_reward, start_date)
     print(f"Starting tax calculation for annual taxable earning: {annual_taxable_earning}")
-    taxes = annual_taxable_earning
     eval_locals.update({"annual_taxable_earning": annual_taxable_earning})
     tax_amount = 0
-
+    pervious_taxable = 0
+    pervious_tax = 0
+    taxes = annual_taxable_earning
+    date = datetime.strptime(str(start_date), "%Y-%m-%d").month
+    diffrence = 12 - date +1
+    print(f"Diffrence: {diffrence}")
+    all_components = tuple(frappe.db.sql("""SELECT name FROM `tabSalary Component` WHERE is_tax_applicable = 1""", as_dict=1, pluck="name"))
+    all_slips = frappe.get_all("Salary Slip", filters={"employee": employee, "docstatus": 1, "start_date": ["<=", start_date]}, fields=["name", "start_date", "current_month_income_tax"])
+    if all_slips:
+        for slip in all_slips:
+            pervious_tax += slip.current_month_income_tax
+            slip_doc = frappe.get_doc("Salary Slip", slip.name).earnings
+            for doc in slip_doc:
+                if doc.salary_component in all_components:
+                    pervious_taxable += doc.amount
+                    print(f"Adding pervious taxable earning: {pervious_taxable}")
     for slab in tax_slab.slabs:
         cond = cstr(slab.condition).strip()
         print(f"Checking slab condition: {cond}")
+        if is_reward and employee:
+            print(f"tto {annual_taxable_earning}")
+            if cond and not eval_tax_slab_condition(cond, eval_globals, eval_locals):
+                print(f"Slab condition '{cond}' not met, skipping this slab.")
+                continue
+            
+            if not slab.to_amount and annual_taxable_earning >= slab.from_amount:
+                calculated_tax = (annual_taxable_earning - slab.from_amount + 1) * slab.percent_deduction * 0.01
+                print(f"Tax calculated for slab 1(from {slab.from_amount}): {calculated_tax}")
+                tax_amount += calculated_tax
+                taxes -= (slab.to_amount - slab.from_amount + 1)
+                continue
 
-        if cond and not eval_tax_slab_condition(cond, eval_globals, eval_locals):
-            print(f"Slab condition '{cond}' not met, skipping this slab.")
-            continue
-        
-        if not slab.to_amount and annual_taxable_earning >= slab.from_amount:
-            calculated_tax = (annual_taxable_earning - slab.from_amount + 1) * slab.percent_deduction * 0.01
-            print(f"Tax calculated for slab 1(from {slab.from_amount}): {calculated_tax}")
-            tax_amount += calculated_tax
-            taxes -= (slab.to_amount - slab.from_amount + 1)
-            continue
+            if annual_taxable_earning >= slab.from_amount and annual_taxable_earning < slab.to_amount:
+                calculated_tax = (annual_taxable_earning - slab.from_amount + 1) * slab.percent_deduction * 0.01
+                taxes2 = taxes * slab.percent_deduction * 0.01
+                tax_amount += taxes2#calculated_tax
+                print(f"Tax calculated for slab 2(from {slab.from_amount} to {slab.to_amount}): {taxes2}")
+                print(taxes2)
+            elif annual_taxable_earning >= slab.from_amount and annual_taxable_earning >= slab.to_amount:
+                calculated_tax = (slab.to_amount - slab.from_amount + 1) * slab.percent_deduction * 0.01
+                print(f"Tax calculated for slab 3(from {slab.from_amount} to {slab.to_amount}): {calculated_tax}")
+                tax_amount += calculated_tax
+                taxes -= (slab.to_amount - slab.from_amount + 1)
+            print((tax_amount*diffrence) - (pervious_tax or 0))
+            return (tax_amount*diffrence) - (pervious_tax or 0)
+        else:
+            if cond and not eval_tax_slab_condition(cond, eval_globals, eval_locals):
+                print(f"Slab condition '{cond}' not met, skipping this slab.")
+                continue
+            
+            if not slab.to_amount and annual_taxable_earning >= slab.from_amount:
+                calculated_tax = (annual_taxable_earning - slab.from_amount + 1) * slab.percent_deduction * 0.01
+                print(f"Tax calculated for slab 1(from {slab.from_amount}): {calculated_tax}")
+                tax_amount += calculated_tax
+                taxes -= (slab.to_amount - slab.from_amount + 1)
+                continue
 
-        if annual_taxable_earning >= slab.from_amount and annual_taxable_earning < slab.to_amount:
-            calculated_tax = (annual_taxable_earning - slab.from_amount + 1) * slab.percent_deduction * 0.01
-            taxes2 = taxes * slab.percent_deduction * 0.01
-            tax_amount += taxes2#calculated_tax
-            print(f"Tax calculated for slab 2(from {slab.from_amount} to {slab.to_amount}): {taxes2}")
-            print(taxes2)
-        elif annual_taxable_earning >= slab.from_amount and annual_taxable_earning >= slab.to_amount:
-            calculated_tax = (slab.to_amount - slab.from_amount + 1) * slab.percent_deduction * 0.01
-            print(f"Tax calculated for slab 3(from {slab.from_amount} to {slab.to_amount}): {calculated_tax}")
-            tax_amount += calculated_tax
-            taxes -= (slab.to_amount - slab.from_amount + 1)
-
+            if annual_taxable_earning >= slab.from_amount and annual_taxable_earning < slab.to_amount:
+                calculated_tax = (annual_taxable_earning - slab.from_amount + 1) * slab.percent_deduction * 0.01
+                taxes2 = taxes * slab.percent_deduction * 0.01
+                tax_amount += taxes2#calculated_tax
+                print(f"Tax calculated for slab 2(from {slab.from_amount} to {slab.to_amount}): {taxes2}")
+                print(taxes2)
+            elif annual_taxable_earning >= slab.from_amount and annual_taxable_earning >= slab.to_amount:
+                calculated_tax = (slab.to_amount - slab.from_amount + 1) * slab.percent_deduction * 0.01
+                print(f"Tax calculated for slab 3(from {slab.from_amount} to {slab.to_amount}): {calculated_tax}")
+                tax_amount += calculated_tax
+                taxes -= (slab.to_amount - slab.from_amount + 1)
     # other taxes and charges on income tax
     print("Processing other taxes and charges...")
     for d in tax_slab.other_taxes_and_charges:
@@ -2237,6 +2350,8 @@ def get_lwp_or_ppl_for_date_range(employee, start_date, end_date):
 			LeaveApplication.name,
 			LeaveType.is_ppl,
 			LeaveType.fraction_of_daily_salary_per_leave,
+			LeaveType.custom_is_death_leave,
+			LeaveType.custom_leave_period_paid,
 			LeaveType.include_holiday,
 			LeaveApplication.from_date,
 			LeaveApplication.to_date,
@@ -2244,7 +2359,7 @@ def get_lwp_or_ppl_for_date_range(employee, start_date, end_date):
 			LeaveApplication.half_day_date,
 		)
 		.where(
-			((LeaveType.is_lwp == 1) | (LeaveType.is_ppl == 1))
+			((LeaveType.is_lwp == 1) | (LeaveType.is_ppl == 1) | (LeaveType.custom_is_death_leave == 1))
 			& (LeaveApplication.docstatus == 1)
 			& (LeaveApplication.status == "Approved")
 			& (LeaveApplication.employee == employee)
@@ -2262,6 +2377,7 @@ def get_lwp_or_ppl_for_date_range(employee, start_date, end_date):
 			for i in range(date_diff + 1):
 				date = add_days(leave.from_date, i)
 				leave_date_mapper[date] = leave
+		
 
 	return leave_date_mapper
 
